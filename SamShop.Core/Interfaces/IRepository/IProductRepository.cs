@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamShop.Domain.Core.Interfaces.IRepository
 {
-    internal interface IProductRepository
+    public interface IProductRepository
     {
     }
 }

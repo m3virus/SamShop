@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamShop.Domain.Core.Interfaces.IRepository
 {
-    internal interface IAuctionOfferRepository
+    public interface IAuctionOfferRepository
     {
     }
 }

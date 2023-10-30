@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SamShop.Domain.Core.Models.Entity;
 
-namespace SamShop.Domain.Core.Models;
+namespace SamShop.Application.EntityFramework;
 
 public partial class SamShopDbContext : DbContext
 {
