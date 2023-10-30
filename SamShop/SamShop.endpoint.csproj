@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SamShop.Service\SamShop.Domain.Service.csproj" />
+  </ItemGroup>
+
 </Project>

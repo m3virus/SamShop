@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SamShop.Core\SamShop.Domain.Core.csproj" />
+  </ItemGroup>
+
 </Project>

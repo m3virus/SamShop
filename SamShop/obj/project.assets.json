@@ -1,11 +1,48 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "SamShop.Domain.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/SamShop.Domain.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SamShop.Domain.Core.dll": {}
+        }
+      },
+      "SamShop.Domain.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "SamShop.Domain.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SamShop.Domain.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SamShop.Domain.Service.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "SamShop.Domain.Core/1.0.0": {
+      "type": "project",
+      "path": "../SamShop.Core/SamShop.Domain.Core.csproj",
+      "msbuildProject": "../SamShop.Core/SamShop.Domain.Core.csproj"
+    },
+    "SamShop.Domain.Service/1.0.0": {
+      "type": "project",
+      "path": "../SamShop.Service/SamShop.Domain.Service.csproj",
+      "msbuildProject": "../SamShop.Service/SamShop.Domain.Service.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "SamShop.Domain.Service >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
@@ -40,7 +77,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
