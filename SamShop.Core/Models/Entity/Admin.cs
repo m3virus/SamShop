@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SamShop.Domain.Core.Models;
+namespace SamShop.Domain.Core.Models.Entity;
 
-public partial class Seller
+public partial class Admin
 {
-    public int SellerId { get; set; }
+    public int AdminId { get; set; }
 
     public string UserName { get; set; } = null!;
 
@@ -23,13 +23,7 @@ public partial class Seller
 
     public virtual Address? Address { get; set; }
 
-    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+    public virtual Wallet Admin1 { get; set; } = null!;
 
-    public virtual Booth? Booth { get; set; }
-
-    public virtual Medal? Medal { get; set; }
-
-    public virtual Wallet Seller1 { get; set; } = null!;
-
-    public virtual Picture SellerNavigation { get; set; } = null!;
+    public virtual Picture AdminNavigation { get; set; } = null!;
 }

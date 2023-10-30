@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SamShop.Domain.Core.Models;
+namespace SamShop.Domain.Core.Models.Entity;
 
 public partial class Category
 {
