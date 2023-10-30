@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SamShop.Application.EntityFramework\SamShop.Application.EntityFramework.csproj" />
     <ProjectReference Include="..\SamShop.Core\SamShop.Domain.Core.csproj" />
   </ItemGroup>
 
