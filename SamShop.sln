@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33717.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.endpoint", "SamShop\SamShop.endpoint.csproj", "{27E04313-A643-447F-84BE-B3AAA90EF948}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Domain", "SamShop.Domain", "{1EFB09C9-AF02-4F27-AE40-025A2A8837F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Application", "SamShop.Application", "{DA2B83FA-887D-4CAE-8D40-31901FAE7249}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Presentation", "SamShop.Presentation", "{5A7E0E32-75D8-49AA-9737-1DFE1ABF25BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamShop.Domain.Core", "SamShop.Core\SamShop.Domain.Core.csproj", "{1831ED76-6283-4584-8155-4D56231F1FBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamShop.Domain.Service", "SamShop.Service\SamShop.Domain.Service.csproj", "{008E7DDF-82A8-4C62-9070-6C40FDE731BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamShop.Application.DataAccess", "SamShop.DataAccess\SamShop.Application.DataAccess.csproj", "{D83448DD-2DD4-4398-B6B7-2E40A35EF297}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27E04313-A643-447F-84BE-B3AAA90EF948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E04313-A643-447F-84BE-B3AAA90EF948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E04313-A643-447F-84BE-B3AAA90EF948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E04313-A643-447F-84BE-B3AAA90EF948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1831ED76-6283-4584-8155-4D56231F1FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1831ED76-6283-4584-8155-4D56231F1FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1831ED76-6283-4584-8155-4D56231F1FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1831ED76-6283-4584-8155-4D56231F1FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008E7DDF-82A8-4C62-9070-6C40FDE731BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008E7DDF-82A8-4C62-9070-6C40FDE731BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008E7DDF-82A8-4C62-9070-6C40FDE731BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008E7DDF-82A8-4C62-9070-6C40FDE731BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83448DD-2DD4-4398-B6B7-2E40A35EF297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83448DD-2DD4-4398-B6B7-2E40A35EF297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83448DD-2DD4-4398-B6B7-2E40A35EF297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83448DD-2DD4-4398-B6B7-2E40A35EF297}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{27E04313-A643-447F-84BE-B3AAA90EF948} = {5A7E0E32-75D8-49AA-9737-1DFE1ABF25BA}
+		{1831ED76-6283-4584-8155-4D56231F1FBE} = {1EFB09C9-AF02-4F27-AE40-025A2A8837F6}
+		{008E7DDF-82A8-4C62-9070-6C40FDE731BE} = {1EFB09C9-AF02-4F27-AE40-025A2A8837F6}
+		{D83448DD-2DD4-4398-B6B7-2E40A35EF297} = {DA2B83FA-887D-4CAE-8D40-31901FAE7249}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22749DC6-1F94-4C7B-8EC2-D8379A86C428}
+	EndGlobalSection
+EndGlobal
