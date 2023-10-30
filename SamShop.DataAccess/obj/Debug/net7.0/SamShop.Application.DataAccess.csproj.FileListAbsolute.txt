@@ -1,0 +1,17 @@
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Application.DataAccess.deps.json
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Application.DataAccess.runtimeconfig.json
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Application.DataAccess.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Application.DataAccess.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\refint\SamShop.Application.DataAccess.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.genruntimeconfig.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\ref\SamShop.Application.DataAccess.dll
