@@ -15,3 +15,5 @@ C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.pdb
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Application.DataAccess.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\obj\Debug\net7.0\ref\SamShop.Application.DataAccess.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Application.EntityFramework.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Application.EntityFramework.pdb

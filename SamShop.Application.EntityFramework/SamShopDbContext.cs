@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SamShop.Domain.Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace SamShop.Application.EntityFramework;
+namespace SamShop.Domain.Core.Models;
 
 public partial class SamShopDbContext : DbContext
 {
@@ -35,8 +36,6 @@ public partial class SamShopDbContext : DbContext
     public virtual DbSet<Medal> Medals { get; set; }
 
     public virtual DbSet<Picture> Pictures { get; set; }
-
-    public virtual DbSet<Price> Prices { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
 
@@ -266,14 +265,6 @@ public partial class SamShopDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Pictures)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_Picture_Product");
-        });
-
-        modelBuilder.Entity<Price>(entity =>
-        {
-            entity.ToTable("Price");
-
-            entity.Property(e => e.ChangeDate).HasColumnType("datetime");
-            entity.Property(e => e.PriceAmount).HasColumnType("money");
         });
 
         modelBuilder.Entity<Product>(entity =>
