@@ -42,7 +42,7 @@ namespace SamShop.Application.DataAccess.Repository
 
        
 
-        public async Task<Address?> getAddressById(int id)
+        public async Task<Address?> GetAddressById(int id)
         {
             return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id);
 

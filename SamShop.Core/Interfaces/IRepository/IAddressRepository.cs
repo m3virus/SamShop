@@ -10,7 +10,7 @@ namespace SamShop.Domain.Core.Interfaces.IRepository
     public interface IAddressRepository
     {
         IEnumerable<Address> GetAllAddress();
-        Task<Address?> getAddressById(int id);
+        Task<Address?> GetAddressById(int id);
         Task AddAddress(Address Address);
         Task UpdateAddress(Address Address); 
         Task DeleteAddress(int id);
