@@ -41,8 +41,9 @@ public partial class SamShopDbContext : DbContext
     public virtual DbSet<Seller> Sellers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=SamShopDB;integrated security=sspi;TrustServerCertificate=True;MultipleActiveResultSets=true");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer(
+            "Server=.\\SQLExpress;Database=SamShopDB1;integrated security=sspi;TrustServerCertificate=True;MultipleActiveResultSets=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -88,6 +89,7 @@ public partial class SamShopDbContext : DbContext
                         j.HasKey("AddressId", "CustomerId");
                         j.ToTable("AddressCustomer");
                     });
+            entity.HasData(GetAddresses());
         });
 
         modelBuilder.Entity<Admin>(entity =>
@@ -105,6 +107,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Admin>(d => d.AdminId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Admin_Picture");
+            entity.HasData(GetAdmins());
         });
 
         modelBuilder.Entity<Auction>(entity =>
@@ -126,6 +129,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey(d => d.SellerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Auction_Seller");
+            entity.HasData(GetAuctions());
         });
 
         modelBuilder.Entity<AuctionOffer>(entity =>
@@ -145,6 +149,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AuctionOffer_Customer");
+            entity.HasData(GetAuctionOffers());
         });
 
         modelBuilder.Entity<Booth>(entity =>
@@ -158,6 +163,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Booth>(d => d.BoothId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Booth_Seller");
+            entity.HasData(GetBooth());
         });
 
         modelBuilder.Entity<Cart>(entity =>
@@ -171,6 +177,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Cart>(d => d.CartId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Cart_Customer");
+            entity.HasData(GetCarts());
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -178,6 +185,7 @@ public partial class SamShopDbContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CategoryName).HasMaxLength(256);
+            entity.HasData(GetCategories());
         });
 
         modelBuilder.Entity<Comment>(entity =>
@@ -193,6 +201,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comments_Product1");
+            entity.HasData(GetComments());
         });
 
         modelBuilder.Entity<Customer>(entity =>
@@ -212,6 +221,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Customer>(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Customer_Picture");
+            entity.HasData(GetCustomer());
         });
 
         modelBuilder.Entity<Medal>(entity =>
@@ -226,6 +236,7 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Medal>(d => d.MedalId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Medal_Seller");
+            entity.HasData(GetMedals());
         });
 
         modelBuilder.Entity<Picture>(entity =>
@@ -237,6 +248,7 @@ public partial class SamShopDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Pictures)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_Picture_Product");
+            entity.HasData(GetPictures());
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -273,6 +285,7 @@ public partial class SamShopDbContext : DbContext
                         j.HasKey("ProductId", "CartId");
                         j.ToTable("ProductCart");
                     });
+            entity.HasData(GetProducts());
         });
 
         modelBuilder.Entity<Seller>(entity =>
@@ -290,10 +303,196 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Seller>(d => d.SellerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Seller_Picture");
+            entity.HasData(GetSellers());
         });
 
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+    private List<Address> GetAddresses()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Address
+        {
+            AddressId = index,
+            State = $"State {index}",
+            City = $"City {index}",
+            Street = $"street {index}",
+            Alley = $"alley {index}",
+            ExtraPart = $"level 1",
+            PostCode = $"{index * 1000}",
+            
+
+
+        }).ToList();
+    }
+
+    private List<Admin> GetAdmins()
+    {
+        return Enumerable.Range(1, 2).Select(index => new Admin
+        {
+            AdminId = index,
+            UserName = $"StringSample {index}",
+            FirstName = $"StringSample {index}",
+            LastName = $"StringSample {index}",
+            Wallet = index * 100,
+            Password = $"StringSample {index}",
+            Email = $"StringSample {index}@google.com",
+            Phone = $"StringSample {index}",
+            IsDeleted = false,
+        }).ToList();
+    }
+
+    private List<Seller> GetSellers()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Seller
+        {
+            SellerId = index,
+            UserName = $"SellerSample {index}",
+            FirstName = $"SellerSample {index}",
+            LastName = $"SellerSample {index}",
+            Wallet = index * 100,
+            Password = $"SellerSample {index}",
+            Email = $"SellerSample {index}",
+            Phone = $"SellerSample {index}",
+            IsDeleted = false,
+        }).ToList();
+
+    }
+    private List<Customer> GetCustomer()
+    {
+        return Enumerable.Range(1, 30).Select(index => new Customer
+        {
+            CustomerId = index,
+            UserName = $"CustomerSample {index}",
+            FirstName = $"CustomerSample {index}",
+            LastName = $"CustomerSample {index}",
+            Wallet = index * 100,
+            PasswordHash = $"CustomerSample {index}",
+            Email = $"CustomerSample {index}",
+            Phone = $"CustomerSample {index}",
+            IsDeleted = false,
+        }).ToList();
+
+    }
+    private List<Auction> GetAuctions()
+    {
+        return Enumerable.Range(1, 2).Select(index => new Auction
+        {
+            AuctionId = index,
+            AuctionTitle = $"AuctionSample {index}",
+            TheLowestOffer = index * 10,
+            SellerId = index,
+            StartTime = DateTime.Now,
+            EndTime = DateTime.Today,
+            
+        }).ToList();
+
+    }
+
+    private List<AuctionOffer> GetAuctionOffers()
+    {
+        return Enumerable.Range(1, 4).Select(index => new AuctionOffer
+        {
+            AuctionId = 1,
+            OfferId = index,
+            OfferValue = index *11,
+            CustomerId = index,
+            IsCanceled = false,
+            IsAccept = false,
+           
+
+        }).ToList();
+
+    }
+
+    private List<Booth> GetBooth()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Booth
+        {
+            BoothId = index,
+            BoothName = $"booth {index}",
+
+        }).ToList();
+
+    }
+    private List<Cart> GetCarts()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Cart
+        {
+            CartId = index,
+            TotalPrice = 0,
+            IsCanceled = false,
+            IsPayed = false,
+            
+
+        }).ToList();
+
+    }
+    private List<Category> GetCategories()
+    {
+        return Enumerable.Range(1, 5).Select(index => new Category
+        {
+            CategoryId = index,
+            CategoryName = $"category {index}",
+            IsDeleted = false,
+            
+
+        }).ToList();
+
+    }
+    private List<Comment> GetComments()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Comment
+        {
+            CommentId = index,
+            ProductId = 1,
+            CustomerId = index,
+            Message = $"Message {index}"
+            
+        }).ToList();
+
+    }
+    private List<Medal> GetMedals()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Medal
+        {
+            MedalId = index,
+            MedalType = $"Medal {index}",
+            Wage = index * 5,
+
+
+        }).ToList();
+
+    }
+    private List<Picture> GetPictures()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Picture
+        {
+            PictureId = index,
+            Url = $"Url {index}",
+            ProductId = index,
+            IsDeleted = false,
+            
+        }).ToList();
+
+    }
+    private List<Product> GetProducts()
+    {
+        return Enumerable.Range(1, 10).Select(index => new Product
+        {
+            ProductId = index,
+            ProductName = $"Product {index}",
+            Price = index * 6,
+            BoothId = index,
+            IsDeleted = false,
+            IsAvailable = true,
+            Amount = 5,
+
+
+        }).ToList();
+
+    }
 }
