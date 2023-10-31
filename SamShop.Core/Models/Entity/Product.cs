@@ -17,6 +17,8 @@ public partial class Product
 
     public bool IsAvailable { get; set; }
 
+    public int Amount { get; set; }
+
     public virtual Auction? Auction { get; set; }
 
     public virtual Booth Booth { get; set; } = null!;
