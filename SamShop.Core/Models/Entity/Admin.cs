@@ -13,6 +13,8 @@ public partial class Admin
 
     public string LastName { get; set; } = null!;
 
+    public decimal Wallet { get; set; }
+
     public string Password { get; set; } = null!;
 
     public string Email { get; set; } = null!;
@@ -22,8 +24,6 @@ public partial class Admin
     public bool IsDeleted { get; set; }
 
     public virtual Address? Address { get; set; }
-
-    public virtual Wallet Admin1 { get; set; } = null!;
 
     public virtual Picture AdminNavigation { get; set; } = null!;
 }

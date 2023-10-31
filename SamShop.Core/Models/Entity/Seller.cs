@@ -13,6 +13,8 @@ public partial class Seller
 
     public string LastName { get; set; } = null!;
 
+    public decimal Wallet { get; set; }
+
     public string Password { get; set; } = null!;
 
     public string Email { get; set; } = null!;
@@ -28,8 +30,6 @@ public partial class Seller
     public virtual Booth? Booth { get; set; }
 
     public virtual Medal? Medal { get; set; }
-
-    public virtual Wallet Seller1 { get; set; } = null!;
 
     public virtual Picture SellerNavigation { get; set; } = null!;
 }

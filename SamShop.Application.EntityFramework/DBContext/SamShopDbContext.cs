@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SamShop.Domain.Core.Models.Entity;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace SamShop.Application.EntityFramework;
+namespace SamShop.Domain.Core.Models;
 
 public partial class SamShopDbContext : DbContext
 {
@@ -39,8 +40,6 @@ public partial class SamShopDbContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Seller> Sellers { get; set; }
-
-    public virtual DbSet<Wallet> Wallets { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -101,16 +100,12 @@ public partial class SamShopDbContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(256);
             entity.Property(e => e.LastName).HasMaxLength(256);
             entity.Property(e => e.UserName).HasMaxLength(256);
+            entity.Property(e => e.Wallet).HasColumnType("money");
 
             entity.HasOne(d => d.AdminNavigation).WithOne(p => p.Admin)
                 .HasForeignKey<Admin>(d => d.AdminId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Admin_Picture");
-
-            entity.HasOne(d => d.Admin1).WithOne(p => p.Admin)
-                .HasForeignKey<Admin>(d => d.AdminId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Admin_Wallet");
         });
 
         modelBuilder.Entity<Auction>(entity =>
@@ -212,16 +207,12 @@ public partial class SamShopDbContext : DbContext
                 .HasColumnName("FIrstName");
             entity.Property(e => e.LastName).HasMaxLength(256);
             entity.Property(e => e.UserName).HasMaxLength(256);
+            entity.Property(e => e.Wallet).HasColumnType("money");
 
             entity.HasOne(d => d.CustomerNavigation).WithOne(p => p.Customer)
                 .HasForeignKey<Customer>(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Customer_Picture");
-
-            entity.HasOne(d => d.Customer1).WithOne(p => p.Customer)
-                .HasForeignKey<Customer>(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Customer_Wallet");
 
             entity.HasMany(d => d.AddressesNavigation).WithMany(p => p.CustomersNavigation)
                 .UsingEntity<Dictionary<string, object>>(
@@ -271,6 +262,7 @@ public partial class SamShopDbContext : DbContext
             entity.ToTable("Product");
 
             entity.Property(e => e.ProductId).ValueGeneratedOnAdd();
+            entity.Property(e => e.Price).HasColumnType("money");
             entity.Property(e => e.ProductName).HasMaxLength(256);
 
             entity.HasOne(d => d.Booth).WithMany(p => p.Products)
@@ -310,23 +302,12 @@ public partial class SamShopDbContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(256);
             entity.Property(e => e.Phone).HasMaxLength(256);
             entity.Property(e => e.UserName).HasMaxLength(256);
+            entity.Property(e => e.Wallet).HasColumnType("money");
 
             entity.HasOne(d => d.SellerNavigation).WithOne(p => p.Seller)
                 .HasForeignKey<Seller>(d => d.SellerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Seller_Picture");
-
-            entity.HasOne(d => d.Seller1).WithOne(p => p.Seller)
-                .HasForeignKey<Seller>(d => d.SellerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Seller_Wallet");
-        });
-
-        modelBuilder.Entity<Wallet>(entity =>
-        {
-            entity.ToTable("Wallet");
-
-            entity.Property(e => e.WalletId).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);

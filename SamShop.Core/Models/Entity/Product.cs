@@ -11,6 +11,8 @@ public partial class Product
 
     public int BoothId { get; set; }
 
+    public decimal Price { get; set; }
+
     public bool IsDeleted { get; set; }
 
     public bool IsAvailable { get; set; }

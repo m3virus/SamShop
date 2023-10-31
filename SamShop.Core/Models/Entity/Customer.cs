@@ -13,6 +13,8 @@ public partial class Customer
 
     public string UserName { get; set; } = null!;
 
+    public decimal Wallet { get; set; }
+
     public string PasswordHash { get; set; } = null!;
 
     public string Email { get; set; } = null!;
@@ -26,8 +28,6 @@ public partial class Customer
     public virtual Cart? Cart { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
-    public virtual Wallet Customer1 { get; set; } = null!;
 
     public virtual Picture CustomerNavigation { get; set; } = null!;
 

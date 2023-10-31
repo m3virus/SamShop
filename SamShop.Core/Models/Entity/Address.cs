@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SamShop.Domain.Core.Models.Entity;
+namespace SamShop.Domain.Core.Models;
 
 public partial class Address
 {
