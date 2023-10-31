@@ -26,6 +26,7 @@ namespace SamShop.Application.DataAccess.Repository
             {
                 ProductName = Product.ProductName,
                 Price = Product.Price,
+                Amount = Product.Amount,
                 IsDeleted = false,
                 IsAvailable = true
 
