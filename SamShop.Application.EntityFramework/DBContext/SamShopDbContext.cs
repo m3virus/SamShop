@@ -212,23 +212,6 @@ public partial class SamShopDbContext : DbContext
                 .HasForeignKey<Customer>(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Customer_Picture");
-
-            entity.HasMany(d => d.AddressesNavigation).WithMany(p => p.CustomersNavigation)
-                .UsingEntity<Dictionary<string, object>>(
-                    "CustomerAddress",
-                    r => r.HasOne<Address>().WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_CustomerAddress_Address"),
-                    l => l.HasOne<Customer>().WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_CustomerAddress_Customer"),
-                    j =>
-                    {
-                        j.HasKey("CustomerId", "AddressId");
-                        j.ToTable("CustomerAddress");
-                    });
         });
 
         modelBuilder.Entity<Medal>(entity =>

@@ -32,6 +32,4 @@ public partial class Customer
     public virtual Picture CustomerNavigation { get; set; } = null!;
 
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
-
-    public virtual ICollection<Address> AddressesNavigation { get; set; } = new List<Address>();
 }

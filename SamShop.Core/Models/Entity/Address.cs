@@ -26,6 +26,4 @@ public partial class Address
     public virtual Admin AddressNavigation { get; set; } = null!;
 
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
-
-    public virtual ICollection<Customer> CustomersNavigation { get; set; } = new List<Customer>();
 }

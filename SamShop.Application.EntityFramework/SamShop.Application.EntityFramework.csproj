@@ -10,4 +10,8 @@
     <ProjectReference Include="..\SamShop.Core\SamShop.Domain.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DBContext\" />
+  </ItemGroup>
+
 </Project>
