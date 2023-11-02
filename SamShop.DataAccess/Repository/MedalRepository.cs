@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SamShop.Application.EntityFramework.DBContext;
-using SamShop.Domain.Core.Interfaces.IRepository;
-using SamShop.Domain.Core.Models.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.Entities;
+using SamShop.Infrastructure.EntityFramework.DBContext;
 
-namespace SamShop.Application.DataAccess.Repository
+namespace SamShop.Infrastructure.DataAccess.Repository
 {
     internal class MedalRepository:IMedalRepository
     {

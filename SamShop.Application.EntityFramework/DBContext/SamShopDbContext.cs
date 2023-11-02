@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SamShop.Domain.Core.Models.Entities;
 
-namespace SamShop.Domain.Core.Models.Entities;
+namespace SamShop.Infrastructure.EntityFramework.DBContext;
 
-public partial class SamShopDb1Context : DbContext
+public partial class SamShopDbContext : DbContext
 {
-    public SamShopDb1Context()
+    public SamShopDbContext()
     {
     }
 
-    public SamShopDb1Context(DbContextOptions<SamShopDb1Context> options)
+    public SamShopDbContext(DbContextOptions<SamShopDbContext> options)
         : base(options)
     {
     }
