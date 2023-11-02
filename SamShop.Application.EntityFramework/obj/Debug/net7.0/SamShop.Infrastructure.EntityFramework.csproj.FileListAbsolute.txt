@@ -1,0 +1,15 @@
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.deps.json
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\refint\SamShop.Infrastructure.EntityFramework.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\ref\SamShop.Infrastructure.EntityFramework.dll

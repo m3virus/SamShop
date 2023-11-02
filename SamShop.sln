@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.endpoint", "SamShop
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Domain", "SamShop.Domain", "{1EFB09C9-AF02-4F27-AE40-025A2A8837F6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Application", "SamShop.Application", "{DA2B83FA-887D-4CAE-8D40-31901FAE7249}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Infrastructure", "SamShop.Infrastructure", "{DA2B83FA-887D-4CAE-8D40-31901FAE7249}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamShop.Presentation", "SamShop.Presentation", "{5A7E0E32-75D8-49AA-9737-1DFE1ABF25BA}"
 EndProject
@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.Domain.Core", "SamS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.Domain.Service", "SamShop.Service\SamShop.Domain.Service.csproj", "{008E7DDF-82A8-4C62-9070-6C40FDE731BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.Application.DataAccess", "SamShop.DataAccess\SamShop.Application.DataAccess.csproj", "{D83448DD-2DD4-4398-B6B7-2E40A35EF297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.Infrastructure.DataAccess", "SamShop.DataAccess\SamShop.Infrastructure.DataAccess.csproj", "{D83448DD-2DD4-4398-B6B7-2E40A35EF297}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamShop.Application.EntityFramework", "SamShop.Application.EntityFramework\SamShop.Application.EntityFramework.csproj", "{6EA3F0D6-2963-4EE9-8C63-628943419F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamShop.Infrastructure.EntityFramework", "SamShop.Application.EntityFramework\SamShop.Infrastructure.EntityFramework.csproj", "{6EA3F0D6-2963-4EE9-8C63-628943419F46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

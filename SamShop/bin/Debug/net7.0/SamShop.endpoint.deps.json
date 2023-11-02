@@ -12,8 +12,8 @@
           "Microsoft.EntityFrameworkCore.Design": "7.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.13",
-          "SamShop.Application.EntityFramework": "1.0.0",
-          "SamShop.Domain.Service": "1.0.0"
+          "SamShop.Domain.Service": "1.0.0",
+          "SamShop.Infrastructure.EntityFramework": "1.0.0"
         },
         "runtime": {
           "SamShop.endpoint.dll": {}
@@ -556,14 +556,6 @@
           }
         }
       },
-      "SamShop.Application.EntityFramework/1.0.0": {
-        "dependencies": {
-          "SamShop.Domain.Core": "1.0.0"
-        },
-        "runtime": {
-          "SamShop.Application.EntityFramework.dll": {}
-        }
-      },
       "SamShop.Domain.Core/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "7.0.13",
@@ -579,6 +571,14 @@
         },
         "runtime": {
           "SamShop.Domain.Service.dll": {}
+        }
+      },
+      "SamShop.Infrastructure.EntityFramework/1.0.0": {
+        "dependencies": {
+          "SamShop.Domain.Core": "1.0.0"
+        },
+        "runtime": {
+          "SamShop.Infrastructure.EntityFramework.dll": {}
         }
       }
     }
@@ -1009,17 +1009,17 @@
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
-    "SamShop.Application.EntityFramework/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "SamShop.Domain.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "SamShop.Domain.Service/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SamShop.Infrastructure.EntityFramework/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

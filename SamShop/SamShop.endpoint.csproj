@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SamShop.Application.EntityFramework\SamShop.Application.EntityFramework.csproj" />
+    <ProjectReference Include="..\SamShop.Application.EntityFramework\SamShop.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\SamShop.Service\SamShop.Domain.Service.csproj" />
   </ItemGroup>
 

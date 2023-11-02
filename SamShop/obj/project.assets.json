@@ -1054,19 +1054,6 @@
           }
         }
       },
-      "SamShop.Application.EntityFramework/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "SamShop.Domain.Core": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/SamShop.Application.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/SamShop.Application.EntityFramework.dll": {}
-        }
-      },
       "SamShop.Domain.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1092,6 +1079,19 @@
         },
         "runtime": {
           "bin/placeholder/SamShop.Domain.Service.dll": {}
+        }
+      },
+      "SamShop.Infrastructure.EntityFramework/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "SamShop.Domain.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SamShop.Infrastructure.EntityFramework.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SamShop.Infrastructure.EntityFramework.dll": {}
         }
       }
     }
@@ -2916,11 +2916,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "SamShop.Application.EntityFramework/1.0.0": {
-      "type": "project",
-      "path": "../SamShop.Application.EntityFramework/SamShop.Application.EntityFramework.csproj",
-      "msbuildProject": "../SamShop.Application.EntityFramework/SamShop.Application.EntityFramework.csproj"
-    },
     "SamShop.Domain.Core/1.0.0": {
       "type": "project",
       "path": "../SamShop.Core/SamShop.Domain.Core.csproj",
@@ -2930,6 +2925,11 @@
       "type": "project",
       "path": "../SamShop.Service/SamShop.Domain.Service.csproj",
       "msbuildProject": "../SamShop.Service/SamShop.Domain.Service.csproj"
+    },
+    "SamShop.Infrastructure.EntityFramework/1.0.0": {
+      "type": "project",
+      "path": "../SamShop.Application.EntityFramework/SamShop.Infrastructure.EntityFramework.csproj",
+      "msbuildProject": "../SamShop.Application.EntityFramework/SamShop.Infrastructure.EntityFramework.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2938,8 +2938,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 7.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.13",
-      "SamShop.Application.EntityFramework >= 1.0.0",
-      "SamShop.Domain.Service >= 1.0.0"
+      "SamShop.Domain.Service >= 1.0.0",
+      "SamShop.Infrastructure.EntityFramework >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2976,8 +2976,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Application.EntityFramework.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Application.EntityFramework.csproj"
+            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Infrastructure.EntityFramework.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Infrastructure.EntityFramework.csproj"
             },
             "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj": {
               "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj"
