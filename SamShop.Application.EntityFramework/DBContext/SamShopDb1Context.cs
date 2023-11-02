@@ -74,6 +74,7 @@ public partial class SamShopDb1Context : DbContext
                         j.ToTable("AddressCustomer");
                         j.HasIndex(new[] { "CustomerId" }, "IX_AddressCustomer_CustomerId");
                     });
+            entity.HasData(GetAddresses());
         });
 
         modelBuilder.Entity<Admin>(entity =>
@@ -98,6 +99,7 @@ public partial class SamShopDb1Context : DbContext
             entity.HasOne(d => d.Picture).WithMany(p => p.Admins)
                 .HasForeignKey(d => d.PictureId)
                 .HasConstraintName("FK_Admin_Picture1");
+            entity.HasData(GetAdmins());
         });
 
         modelBuilder.Entity<Auction>(entity =>
@@ -122,6 +124,7 @@ public partial class SamShopDb1Context : DbContext
                 .HasForeignKey(d => d.SellerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Auction_Seller");
+            entity.HasData(GetAuctions());
         });
 
         modelBuilder.Entity<AuctionOffer>(entity =>
@@ -145,6 +148,7 @@ public partial class SamShopDb1Context : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AuctionOffer_Customer");
+            entity.HasData(GetAuctionOffers());
         });
 
         modelBuilder.Entity<Booth>(entity =>
@@ -159,6 +163,7 @@ public partial class SamShopDb1Context : DbContext
                 .HasForeignKey(d => d.AddressId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Booth_Address");
+            entity.HasData(GetBooth());
         });
 
         modelBuilder.Entity<Cart>(entity =>
@@ -173,6 +178,7 @@ public partial class SamShopDb1Context : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Cart_Customer1");
+            entity.HasData(GetCarts());
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -180,6 +186,7 @@ public partial class SamShopDb1Context : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CategoryName).HasMaxLength(256);
+            entity.HasData(GetCategories());
         });
 
         modelBuilder.Entity<Comment>(entity =>
@@ -199,6 +206,7 @@ public partial class SamShopDb1Context : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comments_Product1");
+            entity.HasData(GetComments());
         });
 
         modelBuilder.Entity<Customer>(entity =>
@@ -225,6 +233,7 @@ public partial class SamShopDb1Context : DbContext
             entity.HasOne(d => d.Picture).WithMany(p => p.Customers)
                 .HasForeignKey(d => d.PictureId)
                 .HasConstraintName("FK_Customer_Picture1");
+            entity.HasData(GetCustomer());
         });
 
         modelBuilder.Entity<Medal>(entity =>
@@ -233,6 +242,7 @@ public partial class SamShopDb1Context : DbContext
 
             entity.Property(e => e.MedalType).HasMaxLength(50);
             entity.Property(e => e.Wage).HasColumnType("decimal(18, 0)");
+            entity.HasData(GetMedals());
         });
 
         modelBuilder.Entity<Picture>(entity =>
@@ -246,6 +256,7 @@ public partial class SamShopDb1Context : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Pictures)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_Picture_Product");
+            entity.HasData(GetPictures());
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -286,6 +297,7 @@ public partial class SamShopDb1Context : DbContext
                         j.ToTable("ProductCart");
                         j.HasIndex(new[] { "CartId" }, "IX_ProductCart_CartId");
                     });
+            entity.HasData(GetProducts());
         });
 
         modelBuilder.Entity<Seller>(entity =>
@@ -324,6 +336,7 @@ public partial class SamShopDb1Context : DbContext
             entity.HasOne(d => d.Picture).WithMany(p => p.Sellers)
                 .HasForeignKey(d => d.PictureId)
                 .HasConstraintName("FK_Seller_Picture1");
+            entity.HasData(GetSellers());
         });
 
         OnModelCreatingPartial(modelBuilder);
