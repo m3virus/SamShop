@@ -21,8 +21,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 AuctionTitle = Auction.AuctionTitle,
                 TheLowestOffer = Auction.TheLowestOffer,
+                ProductId = Auction.ProductId,
+                SellerId = Auction.SellerId,
                 StartTime = Auction.StartTime,
                 EndTime = Auction.EndTime,
+                IsAccepted = false,
+                IsCanceled = false
 
             };
             await _context.Auctions.AddAsync(AuctionAdding , cancellation);
@@ -48,6 +52,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 changeAuction.AuctionTitle = Auction.AuctionTitle;
                 changeAuction.TheLowestOffer = Auction.TheLowestOffer;
+                changeAuction.IsAccepted = Auction.IsAccepted;
                 changeAuction.StartTime = Auction.StartTime;
                 changeAuction.EndTime = Auction.EndTime;
             }
@@ -61,7 +66,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             Auction? removingAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == id, cancellation);
             if (removingAuction != null)
             {
-                _context.Remove(removingAuction);
+                removingAuction.IsCanceled = true;
             }
             await _context.SaveChangesAsync(cancellation);
         }
