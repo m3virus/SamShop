@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCategory(Category Category)
+        public async Task AddCategory(Category Category , CancellationToken cancellation)
 
         {
             Category CategoryAdding = new Category()
@@ -23,8 +23,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsDeleted = false,
 
             };
-            await _context.Categories.AddAsync(CategoryAdding);
-            await _context.SaveChangesAsync();
+            await _context.Categories.AddAsync(CategoryAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Category> GetAllCategory()
@@ -34,33 +34,34 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Category?> GetCategoryById(int id)
+        public async Task<Category?> GetCategoryById(int id , CancellationToken cancellation)
         {
-            return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
+            return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
 
         }
-        public async Task UpdateCategory(Category Category)
+        public async Task UpdateCategory(Category Category, CancellationToken cancellation)
         {
-            Category? changeCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == Category.CategoryId);
+            Category? changeCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == Category.CategoryId, cancellation);
             if (changeCategory != null)
             {
                 changeCategory.CategoryName = Category.CategoryName;
-                
+                changeCategory.IsAccepted = changeCategory.IsAccepted;
+
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteCategory(int id)
+        public async Task DeleteCategory(int id , CancellationToken cancellation)
         {
-            Category? removingaCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
-            if (removingaCategory != null)
+            Category? removingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
+            if (removingCategory != null)
             {
-                _context.Remove(removingaCategory);
+                removingCategory.IsDeleted = true;
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
