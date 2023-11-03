@@ -14,16 +14,17 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddBooth(Booth Booth)
+        public async Task AddBooth(Booth Booth , CancellationToken cancellation)
 
         {
             Booth BoothAdding = new Booth()
             {
-                BoothName = Booth.BoothName
+                BoothName = Booth.BoothName,
+                AddressId = Booth.AddressId,
 
             };
-            await _context.Booths.AddAsync(BoothAdding);
-            await _context.SaveChangesAsync();
+            await _context.Booths.AddAsync(BoothAdding , cancellation) ;
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Booth> GetAllBooth()
@@ -33,31 +34,31 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Booth?> GetBoothById(int id)
+        public async Task<Booth?> GetBoothById(int id , CancellationToken cancellation)
         {
-            return await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id);
+            return await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id, cancellation);
 
         }
-        public async Task UpdateBooth(Booth Booth)
+        public async Task UpdateBooth(Booth Booth, CancellationToken cancellation)
         {
-            Booth? changeBooth = await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == Booth.BoothId);
+            Booth? changeBooth = await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == Booth.BoothId, cancellation);
             if (changeBooth != null)
             {
                 changeBooth.BoothName = Booth.BoothName;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteBooth(int id)
+        public async Task DeleteBooth(int id , CancellationToken cancellation)
         {
-            Booth? removingaBooth = await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id);
-            if (removingaBooth != null)
+            Booth? removingBooth = await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id, cancellation);
+            if (removingBooth != null)
             {
-                _context.Remove(removingaBooth);
+                _context.Remove(removingBooth);
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
