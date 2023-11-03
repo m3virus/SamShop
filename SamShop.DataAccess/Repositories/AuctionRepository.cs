@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAuction(Auction Auction)
+        public async Task AddAuction(Auction Auction , CancellationToken cancellation)
 
         {
             Auction AuctionAdding = new Auction()
@@ -25,8 +25,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 EndTime = Auction.EndTime,
 
             };
-            await _context.Auctions.AddAsync(AuctionAdding);
-            await _context.SaveChangesAsync();
+            await _context.Auctions.AddAsync(AuctionAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Auction> GetAllAuction()
@@ -36,14 +36,14 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Auction?> GetAuctionById(int id)
+        public async Task<Auction?> GetAuctionById(int id , CancellationToken cancellation)
         {
-            return await _context.Auctions.FirstOrDefaultAsync(a => a.AuctionId == id);
+            return await _context.Auctions.FirstOrDefaultAsync(a => a.AuctionId == id, cancellation);
 
         }
-        public async Task UpdateAuction(Auction Auction)
+        public async Task UpdateAuction(Auction Auction, CancellationToken cancellation)
         {
-            Auction? changeAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == Auction.AuctionId);
+            Auction? changeAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == Auction.AuctionId, cancellation);
             if (changeAuction != null)
             {
                 changeAuction.AuctionTitle = Auction.AuctionTitle;
@@ -52,18 +52,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeAuction.EndTime = Auction.EndTime;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteAuction(int id)
+        public async Task DeleteAuction(int id , CancellationToken cancellation)
         {
-            Auction? removingaAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == id);
-            if (removingaAuction != null)
+            Auction? removingAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == id, cancellation);
+            if (removingAuction != null)
             {
-                _context.Remove(removingaAuction);
+                _context.Remove(removingAuction);
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
