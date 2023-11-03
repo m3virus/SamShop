@@ -15,7 +15,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 _context = context;
             }
 
-            public async Task AddPicture(Picture Picture)
+            public async Task AddPicture(Picture Picture , CancellationToken cancellation)
 
             {
                 Picture PictureAdding = new Picture()
@@ -24,8 +24,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     IsDeleted = false
 
                 };
-                await _context.Pictures.AddAsync(PictureAdding);
-                await _context.SaveChangesAsync();
+                await _context.Pictures.AddAsync(PictureAdding , cancellation);
+                await _context.SaveChangesAsync(cancellation);
             }
 
             public IEnumerable<Picture> GetAllPicture()
@@ -35,34 +35,34 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-            public async Task<Picture?> GetPictureById(int id)
+            public async Task<Picture?> GetPictureById(int id , CancellationToken cancellation)
             {
-                return await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == id);
+                return await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == id, cancellation);
 
             }
 
-            public async Task UpdatePicture(Picture Picture)
+            public async Task UpdatePicture(Picture Picture, CancellationToken cancellation)
             {
                 Picture? changePicture =
-                    await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == Picture.PictureId);
+                    await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == Picture.PictureId, cancellation);
                 if (changePicture != null)
                 {
                     changePicture.Url = Picture.Url;
                 }
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellation);
             }
 
 
-            public async Task DeletePicture(int id)
+            public async Task DeletePicture(int id, CancellationToken cancellation)
             {
-                Picture? removingaPicture = await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == id);
-                if (removingaPicture != null)
+                Picture? removingPicture = await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == id, cancellation);
+                if (removingPicture != null)
                 {
-                    _context.Remove(removingaPicture);
+                    removingPicture.IsDeleted = true;
                 }
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellation);
             }
         }
     }
