@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCustomer(Customer Customer)
+        public async Task AddCustomer(Customer Customer , CancellationToken cancellation)
 
         {
             Customer CustomerAdding = new Customer()
@@ -25,11 +25,14 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Phone = Customer.Phone,
                 Email = Customer.Email,
                 Wallet = Customer.Wallet,
-                PasswordHash = Customer.PasswordHash
+                PasswordHash = Customer.PasswordHash,
+                PictureId = Customer.PictureId,
+                AddressId = Customer.AddressId,
+                IsDeleted = false
 
             };
-            await _context.Customers.AddAsync(CustomerAdding);
-            await _context.SaveChangesAsync();
+            await _context.Customers.AddAsync(CustomerAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Customer> GetAllCustomer()
@@ -39,16 +42,16 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Customer?> GetCustomerById(int id)
+        public async Task<Customer?> GetCustomerById(int id , CancellationToken cancellation)
         {
-            return await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
+            return await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id, cancellation);
 
         }
 
-        public async Task UpdateCustomer(Customer Customer)
+        public async Task UpdateCustomer(Customer Customer, CancellationToken cancellation)
         {
             Customer? changeCustomer =
-                await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == Customer.CustomerId);
+                await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == Customer.CustomerId, cancellation);
             if (changeCustomer != null)
             {
                 changeCustomer.UserName = Customer.UserName;
@@ -58,21 +61,23 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeCustomer.PasswordHash = Customer.PasswordHash;
                 changeCustomer.Email = Customer.Email;
                 changeCustomer.Phone = Customer.Phone;
+                changeCustomer.AddressId = Customer.AddressId;
+                changeCustomer.PictureId = Customer.PictureId;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteCustomer(int id)
+        public async Task DeleteCustomer(int id , CancellationToken cancellation)
         {
-            Customer? removingaCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
-            if (removingaCustomer != null)
+            Customer? removingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id , cancellation);
+            if (removingCustomer != null)
             {
-                _context.Remove(removingaCustomer);
+                removingCustomer.IsDeleted = true;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
