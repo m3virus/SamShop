@@ -21,11 +21,14 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                UserName = Admin.UserName,
                FirstName = Admin.FirstName,
+               AddressId = Admin.AddressId,
+               PictureId = Admin.PictureId,
                LastName = Admin.LastName,
                Phone = Admin.Phone,
                Email = Admin.Email,
                Wallet = Admin.Wallet,
                Password = Admin.Password,
+               IsDeleted = false,
                
             };
             await _context.Admins.AddAsync(adminAdding , cancellation);
@@ -34,7 +37,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         
 
-        public IEnumerable<Admin> GetAllAdmin(CancellationToken cancellation)
+        public IEnumerable<Admin> GetAllAdmin()
         {
             return _context.Admins;
         }
@@ -58,6 +61,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeAdmin.Password = Admin.Password;
                 changeAdmin.Email = Admin.Email;
                 changeAdmin.Phone = Admin.Phone;
+                changeAdmin.AddressId = Admin.AddressId;
+                changeAdmin.PictureId = Admin.PictureId;
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -69,7 +74,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             Admin? removingAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == id , cancellation);
             if (removingAdmin != null)
             {
-                _context.Remove(removingAdmin);
+                removingAdmin.IsDeleted = true;
             }
             await _context.SaveChangesAsync(cancellation);
         }

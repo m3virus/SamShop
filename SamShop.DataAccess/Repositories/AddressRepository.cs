@@ -30,7 +30,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             await _context.SaveChangesAsync(cancellation);
         }
 
-        public IEnumerable<Address> GetAllAddress(CancellationToken cancellation)
+        public IEnumerable<Address> GetAllAddress()
         {
             return _context.Addresses;
         }
