@@ -21,6 +21,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Picture PictureAdding = new Picture()
                 {
                     Url = Picture.Url,
+                    ProductId = Picture.ProductId,
                     IsDeleted = false
 
                 };
