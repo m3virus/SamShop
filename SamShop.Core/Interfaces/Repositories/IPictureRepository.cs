@@ -4,7 +4,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IPictureRepository
     {
-        IEnumerable<Picture> GetAllPicture(CancellationToken cancellation);
+        IEnumerable<Picture> GetAllPicture();
         Task<Picture?> GetPictureById(int id , CancellationToken cancellation);
         Task AddPicture(Picture Picture , CancellationToken cancellation);
         Task UpdatePicture(Picture Picture , CancellationToken cancellation);

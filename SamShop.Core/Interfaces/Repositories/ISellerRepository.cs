@@ -4,7 +4,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface ISellerRepository
     {
-        IEnumerable<Seller> GetAllSeller(CancellationToken cancellation);
+        IEnumerable<Seller> GetAllSeller();
         Task<Seller?> GetSellerById(int id , CancellationToken cancellation);
         Task AddSeller(Seller Seller , CancellationToken cancellation);
         Task UpdateSeller(Seller Seller , CancellationToken cancellation);

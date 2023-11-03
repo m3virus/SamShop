@@ -4,7 +4,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface ICommentRepository
     {
-        IEnumerable<Comment> GetAllComment(CancellationToken cancellation);
+        IEnumerable<Comment> GetAllComment();
         Task<Comment?> GetCommentById(int id, CancellationToken cancellation);
         Task AddComment(Comment Comment , CancellationToken cancellation);
         Task UpdateComment(Comment Comment, CancellationToken cancellation);

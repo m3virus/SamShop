@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAdmin(Admin Admin)
+        public async Task AddAdmin(Admin Admin , CancellationToken cancellation)
 
         {
             Admin adminAdding = new Admin()
@@ -28,25 +28,27 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                Password = Admin.Password,
                
             };
-            await _context.Admins.AddAsync(adminAdding);
-            await _context.SaveChangesAsync();
+            await _context.Admins.AddAsync(adminAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
-        public IEnumerable<Admin> GetAllAdmin()
+        
+
+        public IEnumerable<Admin> GetAllAdmin(CancellationToken cancellation)
         {
             return _context.Admins;
         }
 
 
 
-        public async Task<Admin?> GetAdminById(int id)
+        public async Task<Admin?> GetAdminById(int id, CancellationToken cancellation)
         {
-            return await _context.Admins.FirstOrDefaultAsync(a => a.AdminId == id);
+            return await _context.Admins.FirstOrDefaultAsync(a => a.AdminId == id, cancellation);
 
         }
-        public async Task UpdateAdmin(Admin Admin)
+        public async Task UpdateAdmin(Admin Admin , CancellationToken cancellation)
         {
-            Admin? changeAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == Admin.AdminId);
+            Admin? changeAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == Admin.AdminId , cancellation);
             if (changeAdmin != null)
             {
                 changeAdmin.UserName = Admin.UserName;
@@ -58,18 +60,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeAdmin.Phone = Admin.Phone;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteAdmin(int id)
+        public async Task DeleteAdmin(int id , CancellationToken cancellation)
         {
-            Admin? removingaAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == id);
-            if (removingaAdmin != null)
+            Admin? removingAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == id , cancellation);
+            if (removingAdmin != null)
             {
-                _context.Remove(removingaAdmin);
+                _context.Remove(removingAdmin);
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }

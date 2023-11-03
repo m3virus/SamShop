@@ -4,7 +4,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IBoothRepository
     {
-        IEnumerable<Booth> GetAllBooth(CancellationToken cancellation);
+        IEnumerable<Booth> GetAllBooth();
         Task<Booth?> GetBoothById(int id , CancellationToken cancellation);
         Task AddBooth(Booth Booth , CancellationToken cancellation);
         Task UpdateBooth(Booth Booth, CancellationToken cancellation);

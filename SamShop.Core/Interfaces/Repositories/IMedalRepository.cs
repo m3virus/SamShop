@@ -4,7 +4,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IMedalRepository
     {
-        IEnumerable<Medal> GetAllMedal(CancellationToken cancellation);
+        IEnumerable<Medal> GetAllMedal();
         Task<Medal?> GetMedalById(int id, CancellationToken cancellation);
         Task AddMedal(Medal Medal , CancellationToken cancellation);
         Task UpdateMedal(Medal Medal, CancellationToken cancellation);

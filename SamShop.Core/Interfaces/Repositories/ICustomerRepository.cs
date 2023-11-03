@@ -4,7 +4,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface ICustomerRepository
     {
-        IEnumerable<Customer> GetAllCustomer(CancellationToken cancellation);
+        IEnumerable<Customer> GetAllCustomer();
         Task<Customer?> GetCustomerById(int id , CancellationToken cancellation);
         Task AddCustomer(Customer Customer, CancellationToken cancellation);
         Task UpdateCustomer(Customer Customer , CancellationToken cancellation);
