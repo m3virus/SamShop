@@ -9,12 +9,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
     {
         protected readonly SamShopDbContext _context;
 
-        public ProductRepository(SamShopDbContext context)
+        public ProductRepository(SamShopDbContext context , CancellationToken cancellation)
         {
             _context = context;
         }
 
-        public async Task AddProduct(Product Product)
+        public async Task AddProduct(Product Product, CancellationToken cancellation)
 
         {
             Product ProductAdding = new Product()
@@ -26,8 +26,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsAvailable = true
 
             };
-            await _context.Products.AddAsync(ProductAdding);
-            await _context.SaveChangesAsync();
+            await _context.Products.AddAsync(ProductAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Product> GetAllProduct()
@@ -37,36 +37,40 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Product?> GetProductById(int id)
+        public async Task<Product?> GetProductById(int id, CancellationToken cancellation)
         {
-            return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
+            return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id , cancellation);
 
         }
 
-        public async Task UpdateProduct(Product Product)
+        public async Task UpdateProduct(Product Product, CancellationToken cancellation)
         {
             Product? changeProduct =
-                await _context.Products.FirstOrDefaultAsync(p => p.ProductId == Product.ProductId);
+                await _context.Products.FirstOrDefaultAsync(p => p.ProductId == Product.ProductId , cancellation);
             if (changeProduct != null)
             {
                 changeProduct.ProductName = Product.ProductName;
+                changeProduct.CategoryId = Product.CategoryId;
+                changeProduct.BoothId = Product.BoothId;
                 changeProduct.Price = Product.Price;
                 changeProduct.IsAvailable = true;
+                changeProduct.IsAccepted = false;
+                changeProduct.IsAccepted = false;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteProduct(int id)
+        public async Task DeleteProduct(int id, CancellationToken cancellation)
         {
-            Product? removingaProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
-            if (removingaProduct != null)
+            Product? removingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id , cancellation);
+            if (removingProduct != null)
             {
-                _context.Remove(removingaProduct);
+                removingProduct.IsDeleted = true;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
