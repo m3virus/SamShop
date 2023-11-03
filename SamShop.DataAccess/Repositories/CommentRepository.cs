@@ -14,16 +14,20 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddComment(Comment Comment)
+        public async Task AddComment(Comment Comment , CancellationToken cancellation)
 
         {
             Comment CommentAdding = new Comment()
             {
-                Message = Comment.Message
+                Message = Comment.Message,
+                ProductId = Comment.ProductId,
+                CustomerId = Comment.CustomerId,
+                IsAccepted = false,
+
 
             };
-            await _context.Comments.AddAsync(CommentAdding);
-            await _context.SaveChangesAsync();
+            await _context.Comments.AddAsync(CommentAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Comment> GetAllComment()
@@ -33,31 +37,32 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Comment?> GetCommentById(int id)
+        public async Task<Comment?> GetCommentById(int id , CancellationToken cancellation)
         {
-            return await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == id);
+            return await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == id, cancellation);
 
         }
-        public async Task UpdateComment(Comment Comment)
+        public async Task UpdateComment(Comment Comment , CancellationToken cancellation)
         {
-            Comment? changeComment = await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == Comment.CommentId);
+            Comment? changeComment = await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == Comment.CommentId , cancellation);
             if (changeComment != null)
             {
                 changeComment.Message = Comment.Message;
+                changeComment.IsAccepted = Comment.IsAccepted;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteComment(int id)
+        public async Task DeleteComment(int id , CancellationToken cancellation)
         {
-            Comment? removingaComment = await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == id);
-            if (removingaComment != null)
+            Comment? removingComment = await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == id, cancellation);
+            if (removingComment != null)
             {
-                _context.Remove(removingaComment);
+                _context.Remove(removingComment);
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
