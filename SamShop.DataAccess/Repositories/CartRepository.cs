@@ -14,18 +14,19 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCart(Cart Cart)
+        public async Task AddCart(Cart Cart , CancellationToken cancellation)
 
         {
             Cart CartAdding = new Cart()
             {
                 TotalPrice = Cart.TotalPrice,
+                CustomerId = Cart.CustomerId,
                 IsCanceled = false,
                 IsPayed = false
 
             };
-            await _context.Carts.AddAsync(CartAdding);
-            await _context.SaveChangesAsync();
+            await _context.Carts.AddAsync(CartAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
         public IEnumerable<Cart> GetAllCart()
@@ -35,14 +36,14 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Cart?> GetCartById(int id)
+        public async Task<Cart?> GetCartById(int id , CancellationToken cancellation)
         {
-            return await _context.Carts.FirstOrDefaultAsync(c => c.CartId == id);
+            return await _context.Carts.FirstOrDefaultAsync(c => c.CartId == id, cancellation);
 
         }
-        public async Task UpdateCart(Cart Cart)
+        public async Task UpdateCart(Cart Cart , CancellationToken cancellation)
         {
-            Cart? changeCart = await _context.Carts.FirstOrDefaultAsync(c => c.CartId == Cart.CartId);
+            Cart? changeCart = await _context.Carts.FirstOrDefaultAsync(c => c.CartId == Cart.CartId , cancellation);
             if (changeCart != null)
             {
                 changeCart.TotalPrice = Cart.TotalPrice;
@@ -50,18 +51,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeCart.IsPayed = Cart.IsPayed;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteCart(int id)
+        public async Task DeleteCart(int id , CancellationToken cancellation)
         {
-            Cart? removingaCart = await _context.Carts.FirstOrDefaultAsync(c => c.CartId == id);
-            if (removingaCart != null)
+            Cart? removingCart = await _context.Carts.FirstOrDefaultAsync(c => c.CartId == id, cancellation);
+            if (removingCart != null)
             {
-                _context.Remove(removingaCart);
+                removingCart.IsCanceled = true;
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }
