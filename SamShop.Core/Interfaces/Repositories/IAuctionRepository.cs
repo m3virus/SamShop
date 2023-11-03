@@ -4,10 +4,10 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IAuctionRepository
     {
-        IEnumerable<Auction> GetAllAuction();
-        Task<Auction?> GetAuctionById(int id);
-        Task AddAuction(Auction Auction);
-        Task UpdateAuction(Auction Auction);
-        Task DeleteAuction(int id);
+        IEnumerable<Auction> GetAllAuction(CancellationToken cancellation);
+        Task<Auction?> GetAuctionById(int id , CancellationToken cancellation);
+        Task AddAuction(Auction Auction , CancellationToken cancellation);
+        Task UpdateAuction(Auction Auction , CancellationToken cancellation);
+        Task DeleteAuction(int id, CancellationToken cancellation);
     }
 }

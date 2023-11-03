@@ -3,7 +3,7 @@ using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
-namespace SamShop.Infrastructure.DataAccess.Repository
+namespace SamShop.Infrastructure.DataAccess.Repositories
 {
     internal class AddressRepository : IAddressRepository 
     {
@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repository
             _context = context;
         }
 
-        public async Task AddAddress(Address address)
+        public async Task AddAddress(Address address, CancellationToken cancellation)
 
         {
             Address addressAdding = new Address()
@@ -26,25 +26,25 @@ namespace SamShop.Infrastructure.DataAccess.Repository
                 ExtraPart = address.ExtraPart,
                 PostCode = address.PostCode
             };
-            await _context.Addresses.AddAsync(addressAdding);
-            await _context.SaveChangesAsync();
+            await _context.Addresses.AddAsync(addressAdding , cancellation);
+            await _context.SaveChangesAsync(cancellation);
         }
 
-        public IEnumerable<Address> GetAllAddress()
+        public IEnumerable<Address> GetAllAddress(CancellationToken cancellation)
         {
             return _context.Addresses;
         }
 
        
 
-        public async Task<Address?> GetAddressById(int id)
+        public async Task<Address?> GetAddressById(int id , CancellationToken cancellation)
         {
-            return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id);
+            return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id, cancellation);
 
         }
-        public async Task UpdateAddress(Address address)
+        public async Task UpdateAddress(Address address , CancellationToken cancellation)
         {
-            Address? changeAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == address.AddressId);
+            Address? changeAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == address.AddressId , cancellation);
             if (changeAddress != null)
             {
                 changeAddress.State = address.State;
@@ -55,18 +55,18 @@ namespace SamShop.Infrastructure.DataAccess.Repository
                 changeAddress.PostCode = address.PostCode;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteAddress(int id)
+        public async Task DeleteAddress(int id, CancellationToken cancellation)
         {
-            Address? removingaAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == id);
-            if (removingaAddress != null)
+            Address? removingAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == id , cancellation);
+            if (removingAddress != null)
             {
-                _context.Remove(removingaAddress);
+                _context.Remove(removingAddress);
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }

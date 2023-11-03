@@ -4,10 +4,10 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IAdminReository
     {
-        IEnumerable<Admin> GetAllAdmin();
-        Task<Admin?> GetAdminById(int id);
-        Task AddAdmin(Admin Admin);
-        Task UpdateAdmin(Admin Admin);
-        Task DeleteAdmin(int id);
+        IEnumerable<Admin> GetAllAdmin(CancellationToken cancellation);
+        Task<Admin?> GetAdminById(int id , CancellationToken cancellation);
+        Task AddAdmin(Admin Admin , CancellationToken cancellation);
+        Task UpdateAdmin(Admin Admin, CancellationToken cancellation);
+        Task DeleteAdmin(int id , CancellationToken cancellation);
     }
 }

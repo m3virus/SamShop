@@ -4,10 +4,10 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetAllProduct();
-        Task<Product?> GetProductById(int id);
-        Task AddProduct(Product Product);
-        Task UpdateProduct(Product Product);
-        Task DeleteProduct(int id);
+        IEnumerable<Product> GetAllProduct(CancellationToken cancellation);
+        Task<Product?> GetProductById(int id , CancellationToken cancellation);
+        Task AddProduct(Product Product, CancellationToken cancellation);
+        Task UpdateProduct(Product Product , CancellationToken cancellation);
+        Task DeleteProduct(int id , CancellationToken cancellation);
     }
 }

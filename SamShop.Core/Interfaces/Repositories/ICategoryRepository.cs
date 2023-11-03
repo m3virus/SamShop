@@ -4,10 +4,10 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface ICategoryRepository
     {
-        IEnumerable<Category> GetAllCategory();
-        Task<Category?> GetCategoryById(int id);
-        Task AddCategory(Category Category);
-        Task UpdateCategory(Category Category);
-        Task DeleteCategory(int id);
+        IEnumerable<Category> GetAllCategory(CancellationToken cancellation);
+        Task<Category?> GetCategoryById(int id , CancellationToken cancellation);
+        Task AddCategory(Category Category, CancellationToken cancellation);
+        Task UpdateCategory(Category Category, CancellationToken cancellation);
+        Task DeleteCategory(int id , CancellationToken cancellation);
     }
 }

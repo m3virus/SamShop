@@ -3,7 +3,7 @@ using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
-namespace SamShop.Infrastructure.DataAccess.Repository
+namespace SamShop.Infrastructure.DataAccess.Repositories
 {
     internal class AuctionOfferRepository: IAuctionOfferRepository
     {
