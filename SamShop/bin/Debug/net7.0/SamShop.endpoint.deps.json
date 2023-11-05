@@ -16,6 +16,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.13",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.11",
           "SamShop.Domain.Service": "1.0.0",
+          "SamShop.Infrastructure.DataAccess": "1.0.0",
           "SamShop.Infrastructure.EntityFramework": "1.0.0"
         },
         "runtime": {
@@ -2610,6 +2611,18 @@
           "SamShop.Domain.Service.dll": {}
         }
       },
+      "SamShop.Infrastructure.DataAccess/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.13",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.13",
+          "Microsoft.Extensions.Identity.Core": "7.0.13",
+          "SamShop.Domain.Core": "1.0.0",
+          "SamShop.Infrastructure.EntityFramework": "1.0.0"
+        },
+        "runtime": {
+          "SamShop.Infrastructure.DataAccess.dll": {}
+        }
+      },
       "SamShop.Infrastructure.EntityFramework/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.13",
@@ -4246,6 +4259,11 @@
       "sha512": ""
     },
     "SamShop.Domain.Service/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SamShop.Infrastructure.DataAccess/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

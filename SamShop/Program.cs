@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Infrastructure.DataAccess.Repositories;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +24,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddRazorPages();
 
 
 var app = builder.Build();
