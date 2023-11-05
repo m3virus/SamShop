@@ -48,6 +48,8 @@ public partial class SamShopDbContext : IdentityDbContext<IdentityUser, Identity
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        #region configuration
+
         modelBuilder.Entity<Address>(entity =>
         {
             entity.ToTable("Address");
@@ -342,6 +344,9 @@ public partial class SamShopDbContext : IdentityDbContext<IdentityUser, Identity
 
         OnModelCreatingPartial(modelBuilder);
     }
+
+    #endregion
+
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
