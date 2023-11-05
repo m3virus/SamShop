@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class MedalRepository:IMedalRepository
+    public class MedalRepository:IMedalRepository
     {
         protected readonly SamShopDbContext _context;
 

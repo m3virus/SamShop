@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class CommentRepository:ICommentRepository
+    public class CommentRepository:ICommentRepository
     {
         protected readonly SamShopDbContext _context;
 

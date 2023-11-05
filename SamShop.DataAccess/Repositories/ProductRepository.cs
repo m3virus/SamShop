@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class ProductRepository:IProductRepository
+    public class ProductRepository:IProductRepository
     {
         protected readonly SamShopDbContext _context;
 

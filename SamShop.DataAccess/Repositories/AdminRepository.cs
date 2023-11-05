@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class AdminRepository : IAdminReository
+    public class AdminRepository : IAdminReository
     {
         protected readonly SamShopDbContext _context;
 

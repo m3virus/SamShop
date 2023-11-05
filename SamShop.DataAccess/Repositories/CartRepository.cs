@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class CartRepository : ICartRepository
+    public class CartRepository : ICartRepository
     {
         protected readonly SamShopDbContext _context;
 

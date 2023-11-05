@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class AuctionOfferRepository: IAuctionOfferRepository
+    public class AuctionOfferRepository: IAuctionOfferRepository
     {
         protected readonly SamShopDbContext _context;
 

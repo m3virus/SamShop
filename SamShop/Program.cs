@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
+#region Identity settings
 
 var connectionString = builder.Configuration.GetConnectionString("SamShopConnection") ?? throw new InvalidOperationException("Connection string 'SamShopConnection' not found.");
 builder.Services.AddDbContext<SamShopDbContext>(options => options.UseSqlServer(connectionString));
@@ -20,11 +21,49 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(
         {
             options.SignIn.RequireConfirmedAccount = false;
         })
-.AddEntityFrameworkStores<SamShopDbContext>();
+    .AddEntityFrameworkStores<SamShopDbContext>();
+
+#endregion
+
+
+#region Repository DI
+
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+
+builder.Services.AddScoped<IAdminReository, AdminRepository>();
+
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+
+builder.Services.AddScoped<IAuctionOfferRepository, AuctionOfferRepository>();
+
+builder.Services.AddScoped<IBoothRepository, BoothRepository>();
+
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+builder.Services.AddScoped<IMedalRepository, MedalRepository>();
+
+builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+
+
+#endregion
+
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 
 
 var app = builder.Build();

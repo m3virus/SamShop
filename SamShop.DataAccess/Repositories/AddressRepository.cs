@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    internal class AddressRepository : IAddressRepository 
+    public class AddressRepository : IAddressRepository 
     {
         protected readonly SamShopDbContext _context;
 
