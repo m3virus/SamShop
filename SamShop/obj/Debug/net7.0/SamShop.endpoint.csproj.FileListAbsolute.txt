@@ -68,8 +68,6 @@ C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\runtime
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Core.dll
-C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Service.dll
-C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Service.pdb
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Core.pdb
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\obj\Debug\net7.0\SamShop.endpoint.csproj.CopyComplete
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\Humanizer.dll
@@ -268,3 +266,5 @@ C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\zh-Hans
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Infrastructure.DataAccess.dll
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Infrastructure.DataAccess.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Appservices.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Appservices.pdb

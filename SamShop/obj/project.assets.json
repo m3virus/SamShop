@@ -4004,6 +4004,19 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "SamShop.Domain.Appservices/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "SamShop.Domain.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SamShop.Domain.Appservices.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SamShop.Domain.Appservices.dll": {}
+        }
+      },
       "SamShop.Domain.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -4018,20 +4031,6 @@
         },
         "runtime": {
           "bin/placeholder/SamShop.Domain.Core.dll": {}
-        }
-      },
-      "SamShop.Domain.Service/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Microsoft.Extensions.Identity.Core": "7.0.13",
-          "SamShop.Domain.Core": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/SamShop.Domain.Service.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/SamShop.Domain.Service.dll": {}
         }
       },
       "SamShop.Infrastructure.DataAccess/1.0.0": {
@@ -11673,15 +11672,15 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "SamShop.Domain.Appservices/1.0.0": {
+      "type": "project",
+      "path": "../SamShop.Domain.Appservices/SamShop.Domain.Appservices.csproj",
+      "msbuildProject": "../SamShop.Domain.Appservices/SamShop.Domain.Appservices.csproj"
+    },
     "SamShop.Domain.Core/1.0.0": {
       "type": "project",
       "path": "../SamShop.Core/SamShop.Domain.Core.csproj",
       "msbuildProject": "../SamShop.Core/SamShop.Domain.Core.csproj"
-    },
-    "SamShop.Domain.Service/1.0.0": {
-      "type": "project",
-      "path": "../SamShop.Service/SamShop.Domain.Service.csproj",
-      "msbuildProject": "../SamShop.Service/SamShop.Domain.Service.csproj"
     },
     "SamShop.Infrastructure.DataAccess/1.0.0": {
       "type": "project",
@@ -11703,7 +11702,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.13",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 7.0.11",
-      "SamShop.Domain.Service >= 1.0.0",
+      "SamShop.Domain.Appservices >= 1.0.0",
       "SamShop.Infrastructure.DataAccess >= 1.0.0",
       "SamShop.Infrastructure.EntityFramework >= 1.0.0"
     ]
@@ -11748,8 +11747,8 @@
             "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.DataAccess\\SamShop.Infrastructure.DataAccess.csproj": {
               "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.DataAccess\\SamShop.Infrastructure.DataAccess.csproj"
             },
-            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj"
+            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Domain.Appservices\\SamShop.Domain.Appservices.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Domain.Appservices\\SamShop.Domain.Appservices.csproj"
             }
           }
         }
