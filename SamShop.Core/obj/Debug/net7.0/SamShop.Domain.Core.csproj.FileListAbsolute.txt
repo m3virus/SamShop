@@ -12,3 +12,17 @@ C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Core\obj\Debug\net7.0\re
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.pdb
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Core\obj\Debug\net7.0\ref\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\bin\Debug\net7.0\SamShop.Domain.Core.deps.json
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\bin\Debug\net7.0\SamShop.Domain.Core.runtimeconfig.json
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\bin\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\bin\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\refint\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\SamShop.Domain.Core.genruntimeconfig.cache
+C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Core\obj\Debug\net7.0\ref\SamShop.Domain.Core.dll

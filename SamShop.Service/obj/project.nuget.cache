@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iIE2/gjrZFnTCMDs57XTNa0eyLeEZwZxYYbdzpJKMrXve6BetNA/IoqQ3XoR/NOC+g+TqTX8cu+lJW0NSo4z6Q==",
+  "dgSpecHash": "oOI/NQ0OAUc3M2mHFGPzko8vnIxYMbPaf1+EPfB4NBjV7ztJdooRoIKmyCrJ0Mrs0nifxXJ99lFST73F8XGiQQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

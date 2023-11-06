@@ -9,7 +9,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
     {
         protected readonly SamShopDbContext _context;
 
-        public ProductRepository(SamShopDbContext context , CancellationToken cancellation)
+        public ProductRepository(SamShopDbContext context )
         {
             _context = context;
         }
