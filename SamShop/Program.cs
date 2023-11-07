@@ -54,6 +54,7 @@ builder.Services.AddScoped<IMedalRepository, MedalRepository>();
 builder.Services.AddScoped<IPictureRepository, PictureRepository>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
 
 builder.Services.AddScoped<ISellerRepository, SellerRepository>();
 

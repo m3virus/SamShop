@@ -53,9 +53,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeProduct.CategoryId = Product.CategoryId;
                 changeProduct.BoothId = Product.BoothId;
                 changeProduct.Price = Product.Price;
-                changeProduct.IsAvailable = true;
-                changeProduct.IsAccepted = false;
-                changeProduct.IsAccepted = false;
+                changeProduct.IsAvailable = Product.IsAvailable;
+                changeProduct.IsAccepted = Product.IsAccepted;
+               
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -75,7 +75,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public IEnumerable<Product> GetProductByAccepted()
         {
-            return _context.Products.Where(a => a.IsAccepted == false);
+            return _context.Products.Where(a => a.IsAccepted == false && a.IsDeleted == false);
         }
     }
 }
