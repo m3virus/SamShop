@@ -28,3 +28,5 @@ C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Domain.Appservices\obj\Debug\
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\refint\SamShop.Domain.Appservices.dll
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.pdb
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\ref\SamShop.Domain.Appservices.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Service.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Service.pdb

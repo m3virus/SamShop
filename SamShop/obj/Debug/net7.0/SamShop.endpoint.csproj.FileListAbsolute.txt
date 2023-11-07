@@ -538,3 +538,6 @@ C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop\obj\Debug\net7.0\refint\SamSh
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop\obj\Debug\net7.0\SamShop.endpoint.pdb
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop\obj\Debug\net7.0\SamShop.endpoint.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop\obj\Debug\net7.0\ref\SamShop.endpoint.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Service.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\bin\Debug\net7.0\SamShop.Domain.Service.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\obj\Debug\net7.0\scopedcss\Areas\Admin\Views\Shared\_Layout.cshtml.rz.scp.css

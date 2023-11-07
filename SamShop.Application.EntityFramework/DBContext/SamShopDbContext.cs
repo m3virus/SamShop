@@ -5,7 +5,7 @@ using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Infrastructure.EntityFramework.DBContext;
 
-public partial class SamShopDbContext : IdentityDbContext<IdentityUser, IdentityRole , string>
+public partial class SamShopDbContext : IdentityDbContext<IdentityUser , IdentityRole , string>
 {
     public SamShopDbContext()
     {

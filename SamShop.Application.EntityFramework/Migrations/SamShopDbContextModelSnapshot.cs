@@ -37,33 +37,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.ToTable("AddressCustomer", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -87,71 +60,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -182,10 +90,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -222,10 +132,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -825,44 +737,30 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("PictureId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.Property<decimal>("Wallet")
                         .HasColumnType("money");
 
                     b.HasKey("AdminId");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
 
                     b.HasIndex(new[] { "AddressId" }, "IX_Admin_AddressId");
 
@@ -875,28 +773,122 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             AdminId = 1,
                             AddressId = 1,
-                            Email = "StringSample 1@google.com",
+                            AppUserId = "1",
                             FirstName = "StringSample 1",
-                            IsDeleted = false,
                             LastName = "StringSample 1",
-                            Password = "StringSample 1",
-                            Phone = "StringSample 1",
-                            UserName = "StringSample 1",
                             Wallet = 100m
                         },
                         new
                         {
                             AdminId = 2,
                             AddressId = 2,
-                            Email = "StringSample 2@google.com",
+                            AppUserId = "2",
                             FirstName = "StringSample 2",
-                            IsDeleted = false,
                             LastName = "StringSample 2",
-                            Password = "StringSample 2",
-                            Phone = "StringSample 2",
-                            UserName = "StringSample 2",
                             Wallet = 200m
                         });
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RegisterTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Auction", b =>
@@ -946,12 +938,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             AuctionId = 1,
                             AuctionTitle = "AuctionSample 1",
-                            EndTime = new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2023, 11, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             IsAccepted = false,
                             IsCanceled = false,
                             ProductId = 1,
                             SellerId = 1,
-                            StartTime = new DateTime(2023, 11, 5, 22, 30, 4, 887, DateTimeKind.Local).AddTicks(2564),
+                            StartTime = new DateTime(2023, 11, 6, 22, 44, 17, 108, DateTimeKind.Local).AddTicks(8070),
                             TheLowestOffer = 10m
                         });
                 });
@@ -1430,10 +1422,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -1441,34 +1432,21 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("FIrstName");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("PictureId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.Property<decimal>("Wallet")
                         .HasColumnType("money");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
 
                     b.HasIndex(new[] { "AddressId" }, "IX_Customer_AddressId");
 
@@ -1481,390 +1459,270 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CustomerId = 1,
                             AddressId = 13,
-                            Email = "CustomerSample 1",
+                            AppUserId = "13",
                             FirstName = "CustomerSample 1",
-                            IsDeleted = false,
                             LastName = "CustomerSample 1",
-                            PasswordHash = "CustomerSample 1",
-                            Phone = "CustomerSample 1",
-                            UserName = "CustomerSample 1",
                             Wallet = 100m
                         },
                         new
                         {
                             CustomerId = 2,
                             AddressId = 14,
-                            Email = "CustomerSample 2",
+                            AppUserId = "14",
                             FirstName = "CustomerSample 2",
-                            IsDeleted = false,
                             LastName = "CustomerSample 2",
-                            PasswordHash = "CustomerSample 2",
-                            Phone = "CustomerSample 2",
-                            UserName = "CustomerSample 2",
                             Wallet = 200m
                         },
                         new
                         {
                             CustomerId = 3,
                             AddressId = 15,
-                            Email = "CustomerSample 3",
+                            AppUserId = "15",
                             FirstName = "CustomerSample 3",
-                            IsDeleted = false,
                             LastName = "CustomerSample 3",
-                            PasswordHash = "CustomerSample 3",
-                            Phone = "CustomerSample 3",
-                            UserName = "CustomerSample 3",
                             Wallet = 300m
                         },
                         new
                         {
                             CustomerId = 4,
                             AddressId = 16,
-                            Email = "CustomerSample 4",
+                            AppUserId = "16",
                             FirstName = "CustomerSample 4",
-                            IsDeleted = false,
                             LastName = "CustomerSample 4",
-                            PasswordHash = "CustomerSample 4",
-                            Phone = "CustomerSample 4",
-                            UserName = "CustomerSample 4",
                             Wallet = 400m
                         },
                         new
                         {
                             CustomerId = 5,
                             AddressId = 17,
-                            Email = "CustomerSample 5",
+                            AppUserId = "17",
                             FirstName = "CustomerSample 5",
-                            IsDeleted = false,
                             LastName = "CustomerSample 5",
-                            PasswordHash = "CustomerSample 5",
-                            Phone = "CustomerSample 5",
-                            UserName = "CustomerSample 5",
                             Wallet = 500m
                         },
                         new
                         {
                             CustomerId = 6,
                             AddressId = 18,
-                            Email = "CustomerSample 6",
+                            AppUserId = "18",
                             FirstName = "CustomerSample 6",
-                            IsDeleted = false,
                             LastName = "CustomerSample 6",
-                            PasswordHash = "CustomerSample 6",
-                            Phone = "CustomerSample 6",
-                            UserName = "CustomerSample 6",
                             Wallet = 600m
                         },
                         new
                         {
                             CustomerId = 7,
                             AddressId = 19,
-                            Email = "CustomerSample 7",
+                            AppUserId = "19",
                             FirstName = "CustomerSample 7",
-                            IsDeleted = false,
                             LastName = "CustomerSample 7",
-                            PasswordHash = "CustomerSample 7",
-                            Phone = "CustomerSample 7",
-                            UserName = "CustomerSample 7",
                             Wallet = 700m
                         },
                         new
                         {
                             CustomerId = 8,
                             AddressId = 20,
-                            Email = "CustomerSample 8",
+                            AppUserId = "20",
                             FirstName = "CustomerSample 8",
-                            IsDeleted = false,
                             LastName = "CustomerSample 8",
-                            PasswordHash = "CustomerSample 8",
-                            Phone = "CustomerSample 8",
-                            UserName = "CustomerSample 8",
                             Wallet = 800m
                         },
                         new
                         {
                             CustomerId = 9,
                             AddressId = 21,
-                            Email = "CustomerSample 9",
+                            AppUserId = "21",
                             FirstName = "CustomerSample 9",
-                            IsDeleted = false,
                             LastName = "CustomerSample 9",
-                            PasswordHash = "CustomerSample 9",
-                            Phone = "CustomerSample 9",
-                            UserName = "CustomerSample 9",
                             Wallet = 900m
                         },
                         new
                         {
                             CustomerId = 10,
                             AddressId = 22,
-                            Email = "CustomerSample 10",
+                            AppUserId = "22",
                             FirstName = "CustomerSample 10",
-                            IsDeleted = false,
                             LastName = "CustomerSample 10",
-                            PasswordHash = "CustomerSample 10",
-                            Phone = "CustomerSample 10",
-                            UserName = "CustomerSample 10",
                             Wallet = 1000m
                         },
                         new
                         {
                             CustomerId = 11,
                             AddressId = 23,
-                            Email = "CustomerSample 11",
+                            AppUserId = "23",
                             FirstName = "CustomerSample 11",
-                            IsDeleted = false,
                             LastName = "CustomerSample 11",
-                            PasswordHash = "CustomerSample 11",
-                            Phone = "CustomerSample 11",
-                            UserName = "CustomerSample 11",
                             Wallet = 1100m
                         },
                         new
                         {
                             CustomerId = 12,
                             AddressId = 24,
-                            Email = "CustomerSample 12",
+                            AppUserId = "24",
                             FirstName = "CustomerSample 12",
-                            IsDeleted = false,
                             LastName = "CustomerSample 12",
-                            PasswordHash = "CustomerSample 12",
-                            Phone = "CustomerSample 12",
-                            UserName = "CustomerSample 12",
                             Wallet = 1200m
                         },
                         new
                         {
                             CustomerId = 13,
                             AddressId = 25,
-                            Email = "CustomerSample 13",
+                            AppUserId = "25",
                             FirstName = "CustomerSample 13",
-                            IsDeleted = false,
                             LastName = "CustomerSample 13",
-                            PasswordHash = "CustomerSample 13",
-                            Phone = "CustomerSample 13",
-                            UserName = "CustomerSample 13",
                             Wallet = 1300m
                         },
                         new
                         {
                             CustomerId = 14,
                             AddressId = 26,
-                            Email = "CustomerSample 14",
+                            AppUserId = "26",
                             FirstName = "CustomerSample 14",
-                            IsDeleted = false,
                             LastName = "CustomerSample 14",
-                            PasswordHash = "CustomerSample 14",
-                            Phone = "CustomerSample 14",
-                            UserName = "CustomerSample 14",
                             Wallet = 1400m
                         },
                         new
                         {
                             CustomerId = 15,
                             AddressId = 27,
-                            Email = "CustomerSample 15",
+                            AppUserId = "27",
                             FirstName = "CustomerSample 15",
-                            IsDeleted = false,
                             LastName = "CustomerSample 15",
-                            PasswordHash = "CustomerSample 15",
-                            Phone = "CustomerSample 15",
-                            UserName = "CustomerSample 15",
                             Wallet = 1500m
                         },
                         new
                         {
                             CustomerId = 16,
                             AddressId = 28,
-                            Email = "CustomerSample 16",
+                            AppUserId = "28",
                             FirstName = "CustomerSample 16",
-                            IsDeleted = false,
                             LastName = "CustomerSample 16",
-                            PasswordHash = "CustomerSample 16",
-                            Phone = "CustomerSample 16",
-                            UserName = "CustomerSample 16",
                             Wallet = 1600m
                         },
                         new
                         {
                             CustomerId = 17,
                             AddressId = 29,
-                            Email = "CustomerSample 17",
+                            AppUserId = "29",
                             FirstName = "CustomerSample 17",
-                            IsDeleted = false,
                             LastName = "CustomerSample 17",
-                            PasswordHash = "CustomerSample 17",
-                            Phone = "CustomerSample 17",
-                            UserName = "CustomerSample 17",
                             Wallet = 1700m
                         },
                         new
                         {
                             CustomerId = 18,
                             AddressId = 30,
-                            Email = "CustomerSample 18",
+                            AppUserId = "30",
                             FirstName = "CustomerSample 18",
-                            IsDeleted = false,
                             LastName = "CustomerSample 18",
-                            PasswordHash = "CustomerSample 18",
-                            Phone = "CustomerSample 18",
-                            UserName = "CustomerSample 18",
                             Wallet = 1800m
                         },
                         new
                         {
                             CustomerId = 19,
                             AddressId = 31,
-                            Email = "CustomerSample 19",
+                            AppUserId = "31",
                             FirstName = "CustomerSample 19",
-                            IsDeleted = false,
                             LastName = "CustomerSample 19",
-                            PasswordHash = "CustomerSample 19",
-                            Phone = "CustomerSample 19",
-                            UserName = "CustomerSample 19",
                             Wallet = 1900m
                         },
                         new
                         {
                             CustomerId = 20,
                             AddressId = 32,
-                            Email = "CustomerSample 20",
+                            AppUserId = "32",
                             FirstName = "CustomerSample 20",
-                            IsDeleted = false,
                             LastName = "CustomerSample 20",
-                            PasswordHash = "CustomerSample 20",
-                            Phone = "CustomerSample 20",
-                            UserName = "CustomerSample 20",
                             Wallet = 2000m
                         },
                         new
                         {
                             CustomerId = 21,
                             AddressId = 33,
-                            Email = "CustomerSample 21",
+                            AppUserId = "33",
                             FirstName = "CustomerSample 21",
-                            IsDeleted = false,
                             LastName = "CustomerSample 21",
-                            PasswordHash = "CustomerSample 21",
-                            Phone = "CustomerSample 21",
-                            UserName = "CustomerSample 21",
                             Wallet = 2100m
                         },
                         new
                         {
                             CustomerId = 22,
                             AddressId = 34,
-                            Email = "CustomerSample 22",
+                            AppUserId = "34",
                             FirstName = "CustomerSample 22",
-                            IsDeleted = false,
                             LastName = "CustomerSample 22",
-                            PasswordHash = "CustomerSample 22",
-                            Phone = "CustomerSample 22",
-                            UserName = "CustomerSample 22",
                             Wallet = 2200m
                         },
                         new
                         {
                             CustomerId = 23,
                             AddressId = 35,
-                            Email = "CustomerSample 23",
+                            AppUserId = "35",
                             FirstName = "CustomerSample 23",
-                            IsDeleted = false,
                             LastName = "CustomerSample 23",
-                            PasswordHash = "CustomerSample 23",
-                            Phone = "CustomerSample 23",
-                            UserName = "CustomerSample 23",
                             Wallet = 2300m
                         },
                         new
                         {
                             CustomerId = 24,
                             AddressId = 36,
-                            Email = "CustomerSample 24",
+                            AppUserId = "36",
                             FirstName = "CustomerSample 24",
-                            IsDeleted = false,
                             LastName = "CustomerSample 24",
-                            PasswordHash = "CustomerSample 24",
-                            Phone = "CustomerSample 24",
-                            UserName = "CustomerSample 24",
                             Wallet = 2400m
                         },
                         new
                         {
                             CustomerId = 25,
                             AddressId = 37,
-                            Email = "CustomerSample 25",
+                            AppUserId = "37",
                             FirstName = "CustomerSample 25",
-                            IsDeleted = false,
                             LastName = "CustomerSample 25",
-                            PasswordHash = "CustomerSample 25",
-                            Phone = "CustomerSample 25",
-                            UserName = "CustomerSample 25",
                             Wallet = 2500m
                         },
                         new
                         {
                             CustomerId = 26,
                             AddressId = 38,
-                            Email = "CustomerSample 26",
+                            AppUserId = "38",
                             FirstName = "CustomerSample 26",
-                            IsDeleted = false,
                             LastName = "CustomerSample 26",
-                            PasswordHash = "CustomerSample 26",
-                            Phone = "CustomerSample 26",
-                            UserName = "CustomerSample 26",
                             Wallet = 2600m
                         },
                         new
                         {
                             CustomerId = 27,
                             AddressId = 39,
-                            Email = "CustomerSample 27",
+                            AppUserId = "39",
                             FirstName = "CustomerSample 27",
-                            IsDeleted = false,
                             LastName = "CustomerSample 27",
-                            PasswordHash = "CustomerSample 27",
-                            Phone = "CustomerSample 27",
-                            UserName = "CustomerSample 27",
                             Wallet = 2700m
                         },
                         new
                         {
                             CustomerId = 28,
                             AddressId = 40,
-                            Email = "CustomerSample 28",
+                            AppUserId = "40",
                             FirstName = "CustomerSample 28",
-                            IsDeleted = false,
                             LastName = "CustomerSample 28",
-                            PasswordHash = "CustomerSample 28",
-                            Phone = "CustomerSample 28",
-                            UserName = "CustomerSample 28",
                             Wallet = 2800m
                         },
                         new
                         {
                             CustomerId = 29,
                             AddressId = 41,
-                            Email = "CustomerSample 29",
+                            AppUserId = "41",
                             FirstName = "CustomerSample 29",
-                            IsDeleted = false,
                             LastName = "CustomerSample 29",
-                            PasswordHash = "CustomerSample 29",
-                            Phone = "CustomerSample 29",
-                            UserName = "CustomerSample 29",
                             Wallet = 2900m
                         },
                         new
                         {
                             CustomerId = 30,
                             AddressId = 42,
-                            Email = "CustomerSample 30",
+                            AppUserId = "42",
                             FirstName = "CustomerSample 30",
-                            IsDeleted = false,
                             LastName = "CustomerSample 30",
-                            PasswordHash = "CustomerSample 30",
-                            Phone = "CustomerSample 30",
-                            UserName = "CustomerSample 30",
                             Wallet = 3000m
                         });
                 });
@@ -2239,20 +2097,17 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("BoothId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -2262,27 +2117,16 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("MedalId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<int?>("PictureId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.Property<decimal>("Wallet")
                         .HasColumnType("money");
 
                     b.HasKey("SellerId");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
 
                     b.HasIndex(new[] { "AddressId" }, "IX_Seller_AddressId");
 
@@ -2299,150 +2143,110 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             SellerId = 1,
                             AddressId = 3,
+                            AppUserId = "3",
                             BoothId = 1,
-                            Email = "SellerSample 1",
                             FirstName = "SellerSample 1",
-                            IsDeleted = false,
                             LastName = "SellerSample 1",
                             MedalId = 1,
-                            Password = "SellerSample 1",
-                            Phone = "SellerSample 1",
-                            UserName = "SellerSample 1",
                             Wallet = 100m
                         },
                         new
                         {
                             SellerId = 2,
                             AddressId = 4,
+                            AppUserId = "4",
                             BoothId = 2,
-                            Email = "SellerSample 2",
                             FirstName = "SellerSample 2",
-                            IsDeleted = false,
                             LastName = "SellerSample 2",
                             MedalId = 1,
-                            Password = "SellerSample 2",
-                            Phone = "SellerSample 2",
-                            UserName = "SellerSample 2",
                             Wallet = 200m
                         },
                         new
                         {
                             SellerId = 3,
                             AddressId = 5,
+                            AppUserId = "5",
                             BoothId = 3,
-                            Email = "SellerSample 3",
                             FirstName = "SellerSample 3",
-                            IsDeleted = false,
                             LastName = "SellerSample 3",
                             MedalId = 1,
-                            Password = "SellerSample 3",
-                            Phone = "SellerSample 3",
-                            UserName = "SellerSample 3",
                             Wallet = 300m
                         },
                         new
                         {
                             SellerId = 4,
                             AddressId = 6,
+                            AppUserId = "6",
                             BoothId = 4,
-                            Email = "SellerSample 4",
                             FirstName = "SellerSample 4",
-                            IsDeleted = false,
                             LastName = "SellerSample 4",
                             MedalId = 1,
-                            Password = "SellerSample 4",
-                            Phone = "SellerSample 4",
-                            UserName = "SellerSample 4",
                             Wallet = 400m
                         },
                         new
                         {
                             SellerId = 5,
                             AddressId = 7,
+                            AppUserId = "7",
                             BoothId = 5,
-                            Email = "SellerSample 5",
                             FirstName = "SellerSample 5",
-                            IsDeleted = false,
                             LastName = "SellerSample 5",
                             MedalId = 1,
-                            Password = "SellerSample 5",
-                            Phone = "SellerSample 5",
-                            UserName = "SellerSample 5",
                             Wallet = 500m
                         },
                         new
                         {
                             SellerId = 6,
                             AddressId = 8,
+                            AppUserId = "8",
                             BoothId = 6,
-                            Email = "SellerSample 6",
                             FirstName = "SellerSample 6",
-                            IsDeleted = false,
                             LastName = "SellerSample 6",
                             MedalId = 1,
-                            Password = "SellerSample 6",
-                            Phone = "SellerSample 6",
-                            UserName = "SellerSample 6",
                             Wallet = 600m
                         },
                         new
                         {
                             SellerId = 7,
                             AddressId = 9,
+                            AppUserId = "9",
                             BoothId = 7,
-                            Email = "SellerSample 7",
                             FirstName = "SellerSample 7",
-                            IsDeleted = false,
                             LastName = "SellerSample 7",
                             MedalId = 1,
-                            Password = "SellerSample 7",
-                            Phone = "SellerSample 7",
-                            UserName = "SellerSample 7",
                             Wallet = 700m
                         },
                         new
                         {
                             SellerId = 8,
                             AddressId = 10,
+                            AppUserId = "10",
                             BoothId = 8,
-                            Email = "SellerSample 8",
                             FirstName = "SellerSample 8",
-                            IsDeleted = false,
                             LastName = "SellerSample 8",
                             MedalId = 1,
-                            Password = "SellerSample 8",
-                            Phone = "SellerSample 8",
-                            UserName = "SellerSample 8",
                             Wallet = 800m
                         },
                         new
                         {
                             SellerId = 9,
                             AddressId = 11,
+                            AppUserId = "11",
                             BoothId = 9,
-                            Email = "SellerSample 9",
                             FirstName = "SellerSample 9",
-                            IsDeleted = false,
                             LastName = "SellerSample 9",
                             MedalId = 1,
-                            Password = "SellerSample 9",
-                            Phone = "SellerSample 9",
-                            UserName = "SellerSample 9",
                             Wallet = 900m
                         },
                         new
                         {
                             SellerId = 10,
                             AddressId = 12,
+                            AppUserId = "12",
                             BoothId = 10,
-                            Email = "SellerSample 10",
                             FirstName = "SellerSample 10",
-                            IsDeleted = false,
                             LastName = "SellerSample 10",
                             MedalId = 1,
-                            Password = "SellerSample 10",
-                            Phone = "SellerSample 10",
-                            UserName = "SellerSample 10",
                             Wallet = 1000m
                         });
                 });
@@ -2464,7 +2268,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2473,7 +2277,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2482,7 +2286,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2491,13 +2295,13 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2506,7 +2310,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2536,6 +2340,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Admin_Address");
 
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "User")
+                        .WithOne("Admin")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Admin", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Picture", "Picture")
                         .WithMany("Admins")
                         .HasForeignKey("PictureId")
@@ -2544,6 +2354,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Picture");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Auction", b =>
@@ -2633,6 +2445,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Customer_Address");
 
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "User")
+                        .WithOne("Customer")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Customer", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Picture", "Picture")
                         .WithMany("Customers")
                         .HasForeignKey("PictureId")
@@ -2641,6 +2459,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Picture");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Picture", b =>
@@ -2680,6 +2500,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Seller_Address");
 
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "User")
+                        .WithOne("Seller")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Booth", "Booth")
                         .WithMany("Sellers")
                         .HasForeignKey("BoothId")
@@ -2704,6 +2530,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Medal");
 
                     b.Navigation("Picture");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Address", b =>
@@ -2715,6 +2543,15 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("CustomersNavigation");
 
                     b.Navigation("Sellers");
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppUser", b =>
+                {
+                    b.Navigation("Admin");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Seller");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Auction", b =>

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SamShop.Core\SamShop.Domain.Core.csproj" />
+    <ProjectReference Include="..\SamShop.Service\SamShop.Domain.Service.csproj" />
   </ItemGroup>
 
 </Project>

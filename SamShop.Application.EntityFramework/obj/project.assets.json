@@ -3057,11 +3057,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Infrastructure.EntityFramework.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Infrastructure.EntityFramework.csproj",
       "projectName": "SamShop.Infrastructure.EntityFramework",
-      "projectPath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Infrastructure.EntityFramework.csproj",
+      "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\SamShop.Infrastructure.EntityFramework.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Application.EntityFramework\\obj\\",
+      "outputPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Application.EntityFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3083,8 +3083,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Core\\SamShop.Domain.Core.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Core\\SamShop.Domain.Core.csproj"
+            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Core\\SamShop.Domain.Core.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Core\\SamShop.Domain.Core.csproj"
             }
           }
         }

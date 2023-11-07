@@ -72,5 +72,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
             await _context.SaveChangesAsync(cancellation);
         }
+
+        public IEnumerable<Product> GetProductByAccepted()
+        {
+            return _context.Products.Where(a => a.IsAccepted == false);
+        }
     }
 }

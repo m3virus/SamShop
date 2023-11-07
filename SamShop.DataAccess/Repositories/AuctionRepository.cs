@@ -70,5 +70,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             }
             await _context.SaveChangesAsync(cancellation);
         }
+
+        public IEnumerable<Auction> GetAuctionByAccepted()
+        {
+            return _context.Auctions.Include(p => p.Product).Where(p => p.Product.IsAccepted == false);
+        }
     }
 }

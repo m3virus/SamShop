@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Comment>
+@{
+
+}
+
+@foreach (var item in Model)
+{
+    <div class="card m-2">
+        <h5 class="card-header">@item.CommentId</h5>
+        <div class="card-body">
+            <h5 class="card-title">@item.Message</h5>
+            <a class="btn btn-primary" asp-controller="AAdminComment" asp-action="Confirm" asp-route-id="@item.CommentId">confirm</a>
+            <a class="btn btn-primary" asp-controller="AAdminComment" asp-action="delete" asp-route-commentid="@item.CommentId">delete</a>
+
+
+
+        </div>
+    </div>
+}

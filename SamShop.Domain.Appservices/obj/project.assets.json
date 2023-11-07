@@ -1058,6 +1058,20 @@
         "runtime": {
           "bin/placeholder/SamShop.Domain.Core.dll": {}
         }
+      },
+      "SamShop.Domain.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Core": "7.0.13",
+          "SamShop.Domain.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SamShop.Domain.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SamShop.Domain.Service.dll": {}
+        }
       }
     }
   },
@@ -2803,11 +2817,16 @@
       "type": "project",
       "path": "../SamShop.Core/SamShop.Domain.Core.csproj",
       "msbuildProject": "../SamShop.Core/SamShop.Domain.Core.csproj"
+    },
+    "SamShop.Domain.Service/1.0.0": {
+      "type": "project",
+      "path": "../SamShop.Service/SamShop.Domain.Service.csproj",
+      "msbuildProject": "../SamShop.Service/SamShop.Domain.Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "SamShop.Domain.Core >= 1.0.0"
+      "SamShop.Domain.Service >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2817,11 +2836,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Domain.Appservices\\SamShop.Domain.Appservices.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Domain.Appservices\\SamShop.Domain.Appservices.csproj",
       "projectName": "SamShop.Domain.Appservices",
-      "projectPath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Domain.Appservices\\SamShop.Domain.Appservices.csproj",
+      "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Domain.Appservices\\SamShop.Domain.Appservices.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Domain.Appservices\\obj\\",
+      "outputPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Domain.Appservices\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2843,8 +2862,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Core\\SamShop.Domain.Core.csproj": {
-              "projectPath": "C:\\Users\\Lenovo\\Desktop\\New folder\\SamShop\\SamShop.Core\\SamShop.Domain.Core.csproj"
+            "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.Service\\SamShop.Domain.Service.csproj"
             }
           }
         }

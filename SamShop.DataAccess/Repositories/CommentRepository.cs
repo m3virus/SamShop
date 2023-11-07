@@ -64,5 +64,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             }
             await _context.SaveChangesAsync(cancellation);
         }
+
+        public IEnumerable<Comment> GetCommentByAccepted()
+        {
+            return _context.Comments.Where(c => c.IsAccepted == false);
+        }
     }
 }

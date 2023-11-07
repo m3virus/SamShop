@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Service;
 using SamShop.Infrastructure.DataAccess.Repositories;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,14 +16,14 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SamShopConnection") ?? throw new InvalidOperationException("Connection string 'SamShopConnection' not found.");
 builder.Services.AddDbContext<SamShopDbContext>(options => options.UseSqlServer(connectionString));
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SamShopDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SamShopDbContext>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(
-        options =>
-        {
-            options.SignIn.RequireConfirmedAccount = false;
-        })
-    .AddEntityFrameworkStores<SamShopDbContext>();
+//builder.Services.AddIdentity<IdentityUser , IdentityRole>(
+//        options =>
+//        {
+//            options.SignIn.RequireConfirmedAccount = false;
+//        })
+//    .AddEntityFrameworkStores<SamShopDbContext>();
 
 #endregion
 
@@ -43,6 +45,7 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentServices, CommentServices>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
@@ -84,9 +87,18 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.MapRazorPages();
 

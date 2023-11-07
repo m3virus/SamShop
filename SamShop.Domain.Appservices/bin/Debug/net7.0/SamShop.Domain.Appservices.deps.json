@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "SamShop.Domain.Appservices/1.0.0": {
         "dependencies": {
-          "SamShop.Domain.Core": "1.0.0"
+          "SamShop.Domain.Service": "1.0.0"
         },
         "runtime": {
           "SamShop.Domain.Appservices.dll": {}
@@ -617,6 +617,15 @@
         "runtime": {
           "SamShop.Domain.Core.dll": {}
         }
+      },
+      "SamShop.Domain.Service/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Core": "7.0.13",
+          "SamShop.Domain.Core": "1.0.0"
+        },
+        "runtime": {
+          "SamShop.Domain.Service.dll": {}
+        }
       }
     }
   },
@@ -1040,6 +1049,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "SamShop.Domain.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SamShop.Domain.Service/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

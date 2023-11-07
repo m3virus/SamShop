@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Admin\**" />
-    <Content Remove="Areas\Admin\**" />
-    <EmbeddedResource Remove="Areas\Admin\**" />
-    <None Remove="Areas\Admin\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
@@ -33,6 +26,11 @@
     <ProjectReference Include="..\SamShop.Application.EntityFramework\SamShop.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\SamShop.DataAccess\SamShop.Infrastructure.DataAccess.csproj" />
     <ProjectReference Include="..\SamShop.Domain.Appservices\SamShop.Domain.Appservices.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
 </Project>

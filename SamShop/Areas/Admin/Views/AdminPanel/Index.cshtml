@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Admin>
+@{
+
+}
+
+@foreach (var item in Model)
+{
+    <div class="card m-2">
+        @*<h5 class="card-header">@item.ProductId</h5>*@
+        <div class="card-body">
+            <h5 class="card-title">@item.UserName</h5>
+            @*<p class="card-text">@item.Category.CategoryName</p>*@
+            <p class="card-text">@item.FirstName</p>
+            <p class="card-text">@item.LastName</p>
+            <p class="card-text">@item.Email</p>
+            
+            
+
+        </div>
+    </div>
+}
