@@ -9,6 +9,6 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
         Task AddAuction(Auction Auction , CancellationToken cancellation);
         Task UpdateAuction(Auction Auction , CancellationToken cancellation);
         Task DeleteAuction(int id, CancellationToken cancellation);
-        IEnumerable<Auction> GetAuctionByAccepted();
+        
     }
 }

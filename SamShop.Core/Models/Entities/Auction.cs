@@ -9,7 +9,9 @@ public partial class Auction
 
     public int ProductId { get; set; }
 
-    public string AuctionTitle { get; set; } = null!;
+    public int SellerId { get; set; }
+
+    public string AuctionTitle { get; set; }
 
     public decimal TheLowestOffer { get; set; }
 
@@ -17,15 +19,15 @@ public partial class Auction
 
     public bool IsAccepted { get; set; }
 
-    public int SellerId { get; set; }
-
     public DateTime StartTime { get; set; }
 
     public DateTime EndTime { get; set; }
 
-    public virtual ICollection<AuctionOffer> AuctionOffers { get; set; } = new List<AuctionOffer>();
+    public DateTime? CancelTime { get; set; }
 
-    public virtual Product Product { get; set; } = null!;
+    public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
 
-    public virtual Seller Seller { get; set; } = null!;
+    public virtual Product Product { get; set; } 
+
+    public virtual Seller Seller { get; set; } 
 }

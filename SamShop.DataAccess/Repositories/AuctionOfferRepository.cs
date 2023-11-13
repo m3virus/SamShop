@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAuctionOffer(AuctionOffer AuctionOffer , CancellationToken cancellation)
+        public async Task AddAuctionOffer(AuctionOffer AuctionOffer, CancellationToken cancellation)
 
         {
             AuctionOffer auctionOfferAdding = new AuctionOffer()
@@ -24,9 +24,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 CustomerId = AuctionOffer.CustomerId,
                 IsCanceled = false,
                 IsAccept = false,
+                OfferTime = DateTime.Now,
+                CancelTime = null,
+                
 
             };
-            await _context.AuctionOffers.AddAsync(auctionOfferAdding , cancellation);
+            await _context.AuctionOffers.AddAsync(auctionOfferAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -37,9 +40,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<AuctionOffer?> GetAuctionOfferById(int id , CancellationToken cancellation)
+        public async Task<AuctionOffer?> GetAuctionOfferById(int id, CancellationToken cancellation)
         {
-            return await _context.AuctionOffers.FirstOrDefaultAsync(a => a.OfferId == id , cancellation);
+            return await _context.AuctionOffers.FirstOrDefaultAsync(a => a.OfferId == id, cancellation);
 
         }
         public async Task UpdateAuctionOffer(AuctionOffer AuctionOffer, CancellationToken cancellation)
@@ -47,21 +50,23 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             AuctionOffer? changeAuctionOffer = await _context.AuctionOffers.FirstOrDefaultAsync(p => p.OfferId == AuctionOffer.OfferId, cancellation);
             if (changeAuctionOffer != null)
             {
-                changeAuctionOffer.OfferValue = AuctionOffer.OfferValue;
+                changeAuctionOffer.IsAccept = AuctionOffer.IsAccept;
             }
 
             await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteAuctionOffer(int id , CancellationToken cancellation)
+        public async Task DeleteAuctionOffer(int id, CancellationToken cancellation)
         {
-            AuctionOffer? removingAuctionOffer = await _context.AuctionOffers.FirstOrDefaultAsync(p => p.OfferId == id , cancellation);
+            AuctionOffer? removingAuctionOffer = await _context.AuctionOffers.FirstOrDefaultAsync(p => p.OfferId == id, cancellation);
             if (removingAuctionOffer != null)
             {
                 removingAuctionOffer.IsCanceled = true;
+                removingAuctionOffer.CancelTime = DateTime.Now;
             }
             await _context.SaveChangesAsync(cancellation);
         }
+        
     }
 }

@@ -14,16 +14,19 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCategory(Category Category , CancellationToken cancellation)
+        public async Task AddCategory(Category Category, CancellationToken cancellation)
 
         {
             Category CategoryAdding = new Category()
             {
                 CategoryName = Category.CategoryName,
                 IsDeleted = false,
+                CreateTime = DateTime.Now,
+                DeleteTime = null
+                
 
             };
-            await _context.Categories.AddAsync(CategoryAdding , cancellation);
+            await _context.Categories.AddAsync(CategoryAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -34,7 +37,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Category?> GetCategoryById(int id , CancellationToken cancellation)
+        public async Task<Category?> GetCategoryById(int id, CancellationToken cancellation)
         {
             return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
 
@@ -54,12 +57,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         }
 
 
-        public async Task DeleteCategory(int id , CancellationToken cancellation)
+        public async Task DeleteCategory(int id, CancellationToken cancellation)
         {
             Category? removingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
             if (removingCategory != null)
             {
                 removingCategory.IsDeleted = true;
+                removingCategory.DeleteTime = DateTime.Now;
             }
             await _context.SaveChangesAsync(cancellation);
         }

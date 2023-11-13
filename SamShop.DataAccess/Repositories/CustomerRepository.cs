@@ -14,24 +14,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCustomer(Customer Customer , CancellationToken cancellation)
+        public async Task AddCustomer(Customer Customer, CancellationToken cancellation)
 
         {
             Customer CustomerAdding = new Customer()
             {
-                UserName = Customer.UserName,
-                FirstName = Customer.FirstName,
-                LastName = Customer.LastName,
-                Phone = Customer.Phone,
-                Email = Customer.Email,
+                
                 Wallet = Customer.Wallet,
-                PasswordHash = Customer.PasswordHash,
                 PictureId = Customer.PictureId,
-                AddressId = Customer.AddressId,
-                IsDeleted = false
+                AppUserId = Customer.AppUserId
 
             };
-            await _context.Customers.AddAsync(CustomerAdding , cancellation);
+            await _context.Customers.AddAsync(CustomerAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -42,7 +36,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Customer?> GetCustomerById(int id , CancellationToken cancellation)
+        public async Task<Customer?> GetCustomerById(int id, CancellationToken cancellation)
         {
             return await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id, cancellation);
 
@@ -54,30 +48,25 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == Customer.CustomerId, cancellation);
             if (changeCustomer != null)
             {
-                changeCustomer.UserName = Customer.UserName;
-                changeCustomer.FirstName = Customer.FirstName;
-                changeCustomer.LastName = Customer.LastName;
-                changeCustomer.Wallet = Customer.Wallet;
-                changeCustomer.PasswordHash = Customer.PasswordHash;
-                changeCustomer.Email = Customer.Email;
-                changeCustomer.Phone = Customer.Phone;
-                changeCustomer.AddressId = Customer.AddressId;
-                changeCustomer.PictureId = Customer.PictureId;
+               changeCustomer.PictureId = Customer.PictureId;
+               changeCustomer.Wallet = Customer.Wallet;
             }
 
             await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteCustomer(int id , CancellationToken cancellation)
+        public async Task DeleteCustomer(int id, CancellationToken cancellation)
         {
-            Customer? removingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id , cancellation);
+            Customer? removingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id, cancellation);
             if (removingCustomer != null)
             {
                 removingCustomer.IsDeleted = true;
+                removingCustomer.DeleteTime = DateTime.Now;
             }
 
             await _context.SaveChangesAsync(cancellation);
         }
+        
     }
 }

@@ -14,17 +14,19 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddMedal(Medal Medal , CancellationToken cancellation)
+        public async Task AddMedal(Medal Medal, CancellationToken cancellation)
 
         {
             Medal MedalAdding = new Medal()
             {
                 MedalType = Medal.MedalType,
-                Wage = Medal.Wage,
-                IsDeleted = false
+                DeleteTime = null,
+                IsDeleted = false,
+                CreateTime = DateTime.Now,
+                WagePercentage = Medal.WagePercentage
 
             };
-            await _context.Medals.AddAsync(MedalAdding , cancellation);
+            await _context.Medals.AddAsync(MedalAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -40,13 +42,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return await _context.Medals.FirstOrDefaultAsync(m => m.MedalId == id, cancellation);
 
         }
-        public async Task UpdateMedal(Medal Medal , CancellationToken cancellation)
+        public async Task UpdateMedal(Medal Medal, CancellationToken cancellation)
         {
             Medal? changeMedal = await _context.Medals.FirstOrDefaultAsync(c => c.MedalId == Medal.MedalId, cancellation);
             if (changeMedal != null)
             {
                 changeMedal.MedalType = Medal.MedalType;
-                changeMedal.Wage = Medal.Wage;
+                changeMedal.WagePercentage = Medal.WagePercentage;
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -55,10 +57,11 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task DeleteMedal(int id, CancellationToken cancellation)
         {
-            Medal? removingMedal = await _context.Medals.FirstOrDefaultAsync(c => c.MedalId == id , cancellation);
+            Medal? removingMedal = await _context.Medals.FirstOrDefaultAsync(c => c.MedalId == id, cancellation);
             if (removingMedal != null)
             {
                 removingMedal.IsDeleted = true;
+                removingMedal.DeleteTime = DateTime.Now;
             }
             await _context.SaveChangesAsync(cancellation);
         }

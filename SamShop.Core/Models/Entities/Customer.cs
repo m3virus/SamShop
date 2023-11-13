@@ -7,35 +7,27 @@ public partial class Customer
 {
     public int CustomerId { get; set; }
 
-    public string FirstName { get; set; } = null!;
-
-    public string LastName { get; set; } = null!;
-
-    public string UserName { get; set; } = null!;
-
     public decimal Wallet { get; set; }
-
-    public string PasswordHash { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
-
-    public string Phone { get; set; } = null!;
 
     public int? PictureId { get; set; }
 
-    public int AddressId { get; set; }
+    public int AppUserId { get; set; }
 
     public bool IsDeleted { get; set; }
 
-    public virtual Address Address { get; set; } = null!;
+    public DateTime? DeleteTime { get; set; }
+    
+    public DateTime CreateTime { get; set; }
 
-    public virtual ICollection<AuctionOffer> AuctionOffers { get; set; } = new List<AuctionOffer>();
+    public virtual ICollection<AddressCustomer> AddressCustomers { get; set; }
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
 
-    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public virtual ICollection<Cart> Carts { get; set; } 
+
+    public virtual Comment Comment { get; set; } 
 
     public virtual Picture? Picture { get; set; }
 
-    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
+    public virtual AppUser? AppUser { get; set; }
 }

@@ -7,19 +7,7 @@ public partial class Seller
 {
     public int SellerId { get; set; }
 
-    public string UserName { get; set; } = null!;
-
-    public string FirstName { get; set; } = null!;
-
-    public string LastName { get; set; } = null!;
-
     public decimal Wallet { get; set; }
-
-    public string Password { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
-
-    public string Phone { get; set; } = null!;
 
     public int BoothId { get; set; }
 
@@ -29,15 +17,24 @@ public partial class Seller
 
     public int AddressId { get; set; }
 
+    public int AppUserId { get; set; }
+
     public bool IsDeleted { get; set; }
 
-    public virtual Address Address { get; set; } = null!;
+    public DateTime? DeleteTime { get; set; }
 
-    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+    public DateTime CreateTime { get; set; }
 
-    public virtual Booth Booth { get; set; } = null!;
+    public virtual Address Address { get; set; } 
 
-    public virtual Medal Medal { get; set; } = null!;
+    public virtual ICollection<Auction> Auctions { get; set; } 
 
+    public virtual Booth Booth { get; set; } 
+
+    public virtual Medal Medal { get; set; } 
     public virtual Picture? Picture { get; set; }
+
+    public virtual AppUser? AppUser { get; set; }
+
+    public virtual Wage Wage { get; set; } 
 }

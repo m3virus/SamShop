@@ -7,11 +7,15 @@ public partial class Medal
 {
     public int MedalId { get; set; }
 
-    public string MedalType { get; set; } = null!;
+    public string MedalType { get; set; }
 
     public bool IsDeleted { get; set; }
 
-    public decimal Wage { get; set; }
+    public decimal WagePercentage { get; set; }
 
-    public virtual ICollection<Seller> Sellers { get; set; } = new List<Seller>();
+    public DateTime? DeleteTime { get; set; }
+
+    public DateTime CreateTime { get; set; }
+
+    public virtual Seller Seller { get; set; } 
 }

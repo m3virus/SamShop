@@ -7,7 +7,7 @@ public partial class Product
 {
     public int ProductId { get; set; }
 
-    public string ProductName { get; set; } = null!;
+    public string ProductName { get; set; } 
 
     public int CategoryId { get; set; }
 
@@ -23,15 +23,21 @@ public partial class Product
 
     public int Amount { get; set; }
 
-    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+    public DateTime AddTime { get; set; }
 
-    public virtual Booth Booth { get; set; } = null!;
+    public DateTime? DeleteTime { get; set; }
 
-    public virtual Category Category { get; set; } = null!;
+    public virtual ICollection<Auction> Auctions { get; set; } 
 
-    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public virtual Booth Booth { get; set; } 
 
-    public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
+    public virtual Category Category { get; set; } 
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    public virtual ICollection<Comment> Comments { get; set; }
+
+    public virtual ICollection<Picture> Pictures { get; set; } 
+
+    public virtual ICollection<ProductCart> ProductCarts { get; set; } 
+
+    public virtual Wage Wage { get; set; } 
 }

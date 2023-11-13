@@ -22,22 +22,45 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AddressCustomer", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
-                    b.Property<int>("AddressId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.HasKey("AddressId", "CustomerId");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex(new[] { "CustomerId" }, "IX_AddressCustomer_CustomerId");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("AddressCustomer", (string)null);
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<int>");
+
+                    b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,9 +74,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -62,7 +84,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,9 +98,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -87,22 +108,19 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -111,33 +129,53 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 3
+                        });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -145,21 +183,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ProductCart", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductId", "CartId");
-
-                    b.HasIndex(new[] { "CartId" }, "IX_ProductCart_CartId");
-
-                    b.ToTable("ProductCart", (string)null);
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Address", b =>
@@ -172,36 +195,35 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("Alley")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExtraPart")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PostCode")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AddressId");
 
-                    b.ToTable("Address", (string)null);
+                    b.ToTable("Addresses");
 
                     b.HasData(
                         new
@@ -210,6 +232,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 1",
                             City = "City 1",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "1000",
                             State = "State 1",
                             Street = "street 1"
@@ -220,6 +243,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 2",
                             City = "City 2",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "2000",
                             State = "State 2",
                             Street = "street 2"
@@ -230,6 +254,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 3",
                             City = "City 3",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "3000",
                             State = "State 3",
                             Street = "street 3"
@@ -240,6 +265,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 4",
                             City = "City 4",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "4000",
                             State = "State 4",
                             Street = "street 4"
@@ -250,6 +276,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 5",
                             City = "City 5",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "5000",
                             State = "State 5",
                             Street = "street 5"
@@ -260,6 +287,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 6",
                             City = "City 6",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "6000",
                             State = "State 6",
                             Street = "street 6"
@@ -270,6 +298,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 7",
                             City = "City 7",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "7000",
                             State = "State 7",
                             Street = "street 7"
@@ -280,6 +309,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 8",
                             City = "City 8",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "8000",
                             State = "State 8",
                             Street = "street 8"
@@ -290,6 +320,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 9",
                             City = "City 9",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "9000",
                             State = "State 9",
                             Street = "street 9"
@@ -300,6 +331,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 10",
                             City = "City 10",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "10000",
                             State = "State 10",
                             Street = "street 10"
@@ -310,6 +342,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 11",
                             City = "City 11",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "11000",
                             State = "State 11",
                             Street = "street 11"
@@ -320,6 +353,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 12",
                             City = "City 12",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "12000",
                             State = "State 12",
                             Street = "street 12"
@@ -330,6 +364,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 13",
                             City = "City 13",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "13000",
                             State = "State 13",
                             Street = "street 13"
@@ -340,6 +375,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 14",
                             City = "City 14",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "14000",
                             State = "State 14",
                             Street = "street 14"
@@ -350,6 +386,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 15",
                             City = "City 15",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "15000",
                             State = "State 15",
                             Street = "street 15"
@@ -360,6 +397,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 16",
                             City = "City 16",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "16000",
                             State = "State 16",
                             Street = "street 16"
@@ -370,6 +408,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 17",
                             City = "City 17",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "17000",
                             State = "State 17",
                             Street = "street 17"
@@ -380,6 +419,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 18",
                             City = "City 18",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "18000",
                             State = "State 18",
                             Street = "street 18"
@@ -390,6 +430,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 19",
                             City = "City 19",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "19000",
                             State = "State 19",
                             Street = "street 19"
@@ -400,6 +441,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 20",
                             City = "City 20",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "20000",
                             State = "State 20",
                             Street = "street 20"
@@ -410,6 +452,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 21",
                             City = "City 21",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "21000",
                             State = "State 21",
                             Street = "street 21"
@@ -420,6 +463,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 22",
                             City = "City 22",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "22000",
                             State = "State 22",
                             Street = "street 22"
@@ -430,6 +474,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 23",
                             City = "City 23",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "23000",
                             State = "State 23",
                             Street = "street 23"
@@ -440,6 +485,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 24",
                             City = "City 24",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "24000",
                             State = "State 24",
                             Street = "street 24"
@@ -450,6 +496,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 25",
                             City = "City 25",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "25000",
                             State = "State 25",
                             Street = "street 25"
@@ -460,6 +507,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 26",
                             City = "City 26",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "26000",
                             State = "State 26",
                             Street = "street 26"
@@ -470,6 +518,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 27",
                             City = "City 27",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "27000",
                             State = "State 27",
                             Street = "street 27"
@@ -480,6 +529,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 28",
                             City = "City 28",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "28000",
                             State = "State 28",
                             Street = "street 28"
@@ -490,6 +540,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 29",
                             City = "City 29",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "29000",
                             State = "State 29",
                             Street = "street 29"
@@ -500,6 +551,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 30",
                             City = "City 30",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "30000",
                             State = "State 30",
                             Street = "street 30"
@@ -510,6 +562,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 31",
                             City = "City 31",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "31000",
                             State = "State 31",
                             Street = "street 31"
@@ -520,6 +573,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 32",
                             City = "City 32",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "32000",
                             State = "State 32",
                             Street = "street 32"
@@ -530,6 +584,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 33",
                             City = "City 33",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "33000",
                             State = "State 33",
                             Street = "street 33"
@@ -540,6 +595,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 34",
                             City = "City 34",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "34000",
                             State = "State 34",
                             Street = "street 34"
@@ -550,6 +606,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 35",
                             City = "City 35",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "35000",
                             State = "State 35",
                             Street = "street 35"
@@ -560,6 +617,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 36",
                             City = "City 36",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "36000",
                             State = "State 36",
                             Street = "street 36"
@@ -570,6 +628,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 37",
                             City = "City 37",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "37000",
                             State = "State 37",
                             Street = "street 37"
@@ -580,6 +639,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 38",
                             City = "City 38",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "38000",
                             State = "State 38",
                             Street = "street 38"
@@ -590,6 +650,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 39",
                             City = "City 39",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "39000",
                             State = "State 39",
                             Street = "street 39"
@@ -600,6 +661,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 40",
                             City = "City 40",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "40000",
                             State = "State 40",
                             Street = "street 40"
@@ -610,6 +672,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 41",
                             City = "City 41",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "41000",
                             State = "State 41",
                             Street = "street 41"
@@ -620,6 +683,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 42",
                             City = "City 42",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "42000",
                             State = "State 42",
                             Street = "street 42"
@@ -630,6 +694,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 43",
                             City = "City 43",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "43000",
                             State = "State 43",
                             Street = "street 43"
@@ -640,6 +705,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 44",
                             City = "City 44",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "44000",
                             State = "State 44",
                             Street = "street 44"
@@ -650,6 +716,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 45",
                             City = "City 45",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "45000",
                             State = "State 45",
                             Street = "street 45"
@@ -660,6 +727,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 46",
                             City = "City 46",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "46000",
                             State = "State 46",
                             Street = "street 46"
@@ -670,6 +738,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 47",
                             City = "City 47",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "47000",
                             State = "State 47",
                             Street = "street 47"
@@ -680,6 +749,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 48",
                             City = "City 48",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "48000",
                             State = "State 48",
                             Street = "street 48"
@@ -690,6 +760,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 49",
                             City = "City 49",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "49000",
                             State = "State 49",
                             Street = "street 49"
@@ -700,6 +771,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 50",
                             City = "City 50",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "50000",
                             State = "State 50",
                             Street = "street 50"
@@ -710,6 +782,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 51",
                             City = "City 51",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "51000",
                             State = "State 51",
                             Street = "street 51"
@@ -720,10 +793,34 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             Alley = "alley 52",
                             City = "City 52",
                             ExtraPart = "level 1",
+                            IsDeleted = false,
                             PostCode = "52000",
                             State = "State 52",
                             Street = "street 52"
                         });
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AddressCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("AddressCustomers");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Admin", b =>
@@ -737,100 +834,59 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("PictureId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Wallet")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("AdminId");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "AddressId" }, "IX_Admin_AddressId");
-
-                    b.HasIndex(new[] { "PictureId" }, "IX_Admin_PictureId");
-
-                    b.ToTable("Admin", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            AdminId = 1,
-                            AddressId = 1,
-                            AppUserId = "1",
-                            FirstName = "StringSample 1",
-                            LastName = "StringSample 1",
-                            Wallet = 100m
-                        },
-                        new
-                        {
-                            AdminId = 2,
-                            AddressId = 2,
-                            AppUserId = "2",
-                            FirstName = "StringSample 2",
-                            LastName = "StringSample 2",
-                            Wallet = 200m
-                        });
-                });
-
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
+                    b.HasIndex("PictureId")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasFilter("[PictureId] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -839,8 +895,16 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -889,6 +953,88 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b7e22f77-eda9-4a8f-9385-97440a3d2dd5",
+                            Email = "m3virus@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Mohammadhasan",
+                            IsDeleted = false,
+                            LastName = "Yazdani",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "M3VIRUS",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKA3h8GR7sZc+/6KGfTKoBvbZiGKEWENrUXnoUsLU6lY+uZNngF099wUDj6TkAlfpQ==",
+                            PhoneNumber = "0912345678",
+                            PhoneNumberConfirmed = true,
+                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6189),
+                            SecurityStamp = "ada52434-8c0a-46b4-ad4f-6adc11d10126",
+                            TwoFactorEnabled = false,
+                            UserName = "M3Virus"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "57c2412a-e220-4231-a928-bf2491d16e96",
+                            Email = "Customer2@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "cust",
+                            IsDeleted = false,
+                            LastName = "omer",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "CUSTOMER1",
+                            PasswordHash = "AQAAAAIAAYagAAAAECHKkjlGJ6zbUcvATZ48Lz0Amr3xG+QZq1V4o2suY9TGXs1NkCYV3fbZtyZ3qpJKHw==",
+                            PhoneNumber = "0912345678",
+                            PhoneNumberConfirmed = true,
+                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6216),
+                            SecurityStamp = "7e7ef5cf-2de1-4bdd-93ec-1f48b1252796",
+                            TwoFactorEnabled = false,
+                            UserName = "customer1"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2865ebe4-3fc4-4640-8c25-0de333121f49",
+                            Email = "Customer2@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "cust",
+                            IsDeleted = false,
+                            LastName = "omer",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "CUSTOMER2",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJlbWxnuuIiUXJ1KqAdS7W778i2iUImfjx8A+lbpbUrqxz/GV0Ov7BN5a4Z7cQLnnA==",
+                            PhoneNumber = "0912345678",
+                            PhoneNumberConfirmed = true,
+                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6231),
+                            SecurityStamp = "08b6ac3e-ffe9-41a8-b3de-52357847c1e0",
+                            TwoFactorEnabled = false,
+                            UserName = "customer2"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "673d09c7-7399-41d9-83c5-03eeec517448",
+                            Email = "Seller1@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "sel",
+                            IsDeleted = false,
+                            LastName = "ler",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "Seller1",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOEI7iAxmyQALHUAwr53MOK7FJZnuOR5YcZ69zObM37p+igxpHLYlGx1hN8gbEHuEw==",
+                            PhoneNumber = "0912345678",
+                            PhoneNumberConfirmed = true,
+                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6237),
+                            SecurityStamp = "b8aa1d5f-eb7e-483c-9fd0-974da6cc644f",
+                            TwoFactorEnabled = false,
+                            UserName = "Seller1"
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Auction", b =>
@@ -901,11 +1047,13 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("AuctionTitle")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancelTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
@@ -920,32 +1068,19 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("TheLowestOffer")
-                        .HasColumnType("money");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.HasKey("AuctionId");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Auction_ProductId");
+                    b.HasIndex("ProductId");
 
-                    b.HasIndex(new[] { "SellerId" }, "IX_Auction_SellerId");
+                    b.HasIndex("SellerId");
 
-                    b.ToTable("Auction", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            AuctionId = 1,
-                            AuctionTitle = "AuctionSample 1",
-                            EndTime = new DateTime(2023, 11, 6, 0, 0, 0, 0, DateTimeKind.Local),
-                            IsAccepted = false,
-                            IsCanceled = false,
-                            ProductId = 1,
-                            SellerId = 1,
-                            StartTime = new DateTime(2023, 11, 6, 22, 44, 17, 108, DateTimeKind.Local).AddTicks(8070),
-                            TheLowestOffer = 10m
-                        });
+                    b.ToTable("Auctions");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AuctionOffer", b =>
@@ -959,6 +1094,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("AuctionId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CancelTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -968,45 +1106,20 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<bool>("IsCanceled")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("OfferTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("OfferValue")
-                        .HasColumnType("money");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.HasKey("OfferId");
 
-                    b.HasIndex(new[] { "AuctionId" }, "IX_AuctionOffer_AuctionId");
+                    b.HasIndex("AuctionId");
 
-                    b.HasIndex(new[] { "CustomerId" }, "IX_AuctionOffer_CustomerId");
+                    b.HasIndex("CustomerId");
 
-                    b.ToTable("AuctionOffer", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            OfferId = 1,
-                            AuctionId = 1,
-                            CustomerId = 1,
-                            IsAccept = false,
-                            IsCanceled = false,
-                            OfferValue = 11m
-                        },
-                        new
-                        {
-                            OfferId = 2,
-                            AuctionId = 1,
-                            CustomerId = 2,
-                            IsAccept = false,
-                            IsCanceled = false,
-                            OfferValue = 22m
-                        },
-                        new
-                        {
-                            OfferId = 3,
-                            AuctionId = 1,
-                            CustomerId = 3,
-                            IsAccept = false,
-                            IsCanceled = false,
-                            OfferValue = 33m
-                        });
+                    b.ToTable("AuctionOffers");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Booth", b =>
@@ -1022,76 +1135,23 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("BoothName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("BoothId");
 
-                    b.HasIndex(new[] { "AddressId" }, "IX_Booth_AddressId");
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
-                    b.ToTable("Booth", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            BoothId = 1,
-                            AddressId = 43,
-                            BoothName = "booth 1"
-                        },
-                        new
-                        {
-                            BoothId = 2,
-                            AddressId = 44,
-                            BoothName = "booth 2"
-                        },
-                        new
-                        {
-                            BoothId = 3,
-                            AddressId = 45,
-                            BoothName = "booth 3"
-                        },
-                        new
-                        {
-                            BoothId = 4,
-                            AddressId = 46,
-                            BoothName = "booth 4"
-                        },
-                        new
-                        {
-                            BoothId = 5,
-                            AddressId = 47,
-                            BoothName = "booth 5"
-                        },
-                        new
-                        {
-                            BoothId = 6,
-                            AddressId = 48,
-                            BoothName = "booth 6"
-                        },
-                        new
-                        {
-                            BoothId = 7,
-                            AddressId = 49,
-                            BoothName = "booth 7"
-                        },
-                        new
-                        {
-                            BoothId = 8,
-                            AddressId = 50,
-                            BoothName = "booth 8"
-                        },
-                        new
-                        {
-                            BoothId = 9,
-                            AddressId = 51,
-                            BoothName = "booth 9"
-                        },
-                        new
-                        {
-                            BoothId = 10,
-                            AddressId = 52,
-                            BoothName = "booth 10"
-                        });
+                    b.ToTable("Booths");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Cart", b =>
@@ -1101,6 +1161,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+
+                    b.Property<DateTime?>("CancelTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -1112,95 +1178,14 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("money");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.HasKey("CartId");
 
-                    b.HasIndex(new[] { "CustomerId" }, "IX_Cart_CustomerId");
+                    b.HasIndex("CustomerId");
 
-                    b.ToTable("Cart", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CartId = 1,
-                            CustomerId = 1,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 2,
-                            CustomerId = 2,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 3,
-                            CustomerId = 3,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 4,
-                            CustomerId = 4,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 5,
-                            CustomerId = 5,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 6,
-                            CustomerId = 6,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 7,
-                            CustomerId = 7,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 8,
-                            CustomerId = 8,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 9,
-                            CustomerId = 9,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            CartId = 10,
-                            CustomerId = 10,
-                            IsCanceled = false,
-                            IsPayed = false,
-                            TotalPrice = 0m
-                        });
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Category", b =>
@@ -1213,8 +1198,13 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
@@ -1224,79 +1214,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            CategoryName = "category 1",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            CategoryName = "category 2",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            CategoryName = "category 3",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            CategoryName = "category 4",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 5,
-                            CategoryName = "category 5",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 6,
-                            CategoryName = "category 6",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 7,
-                            CategoryName = "category 7",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 8,
-                            CategoryName = "category 8",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 9,
-                            CategoryName = "category 9",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            CategoryId = 10,
-                            CategoryName = "category 10",
-                            IsAccepted = true,
-                            IsDeleted = false
-                        });
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Comment", b =>
@@ -1307,108 +1225,36 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
+                    b.Property<DateTime>("CommentDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("ntext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex(new[] { "CustomerId" }, "IX_Comments_CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Comments_ProductId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Comments");
-
-                    b.HasData(
-                        new
-                        {
-                            CommentId = 1,
-                            CustomerId = 1,
-                            IsAccepted = true,
-                            Message = "Message 1",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 2,
-                            CustomerId = 2,
-                            IsAccepted = true,
-                            Message = "Message 2",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 3,
-                            CustomerId = 3,
-                            IsAccepted = true,
-                            Message = "Message 3",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 4,
-                            CustomerId = 4,
-                            IsAccepted = true,
-                            Message = "Message 4",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 5,
-                            CustomerId = 5,
-                            IsAccepted = true,
-                            Message = "Message 5",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 6,
-                            CustomerId = 6,
-                            IsAccepted = true,
-                            Message = "Message 6",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 7,
-                            CustomerId = 7,
-                            IsAccepted = true,
-                            Message = "Message 7",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 8,
-                            CustomerId = 8,
-                            IsAccepted = true,
-                            Message = "Message 8",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 9,
-                            CustomerId = 9,
-                            IsAccepted = true,
-                            Message = "Message 9",
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            CommentId = 10,
-                            CustomerId = 10,
-                            IsAccepted = true,
-                            Message = "Message 10",
-                            ProductId = 1
-                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Customer", b =>
@@ -1419,312 +1265,35 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
-                    b.Property<int>("AddressId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("FIrstName");
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("PictureId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Wallet")
-                        .HasColumnType("money");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.HasKey("CustomerId");
 
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "AddressId" }, "IX_Customer_AddressId");
+                    b.HasIndex("PictureId")
+                        .IsUnique()
+                        .HasFilter("[PictureId] IS NOT NULL");
 
-                    b.HasIndex(new[] { "PictureId" }, "IX_Customer_PictureId");
-
-                    b.ToTable("Customer", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CustomerId = 1,
-                            AddressId = 13,
-                            AppUserId = "13",
-                            FirstName = "CustomerSample 1",
-                            LastName = "CustomerSample 1",
-                            Wallet = 100m
-                        },
-                        new
-                        {
-                            CustomerId = 2,
-                            AddressId = 14,
-                            AppUserId = "14",
-                            FirstName = "CustomerSample 2",
-                            LastName = "CustomerSample 2",
-                            Wallet = 200m
-                        },
-                        new
-                        {
-                            CustomerId = 3,
-                            AddressId = 15,
-                            AppUserId = "15",
-                            FirstName = "CustomerSample 3",
-                            LastName = "CustomerSample 3",
-                            Wallet = 300m
-                        },
-                        new
-                        {
-                            CustomerId = 4,
-                            AddressId = 16,
-                            AppUserId = "16",
-                            FirstName = "CustomerSample 4",
-                            LastName = "CustomerSample 4",
-                            Wallet = 400m
-                        },
-                        new
-                        {
-                            CustomerId = 5,
-                            AddressId = 17,
-                            AppUserId = "17",
-                            FirstName = "CustomerSample 5",
-                            LastName = "CustomerSample 5",
-                            Wallet = 500m
-                        },
-                        new
-                        {
-                            CustomerId = 6,
-                            AddressId = 18,
-                            AppUserId = "18",
-                            FirstName = "CustomerSample 6",
-                            LastName = "CustomerSample 6",
-                            Wallet = 600m
-                        },
-                        new
-                        {
-                            CustomerId = 7,
-                            AddressId = 19,
-                            AppUserId = "19",
-                            FirstName = "CustomerSample 7",
-                            LastName = "CustomerSample 7",
-                            Wallet = 700m
-                        },
-                        new
-                        {
-                            CustomerId = 8,
-                            AddressId = 20,
-                            AppUserId = "20",
-                            FirstName = "CustomerSample 8",
-                            LastName = "CustomerSample 8",
-                            Wallet = 800m
-                        },
-                        new
-                        {
-                            CustomerId = 9,
-                            AddressId = 21,
-                            AppUserId = "21",
-                            FirstName = "CustomerSample 9",
-                            LastName = "CustomerSample 9",
-                            Wallet = 900m
-                        },
-                        new
-                        {
-                            CustomerId = 10,
-                            AddressId = 22,
-                            AppUserId = "22",
-                            FirstName = "CustomerSample 10",
-                            LastName = "CustomerSample 10",
-                            Wallet = 1000m
-                        },
-                        new
-                        {
-                            CustomerId = 11,
-                            AddressId = 23,
-                            AppUserId = "23",
-                            FirstName = "CustomerSample 11",
-                            LastName = "CustomerSample 11",
-                            Wallet = 1100m
-                        },
-                        new
-                        {
-                            CustomerId = 12,
-                            AddressId = 24,
-                            AppUserId = "24",
-                            FirstName = "CustomerSample 12",
-                            LastName = "CustomerSample 12",
-                            Wallet = 1200m
-                        },
-                        new
-                        {
-                            CustomerId = 13,
-                            AddressId = 25,
-                            AppUserId = "25",
-                            FirstName = "CustomerSample 13",
-                            LastName = "CustomerSample 13",
-                            Wallet = 1300m
-                        },
-                        new
-                        {
-                            CustomerId = 14,
-                            AddressId = 26,
-                            AppUserId = "26",
-                            FirstName = "CustomerSample 14",
-                            LastName = "CustomerSample 14",
-                            Wallet = 1400m
-                        },
-                        new
-                        {
-                            CustomerId = 15,
-                            AddressId = 27,
-                            AppUserId = "27",
-                            FirstName = "CustomerSample 15",
-                            LastName = "CustomerSample 15",
-                            Wallet = 1500m
-                        },
-                        new
-                        {
-                            CustomerId = 16,
-                            AddressId = 28,
-                            AppUserId = "28",
-                            FirstName = "CustomerSample 16",
-                            LastName = "CustomerSample 16",
-                            Wallet = 1600m
-                        },
-                        new
-                        {
-                            CustomerId = 17,
-                            AddressId = 29,
-                            AppUserId = "29",
-                            FirstName = "CustomerSample 17",
-                            LastName = "CustomerSample 17",
-                            Wallet = 1700m
-                        },
-                        new
-                        {
-                            CustomerId = 18,
-                            AddressId = 30,
-                            AppUserId = "30",
-                            FirstName = "CustomerSample 18",
-                            LastName = "CustomerSample 18",
-                            Wallet = 1800m
-                        },
-                        new
-                        {
-                            CustomerId = 19,
-                            AddressId = 31,
-                            AppUserId = "31",
-                            FirstName = "CustomerSample 19",
-                            LastName = "CustomerSample 19",
-                            Wallet = 1900m
-                        },
-                        new
-                        {
-                            CustomerId = 20,
-                            AddressId = 32,
-                            AppUserId = "32",
-                            FirstName = "CustomerSample 20",
-                            LastName = "CustomerSample 20",
-                            Wallet = 2000m
-                        },
-                        new
-                        {
-                            CustomerId = 21,
-                            AddressId = 33,
-                            AppUserId = "33",
-                            FirstName = "CustomerSample 21",
-                            LastName = "CustomerSample 21",
-                            Wallet = 2100m
-                        },
-                        new
-                        {
-                            CustomerId = 22,
-                            AddressId = 34,
-                            AppUserId = "34",
-                            FirstName = "CustomerSample 22",
-                            LastName = "CustomerSample 22",
-                            Wallet = 2200m
-                        },
-                        new
-                        {
-                            CustomerId = 23,
-                            AddressId = 35,
-                            AppUserId = "35",
-                            FirstName = "CustomerSample 23",
-                            LastName = "CustomerSample 23",
-                            Wallet = 2300m
-                        },
-                        new
-                        {
-                            CustomerId = 24,
-                            AddressId = 36,
-                            AppUserId = "36",
-                            FirstName = "CustomerSample 24",
-                            LastName = "CustomerSample 24",
-                            Wallet = 2400m
-                        },
-                        new
-                        {
-                            CustomerId = 25,
-                            AddressId = 37,
-                            AppUserId = "37",
-                            FirstName = "CustomerSample 25",
-                            LastName = "CustomerSample 25",
-                            Wallet = 2500m
-                        },
-                        new
-                        {
-                            CustomerId = 26,
-                            AddressId = 38,
-                            AppUserId = "38",
-                            FirstName = "CustomerSample 26",
-                            LastName = "CustomerSample 26",
-                            Wallet = 2600m
-                        },
-                        new
-                        {
-                            CustomerId = 27,
-                            AddressId = 39,
-                            AppUserId = "39",
-                            FirstName = "CustomerSample 27",
-                            LastName = "CustomerSample 27",
-                            Wallet = 2700m
-                        },
-                        new
-                        {
-                            CustomerId = 28,
-                            AddressId = 40,
-                            AppUserId = "40",
-                            FirstName = "CustomerSample 28",
-                            LastName = "CustomerSample 28",
-                            Wallet = 2800m
-                        },
-                        new
-                        {
-                            CustomerId = 29,
-                            AddressId = 41,
-                            AppUserId = "41",
-                            FirstName = "CustomerSample 29",
-                            LastName = "CustomerSample 29",
-                            Wallet = 2900m
-                        },
-                        new
-                        {
-                            CustomerId = 30,
-                            AddressId = 42,
-                            AppUserId = "42",
-                            FirstName = "CustomerSample 30",
-                            LastName = "CustomerSample 30",
-                            Wallet = 3000m
-                        });
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Medal", b =>
@@ -1735,92 +1304,26 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedalId"));
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("MedalType")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Wage")
-                        .HasColumnType("decimal(18, 0)");
+                    b.Property<decimal>("WagePercentage")
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.HasKey("MedalId");
 
-                    b.ToTable("Medal", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            MedalId = 1,
-                            IsDeleted = false,
-                            MedalType = "Medal 1",
-                            Wage = 5m
-                        },
-                        new
-                        {
-                            MedalId = 2,
-                            IsDeleted = false,
-                            MedalType = "Medal 2",
-                            Wage = 10m
-                        },
-                        new
-                        {
-                            MedalId = 3,
-                            IsDeleted = false,
-                            MedalType = "Medal 3",
-                            Wage = 15m
-                        },
-                        new
-                        {
-                            MedalId = 4,
-                            IsDeleted = false,
-                            MedalType = "Medal 4",
-                            Wage = 20m
-                        },
-                        new
-                        {
-                            MedalId = 5,
-                            IsDeleted = false,
-                            MedalType = "Medal 5",
-                            Wage = 25m
-                        },
-                        new
-                        {
-                            MedalId = 6,
-                            IsDeleted = false,
-                            MedalType = "Medal 6",
-                            Wage = 30m
-                        },
-                        new
-                        {
-                            MedalId = 7,
-                            IsDeleted = false,
-                            MedalType = "Medal 7",
-                            Wage = 35m
-                        },
-                        new
-                        {
-                            MedalId = 8,
-                            IsDeleted = false,
-                            MedalType = "Medal 8",
-                            Wage = 40m
-                        },
-                        new
-                        {
-                            MedalId = 9,
-                            IsDeleted = false,
-                            MedalType = "Medal 9",
-                            Wage = 45m
-                        },
-                        new
-                        {
-                            MedalId = 10,
-                            IsDeleted = false,
-                            MedalType = "Medal 10",
-                            Wage = 50m
-                        });
+                    b.ToTable("Medals");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Picture", b =>
@@ -1831,6 +1334,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PictureId"));
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1839,86 +1348,13 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("URL");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PictureId");
 
-                    b.HasIndex(new[] { "ProductId" }, "IX_Picture_ProductId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("Picture", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            PictureId = 1,
-                            IsDeleted = false,
-                            ProductId = 1,
-                            Url = "Url 1"
-                        },
-                        new
-                        {
-                            PictureId = 2,
-                            IsDeleted = false,
-                            ProductId = 2,
-                            Url = "Url 2"
-                        },
-                        new
-                        {
-                            PictureId = 3,
-                            IsDeleted = false,
-                            ProductId = 3,
-                            Url = "Url 3"
-                        },
-                        new
-                        {
-                            PictureId = 4,
-                            IsDeleted = false,
-                            ProductId = 4,
-                            Url = "Url 4"
-                        },
-                        new
-                        {
-                            PictureId = 5,
-                            IsDeleted = false,
-                            ProductId = 5,
-                            Url = "Url 5"
-                        },
-                        new
-                        {
-                            PictureId = 6,
-                            IsDeleted = false,
-                            ProductId = 6,
-                            Url = "Url 6"
-                        },
-                        new
-                        {
-                            PictureId = 7,
-                            IsDeleted = false,
-                            ProductId = 7,
-                            Url = "Url 7"
-                        },
-                        new
-                        {
-                            PictureId = 8,
-                            IsDeleted = false,
-                            ProductId = 8,
-                            Url = "Url 8"
-                        },
-                        new
-                        {
-                            PictureId = 9,
-                            IsDeleted = false,
-                            ProductId = 9,
-                            Url = "Url 9"
-                        },
-                        new
-                        {
-                            PictureId = 10,
-                            IsDeleted = false,
-                            ProductId = 10,
-                            Url = "Url 10"
-                        });
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Product", b =>
@@ -1929,6 +1365,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
+                    b.Property<DateTime>("AddTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
@@ -1937,6 +1376,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
@@ -1948,142 +1390,43 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("money");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex(new[] { "BoothId" }, "IX_Product_BoothId");
+                    b.HasIndex("BoothId");
 
-                    b.HasIndex(new[] { "CategoryId" }, "IX_Product_CategoryId");
+                    b.HasIndex("CategoryId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Products");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            Amount = 5,
-                            BoothId = 1,
-                            CategoryId = 1,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 6m,
-                            ProductName = "Product 1"
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            Amount = 5,
-                            BoothId = 2,
-                            CategoryId = 2,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 12m,
-                            ProductName = "Product 2"
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            Amount = 5,
-                            BoothId = 3,
-                            CategoryId = 3,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 18m,
-                            ProductName = "Product 3"
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            Amount = 5,
-                            BoothId = 4,
-                            CategoryId = 4,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 24m,
-                            ProductName = "Product 4"
-                        },
-                        new
-                        {
-                            ProductId = 5,
-                            Amount = 5,
-                            BoothId = 5,
-                            CategoryId = 5,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 30m,
-                            ProductName = "Product 5"
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            Amount = 5,
-                            BoothId = 6,
-                            CategoryId = 6,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 36m,
-                            ProductName = "Product 6"
-                        },
-                        new
-                        {
-                            ProductId = 7,
-                            Amount = 5,
-                            BoothId = 7,
-                            CategoryId = 7,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 42m,
-                            ProductName = "Product 7"
-                        },
-                        new
-                        {
-                            ProductId = 8,
-                            Amount = 5,
-                            BoothId = 8,
-                            CategoryId = 8,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 48m,
-                            ProductName = "Product 8"
-                        },
-                        new
-                        {
-                            ProductId = 9,
-                            Amount = 5,
-                            BoothId = 9,
-                            CategoryId = 9,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 54m,
-                            ProductName = "Product 9"
-                        },
-                        new
-                        {
-                            ProductId = 10,
-                            Amount = 5,
-                            BoothId = 10,
-                            CategoryId = 10,
-                            IsAccepted = true,
-                            IsAvailable = true,
-                            IsDeleted = false,
-                            Price = 60m,
-                            ProductName = "Product 10"
-                        });
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.ProductCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductCarts");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Seller", b =>
@@ -2097,22 +1440,20 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("BoothId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("MedalId")
                         .HasColumnType("int");
@@ -2121,241 +1462,206 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Wallet")
-                        .HasColumnType("money");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.HasKey("SellerId");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "AddressId" }, "IX_Seller_AddressId");
+                    b.HasIndex("BoothId")
+                        .IsUnique();
 
-                    b.HasIndex(new[] { "BoothId" }, "IX_Seller_BoothId");
+                    b.HasIndex("MedalId")
+                        .IsUnique();
 
-                    b.HasIndex(new[] { "MedalId" }, "IX_Seller_MedalId");
+                    b.HasIndex("PictureId")
+                        .IsUnique()
+                        .HasFilter("[PictureId] IS NOT NULL");
 
-                    b.HasIndex(new[] { "PictureId" }, "IX_Seller_PictureId");
+                    b.ToTable("Sellers");
+                });
 
-                    b.ToTable("Seller", (string)null);
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Wage", b =>
+                {
+                    b.Property<int>("WageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WageId"));
+
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PayTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SellerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WageId");
+
+                    b.HasIndex("AdminId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.HasIndex("SellerId")
+                        .IsUnique();
+
+                    b.ToTable("Wages");
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<int>");
+
+                    b.Property<string>("Discription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("AppRole");
 
                     b.HasData(
                         new
                         {
-                            SellerId = 1,
-                            AddressId = 3,
-                            AppUserId = "3",
-                            BoothId = 1,
-                            FirstName = "SellerSample 1",
-                            LastName = "SellerSample 1",
-                            MedalId = 1,
-                            Wallet = 100m
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN",
+                            Discription = "Access to Everything"
                         },
                         new
                         {
-                            SellerId = 2,
-                            AddressId = 4,
-                            AppUserId = "4",
-                            BoothId = 2,
-                            FirstName = "SellerSample 2",
-                            LastName = "SellerSample 2",
-                            MedalId = 1,
-                            Wallet = 200m
+                            Id = 2,
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER",
+                            Discription = "Access to Products"
                         },
                         new
                         {
-                            SellerId = 3,
-                            AddressId = 5,
-                            AppUserId = "5",
-                            BoothId = 3,
-                            FirstName = "SellerSample 3",
-                            LastName = "SellerSample 3",
-                            MedalId = 1,
-                            Wallet = 300m
-                        },
-                        new
-                        {
-                            SellerId = 4,
-                            AddressId = 6,
-                            AppUserId = "6",
-                            BoothId = 4,
-                            FirstName = "SellerSample 4",
-                            LastName = "SellerSample 4",
-                            MedalId = 1,
-                            Wallet = 400m
-                        },
-                        new
-                        {
-                            SellerId = 5,
-                            AddressId = 7,
-                            AppUserId = "7",
-                            BoothId = 5,
-                            FirstName = "SellerSample 5",
-                            LastName = "SellerSample 5",
-                            MedalId = 1,
-                            Wallet = 500m
-                        },
-                        new
-                        {
-                            SellerId = 6,
-                            AddressId = 8,
-                            AppUserId = "8",
-                            BoothId = 6,
-                            FirstName = "SellerSample 6",
-                            LastName = "SellerSample 6",
-                            MedalId = 1,
-                            Wallet = 600m
-                        },
-                        new
-                        {
-                            SellerId = 7,
-                            AddressId = 9,
-                            AppUserId = "9",
-                            BoothId = 7,
-                            FirstName = "SellerSample 7",
-                            LastName = "SellerSample 7",
-                            MedalId = 1,
-                            Wallet = 700m
-                        },
-                        new
-                        {
-                            SellerId = 8,
-                            AddressId = 10,
-                            AppUserId = "10",
-                            BoothId = 8,
-                            FirstName = "SellerSample 8",
-                            LastName = "SellerSample 8",
-                            MedalId = 1,
-                            Wallet = 800m
-                        },
-                        new
-                        {
-                            SellerId = 9,
-                            AddressId = 11,
-                            AppUserId = "11",
-                            BoothId = 9,
-                            FirstName = "SellerSample 9",
-                            LastName = "SellerSample 9",
-                            MedalId = 1,
-                            Wallet = 900m
-                        },
-                        new
-                        {
-                            SellerId = 10,
-                            AddressId = 12,
-                            AppUserId = "12",
-                            BoothId = 10,
-                            FirstName = "SellerSample 10",
-                            LastName = "SellerSample 10",
-                            MedalId = 1,
-                            Wallet = 1000m
+                            Id = 3,
+                            Name = "Seller",
+                            NormalizedName = "SELLER",
+                            Discription = "Access to Selling Things"
                         });
                 });
 
-            modelBuilder.Entity("AddressCustomer", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Address", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
                         .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AddressCustomer", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
+                        .WithMany("AddressCustomers")
                         .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_AddressCustomer_Address");
+                        .HasConstraintName("FK_Address_AddressCustomer");
 
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Customer", null)
-                        .WithMany()
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Customer", "Customer")
+                        .WithMany("AddressCustomers")
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_AddressCustomer_Customer1");
-                });
+                        .HasConstraintName("FK_Customer_AddressCustomer");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    b.Navigation("Address");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProductCart", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Cart", null)
-                        .WithMany()
-                        .HasForeignKey("CartId")
-                        .IsRequired()
-                        .HasConstraintName("FK_ProductCart_Cart");
-
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .IsRequired()
-                        .HasConstraintName("FK_ProductCart_Product");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Admin", b =>
                 {
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
-                        .WithMany("Admins")
-                        .HasForeignKey("AddressId")
+                        .WithOne("Admin")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Admin", "AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Admin_Address");
+                        .HasConstraintName("FK_Address_Admin");
 
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "User")
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "Appuser")
                         .WithOne("Admin")
                         .HasForeignKey("SamShop.Domain.Core.Models.Entities.Admin", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_AppUser_Admin");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Picture", "Picture")
-                        .WithMany("Admins")
-                        .HasForeignKey("PictureId")
-                        .HasConstraintName("FK_Admin_Picture1");
+                        .WithOne("Admin")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Admin", "PictureId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_Picture_Admin");
 
                     b.Navigation("Address");
 
-                    b.Navigation("Picture");
+                    b.Navigation("Appuser");
 
-                    b.Navigation("User");
+                    b.Navigation("Picture");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Auction", b =>
@@ -2363,14 +1669,16 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Product", "Product")
                         .WithMany("Auctions")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Auction_Product1");
+                        .HasConstraintName("Fk_Product_Auction");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Seller", "Seller")
                         .WithMany("Auctions")
                         .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Auction_Seller");
+                        .HasConstraintName("Fk_Seller_Auction");
 
                     b.Navigation("Product");
 
@@ -2382,14 +1690,16 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Auction", "Auction")
                         .WithMany("AuctionOffers")
                         .HasForeignKey("AuctionId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_AuctionOffer_Auction");
+                        .HasConstraintName("Fk_Auction_AuctionOffer");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Customer", "Customer")
                         .WithMany("AuctionOffers")
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_AuctionOffer_Customer");
+                        .HasConstraintName("Fk_Customer_AuctionOffer");
 
                     b.Navigation("Auction");
 
@@ -2399,10 +1709,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Booth", b =>
                 {
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
-                        .WithMany("Booths")
-                        .HasForeignKey("AddressId")
+                        .WithOne("Booth")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Booth", "AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Booth_Address");
+                        .HasConstraintName("Fk_Address_Booth");
 
                     b.Navigation("Address");
                 });
@@ -2412,8 +1723,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Customer", "Customer")
                         .WithMany("Carts")
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_Cart_Customer1");
+                        .HasConstraintName("Fk_Customer_Cart");
 
                     b.Navigation("Customer");
                 });
@@ -2421,16 +1733,18 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Comment", b =>
                 {
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Customer", "Customer")
-                        .WithMany("Comments")
-                        .HasForeignKey("CustomerId")
+                        .WithOne("Comment")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Comment", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_Comments_Customer");
+                        .HasConstraintName("Fk_Customer_Comment");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Comments_Product1");
+                        .HasConstraintName("Fk_Product_Comment");
 
                     b.Navigation("Customer");
 
@@ -2439,28 +1753,22 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Customer", b =>
                 {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
-                        .WithMany("CustomersNavigation")
-                        .HasForeignKey("AddressId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Customer_Address");
-
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "User")
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "AppUser")
                         .WithOne("Customer")
                         .HasForeignKey("SamShop.Domain.Core.Models.Entities.Customer", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_AppUser_Customer");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Picture", "Picture")
-                        .WithMany("Customers")
-                        .HasForeignKey("PictureId")
-                        .HasConstraintName("FK_Customer_Picture1");
+                        .WithOne("Customer")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Customer", "PictureId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_Picture_Customer");
 
-                    b.Navigation("Address");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Picture");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Picture", b =>
@@ -2468,7 +1776,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Product", "Product")
                         .WithMany("Pictures")
                         .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_Picture_Product");
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_Product_Picture");
 
                     b.Navigation("Product");
                 });
@@ -2478,71 +1787,134 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Booth", "Booth")
                         .WithMany("Products")
                         .HasForeignKey("BoothId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Product_Booth");
+                        .HasConstraintName("Fk_Booth_Product");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Product_Category1");
+                        .HasConstraintName("Fk_Category_Product");
 
                     b.Navigation("Booth");
 
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.ProductCart", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Cart", "Cart")
+                        .WithMany("ProductCarts")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_Cart_ProductCart");
+
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Product", "Product")
+                        .WithMany("ProductCarts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_Product_ProductCart");
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Seller", b =>
                 {
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
-                        .WithMany("Sellers")
-                        .HasForeignKey("AddressId")
+                        .WithOne("Seller")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Seller_Address");
+                        .HasConstraintName("Fk_Address_Seller");
 
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "User")
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppUser", "AppUser")
                         .WithOne("Seller")
                         .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_AppUser_Seller");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Booth", "Booth")
-                        .WithMany("Sellers")
-                        .HasForeignKey("BoothId")
+                        .WithOne("Seller")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "BoothId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Seller_Booth");
+                        .HasConstraintName("Fk_Booth_Seller");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Medal", "Medal")
-                        .WithMany("Sellers")
-                        .HasForeignKey("MedalId")
+                        .WithOne("Seller")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "MedalId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Seller_Medal");
+                        .HasConstraintName("Fk_Medal_Seller");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Picture", "Picture")
-                        .WithMany("Sellers")
-                        .HasForeignKey("PictureId")
-                        .HasConstraintName("FK_Seller_Picture1");
+                        .WithOne("Seller")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "PictureId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_Picture_Seller");
 
                     b.Navigation("Address");
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Booth");
 
                     b.Navigation("Medal");
 
                     b.Navigation("Picture");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Wage", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Admin", "Admin")
+                        .WithMany("Wages")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_Admin_Wage");
+
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Product", "Product")
+                        .WithOne("Wage")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Wage", "ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_Product_Wage");
+
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Seller", "Seller")
+                        .WithOne("Wage")
+                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Wage", "SellerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("Fk_Seller_Wage");
+
+                    b.Navigation("Admin");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Seller");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Address", b =>
                 {
-                    b.Navigation("Admins");
+                    b.Navigation("AddressCustomers");
 
-                    b.Navigation("Booths");
+                    b.Navigation("Admin");
 
-                    b.Navigation("CustomersNavigation");
+                    b.Navigation("Booth");
 
-                    b.Navigation("Sellers");
+                    b.Navigation("Seller");
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Admin", b =>
+                {
+                    b.Navigation("Wages");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppUser", b =>
@@ -2563,7 +1935,13 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 {
                     b.Navigation("Products");
 
-                    b.Navigation("Sellers");
+                    b.Navigation("Seller")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Cart", b =>
+                {
+                    b.Navigation("ProductCarts");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Category", b =>
@@ -2573,25 +1951,29 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Customer", b =>
                 {
+                    b.Navigation("AddressCustomers");
+
                     b.Navigation("AuctionOffers");
 
                     b.Navigation("Carts");
 
-                    b.Navigation("Comments");
+                    b.Navigation("Comment")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Medal", b =>
                 {
-                    b.Navigation("Sellers");
+                    b.Navigation("Seller")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Picture", b =>
                 {
-                    b.Navigation("Admins");
+                    b.Navigation("Admin");
 
-                    b.Navigation("Customers");
+                    b.Navigation("Customer");
 
-                    b.Navigation("Sellers");
+                    b.Navigation("Seller");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Product", b =>
@@ -2601,11 +1983,19 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Pictures");
+
+                    b.Navigation("ProductCarts");
+
+                    b.Navigation("Wage")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Seller", b =>
                 {
                     b.Navigation("Auctions");
+
+                    b.Navigation("Wage")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -9,6 +9,5 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
         Task AddComment(Comment Comment , CancellationToken cancellation);
         Task UpdateComment(Comment Comment, CancellationToken cancellation);
         Task DeleteComment(int id , CancellationToken cancellation);
-        IEnumerable<Comment> GetCommentByAccepted();
     }
 }

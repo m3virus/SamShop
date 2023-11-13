@@ -14,16 +14,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddBooth(Booth Booth , CancellationToken cancellation)
+        public async Task AddBooth(Booth Booth, CancellationToken cancellation)
 
         {
             Booth BoothAdding = new Booth()
             {
                 BoothName = Booth.BoothName,
                 AddressId = Booth.AddressId,
+                CreateTime = DateTime.Now,
+                DeleteTime = null
 
             };
-            await _context.Booths.AddAsync(BoothAdding , cancellation) ;
+            await _context.Booths.AddAsync(BoothAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -34,7 +36,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Booth?> GetBoothById(int id , CancellationToken cancellation)
+        public async Task<Booth?> GetBoothById(int id, CancellationToken cancellation)
         {
             return await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id, cancellation);
 
@@ -45,20 +47,24 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             if (changeBooth != null)
             {
                 changeBooth.BoothName = Booth.BoothName;
+                changeBooth.AddressId = Booth.AddressId;
+                
             }
 
             await _context.SaveChangesAsync(cancellation);
         }
 
 
-        public async Task DeleteBooth(int id , CancellationToken cancellation)
+        public async Task DeleteBooth(int id, CancellationToken cancellation)
         {
             Booth? removingBooth = await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id, cancellation);
             if (removingBooth != null)
             {
-                _context.Remove(removingBooth);
+                removingBooth.IsDeleted = true;
+                removingBooth.DeleteTime = DateTime.Now;
             }
             await _context.SaveChangesAsync(cancellation);
         }
+        
     }
 }

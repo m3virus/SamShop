@@ -9,11 +9,17 @@ public partial class Booth
 
     public int AddressId { get; set; }
 
-    public string BoothName { get; set; } = null!;
+    public string BoothName { get; set; } 
 
-    public virtual Address Address { get; set; } = null!;
+    public DateTime CreateTime { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Seller> Sellers { get; set; } = new List<Seller>();
+    public DateTime? DeleteTime { get; set; }
+
+    public virtual Address Address { get; set; }
+
+    public virtual ICollection<Product> Products { get; set; }
+
+    public virtual Seller Seller { get; set; }
 }

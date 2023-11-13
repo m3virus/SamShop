@@ -20,7 +20,9 @@ namespace SamShop.Domain.Service
 
         public IEnumerable<Product> GetProductsByIsAccepted()
         {
-            return _productRepository.GetProductByAccepted();
+            var Products = _productRepository.GetAllProduct();
+
+            return Products.Where(c => c is { IsAccepted: false, IsDeleted: false });
         }
         public async Task ConfirmProduct(int productId, CancellationToken cancellation)
         {

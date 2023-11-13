@@ -13,9 +13,15 @@ public partial class Comment
 
     public bool IsAccepted { get; set; }
 
-    public string Message { get; set; } = null!;
+    public bool IsDeleted { get; set; }
 
-    public virtual Customer Customer { get; set; } = null!;
+    public string Message { get; set; }
 
-    public virtual Product Product { get; set; } = null!;
+    public DateTime? DeleteTime { get; set; }
+
+    public DateTime CommentDate { get; set; }
+
+    public virtual Customer Customer { get; set; } 
+
+    public virtual Product Product { get; set; } 
 }

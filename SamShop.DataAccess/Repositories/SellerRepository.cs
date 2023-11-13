@@ -14,26 +14,24 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddSeller(Seller Seller , CancellationToken cancellation)
+        public async Task AddSeller(Seller Seller, CancellationToken cancellation)
 
         {
             Seller SellerAdding = new Seller()
             {
-                UserName = Seller.UserName,
-                FirstName = Seller.FirstName,
-                LastName = Seller.LastName,
-                Phone = Seller.Phone,
-                Email = Seller.Email,
+                
                 Wallet = Seller.Wallet,
-                Password = Seller.Password,
                 PictureId = Seller.PictureId,
                 MedalId = Seller.MedalId,
                 BoothId = Seller.BoothId,
                 AddressId = Seller.AddressId,
-                IsDeleted = false
+                IsDeleted = false,
+                DeleteTime = null,
+                CreateTime = DateTime.Now
+                
 
             };
-            await _context.Sellers.AddAsync(SellerAdding , cancellation) ;
+            await _context.Sellers.AddAsync(SellerAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -44,25 +42,20 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Seller?> GetSellerById(int id , CancellationToken cancellation)
+        public async Task<Seller?> GetSellerById(int id, CancellationToken cancellation)
         {
             return await _context.Sellers.FirstOrDefaultAsync(s => s.SellerId == id, cancellation);
 
         }
 
-        public async Task UpdateSeller(Seller Seller , CancellationToken cancellation)
+        public async Task UpdateSeller(Seller Seller, CancellationToken cancellation)
         {
             Seller? changeSeller =
                 await _context.Sellers.FirstOrDefaultAsync(s => s.SellerId == Seller.SellerId, cancellation);
             if (changeSeller != null)
             {
-                changeSeller.UserName = Seller.UserName;
-                changeSeller.FirstName = Seller.FirstName;
-                changeSeller.LastName = Seller.LastName;
+                
                 changeSeller.Wallet = Seller.Wallet;
-                changeSeller.Password = Seller.Password;
-                changeSeller.Email = Seller.Email;
-                changeSeller.Phone = Seller.Phone;
                 changeSeller.BoothId = Seller.BoothId;
                 changeSeller.MedalId = Seller.MedalId;
                 changeSeller.PictureId = Seller.PictureId;
@@ -79,6 +72,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             if (removingSeller != null)
             {
                 removingSeller.IsDeleted = true;
+                removingSeller.DeleteTime = DateTime.Now;
             }
 
             await _context.SaveChangesAsync(cancellation);

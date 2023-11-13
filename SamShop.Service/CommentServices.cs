@@ -21,7 +21,9 @@ namespace SamShop.Domain.Service
 
         public IEnumerable<Comment> GetCommentsByIsAccepted()
         {
-            return _commentRepository.GetCommentByAccepted();
+            var Comments = _commentRepository.GetAllComment();
+
+            return Comments.Where(c => c is { IsAccepted: false, IsDeleted: false });
         }
         public async Task ConfirmComment(int commentId, CancellationToken cancellation)
         {

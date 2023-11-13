@@ -17,6 +17,10 @@ public partial class AuctionOffer
 
     public bool IsCanceled { get; set; }
 
+    public DateTime OfferTime { get; set; }
+
+    public DateTime? CancelTime { get; set; }
+
     public virtual Auction Auction { get; set; } = null!;
 
     public virtual Customer Customer { get; set; } = null!;

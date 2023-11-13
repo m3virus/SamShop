@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAuction(Auction Auction , CancellationToken cancellation)
+        public async Task AddAuction(Auction Auction, CancellationToken cancellation)
 
         {
             Auction AuctionAdding = new Auction()
@@ -26,10 +26,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 StartTime = Auction.StartTime,
                 EndTime = Auction.EndTime,
                 IsAccepted = false,
-                IsCanceled = false
+                IsCanceled = false,
+                CancelTime = null
+                
 
             };
-            await _context.Auctions.AddAsync(AuctionAdding , cancellation);
+            await _context.Auctions.AddAsync(AuctionAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -40,7 +42,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public async Task<Auction?> GetAuctionById(int id , CancellationToken cancellation)
+        public async Task<Auction?> GetAuctionById(int id, CancellationToken cancellation)
         {
             return await _context.Auctions.FirstOrDefaultAsync(a => a.AuctionId == id, cancellation);
 
@@ -61,7 +63,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         }
 
 
-        public async Task DeleteAuction(int id , CancellationToken cancellation)
+        public async Task DeleteAuction(int id, CancellationToken cancellation)
         {
             Auction? removingAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == id, cancellation);
             if (removingAuction != null)
@@ -70,10 +72,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             }
             await _context.SaveChangesAsync(cancellation);
         }
-
-        public IEnumerable<Auction> GetAuctionByAccepted()
-        {
-            return _context.Auctions.Include(p => p.Product).Where(p => p.Product.IsAccepted == false);
-        }
+        
     }
 }

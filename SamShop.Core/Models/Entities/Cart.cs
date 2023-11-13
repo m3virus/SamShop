@@ -15,7 +15,11 @@ public partial class Cart
 
     public bool IsPayed { get; set; }
 
-    public virtual Customer Customer { get; set; } = null!;
+    public DateTime CreateTime { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public DateTime? CancelTime { get; set; }
+
+    public virtual Customer Customer { get; set; }
+
+    public virtual ICollection<ProductCart> ProductCarts { get; set; }
 }

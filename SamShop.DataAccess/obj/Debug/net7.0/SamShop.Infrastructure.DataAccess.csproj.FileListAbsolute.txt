@@ -36,3 +36,22 @@ C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.DataAccess\obj\Debug\net7.0\r
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.pdb
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.DataAccess\obj\Debug\net7.0\ref\SamShop.Infrastructure.DataAccess.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\refint\SamShop.Infrastructure.DataAccess.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Infrastructure.DataAccess.deps.json
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Infrastructure.DataAccess.runtimeconfig.json
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Infrastructure.DataAccess.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Infrastructure.DataAccess.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\bin\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\SamShop.Infrastructure.DataAccess.genruntimeconfig.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.DataAccess\obj\Debug\net7.0\ref\SamShop.Infrastructure.DataAccess.dll

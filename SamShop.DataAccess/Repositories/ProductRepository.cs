@@ -9,7 +9,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
     {
         protected readonly SamShopDbContext _context;
 
-        public ProductRepository(SamShopDbContext context )
+        public ProductRepository(SamShopDbContext context)
         {
             _context = context;
         }
@@ -23,10 +23,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Price = Product.Price,
                 Amount = Product.Amount,
                 IsDeleted = false,
-                IsAvailable = true
+                IsAvailable = true,
+                AddTime = DateTime.Now,
+                DeleteTime = null
 
             };
-            await _context.Products.AddAsync(ProductAdding , cancellation);
+            await _context.Products.AddAsync(ProductAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -39,14 +41,14 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Product?> GetProductById(int id, CancellationToken cancellation)
         {
-            return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id , cancellation);
+            return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id, cancellation);
 
         }
 
         public async Task UpdateProduct(Product Product, CancellationToken cancellation)
         {
             Product? changeProduct =
-                await _context.Products.FirstOrDefaultAsync(p => p.ProductId == Product.ProductId , cancellation);
+                await _context.Products.FirstOrDefaultAsync(p => p.ProductId == Product.ProductId, cancellation);
             if (changeProduct != null)
             {
                 changeProduct.ProductName = Product.ProductName;
@@ -55,7 +57,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeProduct.Price = Product.Price;
                 changeProduct.IsAvailable = Product.IsAvailable;
                 changeProduct.IsAccepted = Product.IsAccepted;
-               
+
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -64,18 +66,16 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task DeleteProduct(int id, CancellationToken cancellation)
         {
-            Product? removingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id , cancellation);
+            Product? removingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id, cancellation);
             if (removingProduct != null)
             {
                 removingProduct.IsDeleted = true;
+                removingProduct.DeleteTime = DateTime.Now;
             }
 
             await _context.SaveChangesAsync(cancellation);
         }
 
-        public IEnumerable<Product> GetProductByAccepted()
-        {
-            return _context.Products.Where(a => a.IsAccepted == false && a.IsDeleted == false);
-        }
+        
     }
 }

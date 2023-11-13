@@ -30,3 +30,20 @@ C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Domain.Appservices\obj\Debug\
 C:\Users\Lenovo\Desktop\New folder\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\ref\SamShop.Domain.Appservices.dll
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Service.dll
 C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Service.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Appservices.deps.json
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Appservices.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Appservices.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Service.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Service.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\bin\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\refint\SamShop.Domain.Appservices.dll
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\SamShop.Domain.Appservices.pdb
+C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Domain.Appservices\obj\Debug\net7.0\ref\SamShop.Domain.Appservices.dll

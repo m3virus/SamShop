@@ -7,25 +7,26 @@ public partial class Address
 {
     public int AddressId { get; set; }
 
-    public string State { get; set; } = null!;
+    public string State { get; set; } 
 
-    public string City { get; set; } = null!;
+    public string City { get; set; } 
 
-    public string Street { get; set; } = null!;
+    public string Street { get; set; } 
 
-    public string Alley { get; set; } = null!;
+    public string Alley { get; set; }
 
-    public string ExtraPart { get; set; } = null!;
+    public string ExtraPart { get; set; }
 
-    public string PostCode { get; set; } = null!;
+    public string PostCode { get; set; } 
 
-    public virtual ICollection<Admin> Admins { get; set; } = new List<Admin>();
+    public bool IsDeleted { get; set; } 
 
-    public virtual ICollection<Booth> Booths { get; set; } = new List<Booth>();
+    public virtual Admin? Admin { get; set; }
+    public virtual ICollection<AddressCustomer>? AddressCustomers { get; set; }
+    public virtual Seller? Seller { get; set; } 
+    public virtual Booth? Booth { get; set; } 
 
-    public virtual ICollection<Customer> CustomersNavigation { get; set; } = new List<Customer>();
 
-    public virtual ICollection<Seller> Sellers { get; set; } = new List<Seller>();
 
-    public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
+
 }

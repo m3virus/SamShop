@@ -12,26 +12,24 @@ public partial class Admin
 
     public int? PictureId { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    public bool IsDeleted { get; set; }
 
-    public string LastName { get; set; } = null!;
+    public DateTime? DeleteTime { get; set; }
+
+    public DateTime CreateTime { get; set; }
+
+    public int AppUserId { get; set; }
 
     public decimal Wallet { get; set; }
 
-    public string UserName { get; set; } = null!;
-
-    [DataType(DataType.Password)]
-    public string Password { get; set; } = null!;
-
-    [DataType(DataType.EmailAddress)]
-    public string Email { get; set; } = null!;
-
-    [DataType(DataType.PhoneNumber)]
-    public string Phone { get; set; } = null!;
-
-    public bool IsDeleted { get; set; }
-
-    public virtual Address Address { get; set; } = null!;
+    public virtual Address Address { get; set; } 
 
     public virtual Picture? Picture { get; set; }
+
+    public virtual AppUser Appuser { get; set; } 
+
+    public virtual ICollection<Wage> Wages { get; set; } 
+
+
+
 }

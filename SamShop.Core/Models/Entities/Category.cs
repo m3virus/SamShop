@@ -7,11 +7,15 @@ public partial class Category
 {
     public int CategoryId { get; set; }
 
-    public string CategoryName { get; set; } = null!;
+    public string CategoryName { get; set; }
 
     public bool IsAccepted { get; set; }
 
     public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public DateTime? DeleteTime { get; set; }
+
+    public DateTime CreateTime { get; set; }
+
+    public virtual ICollection<Product> Products { get; set; } 
 }

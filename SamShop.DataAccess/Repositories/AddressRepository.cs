@@ -24,9 +24,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Street = address.Street,
                 Alley = address.Alley,
                 ExtraPart = address.ExtraPart,
-                PostCode = address.PostCode
+                PostCode = address.PostCode,
+                
             };
-            await _context.Addresses.AddAsync(addressAdding , cancellation);
+            await _context.Addresses.AddAsync(addressAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
         }
 
@@ -35,16 +36,16 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return _context.Addresses;
         }
 
-       
 
-        public async Task<Address?> GetAddressById(int id , CancellationToken cancellation)
+
+        public async Task<Address?> GetAddressById(int id, CancellationToken cancellation)
         {
             return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id, cancellation);
 
         }
-        public async Task UpdateAddress(Address address , CancellationToken cancellation)
+        public async Task UpdateAddress(Address address, CancellationToken cancellation)
         {
-            Address? changeAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == address.AddressId , cancellation);
+            Address? changeAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == address.AddressId, cancellation);
             if (changeAddress != null)
             {
                 changeAddress.State = address.State;
@@ -61,12 +62,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task DeleteAddress(int id, CancellationToken cancellation)
         {
-            Address? removingAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == id , cancellation);
+            Address? removingAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == id, cancellation);
             if (removingAddress != null)
             {
                 _context.Remove(removingAddress);
             }
             await _context.SaveChangesAsync(cancellation);
         }
+        
     }
 }
