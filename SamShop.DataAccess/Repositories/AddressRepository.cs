@@ -65,7 +65,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             Address? removingAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == id, cancellation);
             if (removingAddress != null)
             {
-                _context.Remove(removingAddress);
+                removingAddress.IsDeleted = true;
             }
             await _context.SaveChangesAsync(cancellation);
         }

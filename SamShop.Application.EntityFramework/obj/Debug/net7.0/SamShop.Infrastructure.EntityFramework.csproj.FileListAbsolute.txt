@@ -45,3 +45,5 @@ C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Application.EntityFramework\obj
 C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\ref\SamShop.Infrastructure.EntityFramework.dll
 C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.runtimeconfig.json
 C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.genruntimeconfig.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\bin\Debug\net7.0\SamShop.Infrastructure.EntityFramework.runtimeconfig.json
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Application.EntityFramework\obj\Debug\net7.0\SamShop.Infrastructure.EntityFramework.genruntimeconfig.cache

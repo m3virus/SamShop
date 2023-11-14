@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "t1a/PhwfqXNQwSjr5S9o7fmVRZ+ONJ9Eb1m08DCHvwT/cqoxPBrknqm6pIasp7rD7qzDCaEMZnIyvTUYQ1S+tw==",
+  "dgSpecHash": "kY66LYGH+TOOFQlkVpskhs+pMIjne3vHCSm9HNHBX7Vfiy3SAD6+KOJJG+26ibTBdUTi+sACWxG3/av0+qARQQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\DataBase\\SamShop\\SamShop.DataAccess\\SamShop.Infrastructure.DataAccess.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\BootcampProject\\SamShop\\SamShop.DataAccess\\SamShop.Infrastructure.DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

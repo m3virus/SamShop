@@ -22,44 +22,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<int>");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -867,6 +829,63 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Discription = "Access to Everything",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Discription = "Access to Products",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Discription = "Access to Selling Things",
+                            Name = "Seller",
+                            NormalizedName = "SELLER"
+                        });
+                });
+
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppUser", b =>
                 {
                     b.Property<int>("Id")
@@ -959,7 +978,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b7e22f77-eda9-4a8f-9385-97440a3d2dd5",
+                            ConcurrencyStamp = "2d5f8bdc-e78f-477b-ab58-b7d8a35f4ac7",
                             Email = "m3virus@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Mohammadhasan",
@@ -967,11 +986,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "Yazdani",
                             LockoutEnabled = false,
                             NormalizedUserName = "M3VIRUS",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKA3h8GR7sZc+/6KGfTKoBvbZiGKEWENrUXnoUsLU6lY+uZNngF099wUDj6TkAlfpQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPU9hZAweY1OPWh9f/nJ84fe9JYM5A5z0/PUm8jipmYrjDmXrRavqKTL/cjrB+E4xg==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6189),
-                            SecurityStamp = "ada52434-8c0a-46b4-ad4f-6adc11d10126",
+                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8028),
+                            SecurityStamp = "48d56213-b66b-4cbd-a1d0-88ba9e2750b4",
                             TwoFactorEnabled = false,
                             UserName = "M3Virus"
                         },
@@ -979,7 +998,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "57c2412a-e220-4231-a928-bf2491d16e96",
+                            ConcurrencyStamp = "bd2299bb-b9b1-4a41-a03c-d5c8c79df15d",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -987,11 +1006,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAECHKkjlGJ6zbUcvATZ48Lz0Amr3xG+QZq1V4o2suY9TGXs1NkCYV3fbZtyZ3qpJKHw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKRojCsoeApeNw0L+baW/Mc1FC79PWh+CqgCSnkCA9fQLhPE5IbkXkak4ASCcmVN+Q==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6216),
-                            SecurityStamp = "7e7ef5cf-2de1-4bdd-93ec-1f48b1252796",
+                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8054),
+                            SecurityStamp = "872bd289-135e-4b03-84f7-b946ebb3b666",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -999,7 +1018,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2865ebe4-3fc4-4640-8c25-0de333121f49",
+                            ConcurrencyStamp = "dabac918-515f-4ea6-8ef3-0e5654f35c6b",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -1007,11 +1026,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJlbWxnuuIiUXJ1KqAdS7W778i2iUImfjx8A+lbpbUrqxz/GV0Ov7BN5a4Z7cQLnnA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMUmKXdMXcberhHa02Cup6Spu9zLXW5QOiVjG7zoVFhpBL4yH9fzWi3ZTBu8M+Y0Jw==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6231),
-                            SecurityStamp = "08b6ac3e-ffe9-41a8-b3de-52357847c1e0",
+                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8065),
+                            SecurityStamp = "b3c9f43c-4ff6-4f49-8008-63a82601c5f7",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -1019,7 +1038,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "673d09c7-7399-41d9-83c5-03eeec517448",
+                            ConcurrencyStamp = "ad6038a9-b3df-4470-9acd-fccea818360b",
                             Email = "Seller1@mail.com",
                             EmailConfirmed = true,
                             FirstName = "sel",
@@ -1027,11 +1046,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "ler",
                             LockoutEnabled = false,
                             NormalizedUserName = "Seller1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOEI7iAxmyQALHUAwr53MOK7FJZnuOR5YcZ69zObM37p+igxpHLYlGx1hN8gbEHuEw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGcpUWHRIvTDlOK6lysA1YzkmGJREcqruOdHHDiH36mnm4HIr10JJ6m6PW+MgdfvjQ==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 6, 57, 59, 194, DateTimeKind.Local).AddTicks(6237),
-                            SecurityStamp = "b8aa1d5f-eb7e-483c-9fd0-974da6cc644f",
+                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8083),
+                            SecurityStamp = "7b47923c-1f0d-4e5f-8716-b44b7fb14bff",
                             TwoFactorEnabled = false,
                             UserName = "Seller1"
                         });
@@ -1529,43 +1548,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.ToTable("Wages");
                 });
 
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<int>");
-
-                    b.Property<string>("Discription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("AppRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Admin",
-                            NormalizedName = "ADMIN",
-                            Discription = "Access to Everything"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER",
-                            Discription = "Access to Products"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Seller",
-                            NormalizedName = "SELLER",
-                            Discription = "Access to Selling Things"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1592,7 +1577,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

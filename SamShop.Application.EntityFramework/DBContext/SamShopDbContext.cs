@@ -7,7 +7,7 @@ using SamShop.Infrastructure.EntityFramework.Configurations.IdentityDataSeeder;
 
 namespace SamShop.Infrastructure.EntityFramework.DBContext;
 
-public partial class SamShopDbContext : IdentityDbContext<AppUser , IdentityRole<int>, int>
+public partial class SamShopDbContext : IdentityDbContext<AppUser , AppRole, int>
 {
     public SamShopDbContext()
     {

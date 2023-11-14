@@ -1,5 +1,6 @@
 ﻿using SamShop.Domain.Core.Models.Entities;
 
+
 namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IAddressRepository

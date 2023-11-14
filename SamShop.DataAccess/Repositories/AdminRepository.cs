@@ -25,7 +25,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                IsDeleted = false,
                CreateTime = DateTime.Now,
                DeleteTime = null,
-               Wallet = Admin.Wallet
+               Wallet = Admin.Wallet,
             };
             await _context.Admins.AddAsync(adminAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
@@ -51,8 +51,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             if (changeAdmin != null)
             {
                 changeAdmin.Wallet = Admin.Wallet;
-                changeAdmin.AppUserId = Admin.AppUserId;
-                changeAdmin.AddressId = Admin.AddressId;
                 changeAdmin.PictureId = Admin.PictureId;
             }
 

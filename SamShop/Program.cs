@@ -17,9 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SamShopConnection") ?? throw new InvalidOperationException("Connection string 'SamShopConnection' not found.");
 builder.Services.AddDbContext<SamShopDbContext>(options => options.UseSqlServer(connectionString));
 
- builder.Services.AddIdentity<AppUser, IdentityRole<int>>()
+builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<SamShopDbContext>()
-    .AddDefaultTokenProviders().AddRoles<IdentityRole<int>>();
+    .AddDefaultTokenProviders().AddRoles<AppRole>();
 
 #endregion
 

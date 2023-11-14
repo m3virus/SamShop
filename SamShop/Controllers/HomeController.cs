@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SamShop.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using SamShop.Domain.Core.Interfaces.Repositories;
 
 namespace SamShop.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
