@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamShop.Domain.Core.Models.DTOs
+namespace SamShop.Domain.Core.Models.DtOs
 {
-    internal class AddressDTOs
+    internal class AddressDtOs
     {
     }
 }

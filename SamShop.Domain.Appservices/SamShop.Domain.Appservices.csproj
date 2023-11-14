@@ -10,4 +10,12 @@
     <ProjectReference Include="..\SamShop.Service\SamShop.Domain.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserAppServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
 </Project>
