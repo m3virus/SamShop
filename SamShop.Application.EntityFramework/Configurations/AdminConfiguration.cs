@@ -39,6 +39,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey<Admin>(a => a.AppUserId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_AppUser_Admin");
+            entity.HasData(GetAdmins());
 
             #endregion
 
@@ -46,7 +47,20 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
         }
         #region DataSeeder
 
-        
+        private List<Admin> GetAdmins()
+        {
+            return Enumerable.Range(1, 1).Select(index => new Admin
+            {
+                AdminId = index,
+                AddressId = 1,
+                PictureId = null,
+                Wallet = index * 100,
+                IsDeleted = false,
+                AppUserId = 1,
+                DeleteTime = null,
+                CreateTime = DateTime.Now
+            }).ToList();
+        }
 
         #endregion
     }

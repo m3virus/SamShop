@@ -26,7 +26,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
         private List<Address> GetAddresses()
         {
-            return Enumerable.Range(1, 52).Select(index => new Address
+            return Enumerable.Range(1, 10).Select(index => new Address
             {
                 AddressId = index,
                 State = $"State {index}",

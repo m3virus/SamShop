@@ -13,10 +13,11 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> entity)
         {
+            #region Entities
+
             entity.HasKey(c => c.CustomerId);
             entity.Property(c => c.CustomerId).ValueGeneratedOnAdd();
 
-            entity.Property(c => c.Wallet).HasPrecision(2);
 
 
             entity.HasOne(c => c.AppUser)
@@ -29,7 +30,32 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .WithOne(p => p.Customer)
                 .HasForeignKey<Customer>(c => c.PictureId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("Fk_Picture_Customer"); ;
+                .HasConstraintName("Fk_Picture_Customer");
+            entity.HasData(GetCustomer());
+
+            #endregion
+
         }
+
+        #region DataSeeder
+
+        private List<Customer> GetCustomer()
+        {
+            return Enumerable.Range(1, 2).Select(index => new Customer
+            {
+                CustomerId = index,
+                Wallet = index * 10,
+                PictureId = null,
+                AppUserId = index + 1,
+                IsDeleted = false,
+                DeleteTime = null,
+                CreateTime = DateTime.Now,
+                
+            }).ToList();
+
+        }
+
+        #endregion
+
     }
 }

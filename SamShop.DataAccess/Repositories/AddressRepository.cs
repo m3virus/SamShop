@@ -15,7 +15,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         }
 
         public async Task AddAddress(Address address, CancellationToken cancellation)
-
         {
             Address addressAdding = new Address()
             {

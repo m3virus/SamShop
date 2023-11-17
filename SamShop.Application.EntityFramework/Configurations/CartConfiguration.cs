@@ -13,15 +13,41 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Cart> entity)
         {
+            #region Entities
+
             entity.HasKey(c => c.CartId);
             entity.Property(c => c.CartId).ValueGeneratedOnAdd();
-
-            entity.Property(c => c.TotalPrice).HasPrecision(2);
 
             entity.HasOne(c => c.Customer)
                 .WithMany(c => c.Carts)
                 .HasForeignKey(c => c.CustomerId)
                 .HasConstraintName("Fk_Customer_Cart");
+            entity.HasData(GetCarts());
+
+            #endregion
+
         }
+
+        #region DataSeeder
+
+        private List<Cart> GetCarts()
+        {
+            return Enumerable.Range(1, 2).Select(index => new Cart
+            {
+                CartId = index,
+                TotalPrice = 0,
+                CustomerId = index,
+                IsCanceled = false,
+                CancelTime = null,
+                IsPayed = false,
+                CreateTime = DateTime.Now
+
+
+            }).ToList();
+
+        }
+
+        #endregion
+
     }
 }

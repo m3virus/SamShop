@@ -13,6 +13,8 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Booth> entity)
         {
+            #region Entities
+
             entity.HasKey(b => b.BoothId);
             entity.Property(b => b.BoothId).ValueGeneratedOnAdd();
 
@@ -21,7 +23,31 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey<Booth>(b => b.AddressId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Address_Booth");
+            entity.HasData(GetBooth());
+
+            #endregion
 
         }
+
+        #region DataSeeder
+
+        private List<Booth> GetBooth()
+        {
+            return Enumerable.Range(1, 2).Select(index => new Booth
+            {
+                BoothId = index,
+                BoothName = $"booth {index}",
+                AddressId = index + 4,
+                IsDeleted = false,
+                DeleteTime = null,
+                CreateTime = DateTime.Now,
+
+
+            }).ToList();
+        }
+
+        #endregion
+
+
     }
 }

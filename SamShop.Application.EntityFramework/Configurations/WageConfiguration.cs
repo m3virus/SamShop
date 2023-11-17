@@ -14,16 +14,17 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
         public void Configure(EntityTypeBuilder<Wage> entity)
         {
+            #region Entities
+
             entity.HasKey(w => w.WageId);
             entity.Property(w => w.WageId).ValueGeneratedOnAdd();
 
-            entity.Property(w => w.Price).HasPrecision(2);
 
             entity.HasOne(w => w.Product)
                 .WithOne(p => p.Wage)
                 .HasForeignKey<Wage>(w => w.ProductId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("Fk_Product_Wage"); 
+                .HasConstraintName("Fk_Product_Wage");
 
             entity.HasOne(w => w.Seller)
                 .WithOne(s => s.Wage)
@@ -36,6 +37,30 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey(w => w.AdminId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Admin_Wage");
+            entity.HasData(Getwages());
+
+            #endregion
+
         }
+
+        #region DataSeeder
+
+        private List<Wage> Getwages()
+        {
+            return Enumerable.Range(1, 1).Select(index => new Wage()
+            {
+                WageId = index,
+                IsDeleted = false,
+                DeleteTime = null,
+                PayTime = DateTime.Now,
+                AdminId = 1,
+                SellerId = index,
+                ProductId = index,
+                Price = index * 4
+
+            }).ToList();
+        }
+
+        #endregion
     }
 }

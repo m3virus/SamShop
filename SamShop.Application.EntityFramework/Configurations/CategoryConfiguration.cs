@@ -13,11 +13,34 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> entity)
         {
+            #region Entities
+
             entity.HasKey(c => c.CategoryId);
             entity.Property(c => c.CategoryId).ValueGeneratedOnAdd();
+            entity.HasData(GetCategories());
 
-            
+            #endregion
 
         }
+
+        #region DataSeeder
+
+        private List<Category> GetCategories()
+        {
+            return Enumerable.Range(1, 2).Select(index => new Category
+            {
+                CategoryId = index,
+                CategoryName = $"category {index}",
+                IsAccepted = true,
+                CreateTime = DateTime.Now,
+                DeleteTime = null,
+                IsDeleted = false,
+
+
+            }).ToList();
+
+        }
+
+        #endregion
     }
 }

@@ -13,6 +13,8 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<AddressCustomer> entity)
         {
+            #region entities
+
             entity.HasKey(ac => ac.Id);
             entity.Property(a => a.Id).ValueGeneratedOnAdd();
 
@@ -26,6 +28,25 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey(ac => ac.AddressId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Address_AddressCustomer");
+            entity.HasData(GetAddressCustomers());
+
+            #endregion
+
         }
+
+        #region DataSeeder
+
+        private List<AddressCustomer> GetAddressCustomers()
+        {
+            return Enumerable.Range(1, 2).Select(index => new AddressCustomer()
+            {
+                Id = index,
+                AddressId = index + 1,
+                CustomerId = index,
+            }).ToList();
+        }
+
+        #endregion
+
     }
 }

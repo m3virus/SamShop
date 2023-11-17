@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamShop.Domain.Service
 {
-    internal class AdminServices
+    public class AdminServices
     {
     }
 }

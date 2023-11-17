@@ -13,11 +13,13 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductCart> entity)
         {
+            #region Entities
+
             entity.HasKey(pc => pc.Id);
 
             entity.HasOne(pc => pc.Product)
                 .WithMany(p => p.ProductCarts)
-                .HasForeignKey(pc => pc.ProductId )
+                .HasForeignKey(pc => pc.ProductId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Product_ProductCart"); ;
 
@@ -25,7 +27,27 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .WithMany(p => p.ProductCarts)
                 .HasForeignKey(pc => pc.CartId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("Fk_Cart_ProductCart"); ;
+                .HasConstraintName("Fk_Cart_ProductCart");
+            entity.HasData(GetProductCarts());
+
+            #endregion
+
         }
+
+        #region DataSeeder
+
+        private List<ProductCart> GetProductCarts()
+        {
+            return Enumerable.Range(1, 2).Select(index => new ProductCart()
+            {
+                Id = index,
+                CartId = index,
+                ProductId = index,
+
+
+            }).ToList();
+        }
+
+        #endregion
     }
 }

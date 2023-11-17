@@ -13,6 +13,8 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Comment> entity)
         {
+            #region Entities
+
             entity.HasKey(c => c.CommentId);
 
 
@@ -26,8 +28,30 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey(c => c.ProductId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Product_Comment");
+            entity.HasData(GetComments());
+
+            #endregion
+
 
 
         }
+
+        #region DataSeeder
+
+        private List<Comment> GetComments()
+        {
+            return Enumerable.Range(1, 2).Select(index => new Comment
+            {
+                CommentId = index,
+                ProductId = 1,
+                CustomerId = index,
+                IsAccepted = true,
+                Message = $"Message {index}"
+
+            }).ToList();
+
+        }
+
+        #endregion
     }
 }

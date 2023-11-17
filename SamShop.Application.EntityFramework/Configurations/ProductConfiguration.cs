@@ -13,10 +13,11 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> entity)
         {
+            #region Entities
+
             entity.HasKey(p => p.ProductId);
             entity.Property(p => p.ProductId).ValueGeneratedOnAdd();
 
-            entity.Property(p => p.Price).HasPrecision(2);
 
             entity.HasOne(p => p.Category)
                 .WithMany(c => c.Products)
@@ -28,7 +29,35 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .WithMany(b => b.Products)
                 .HasForeignKey(p => p.BoothId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("Fk_Booth_Product"); ;
+                .HasConstraintName("Fk_Booth_Product");
+            entity.HasData(GetProducts());
+
+            #endregion
+
         }
+
+        #region DataSeeder
+
+        private List<Product> GetProducts()
+        {
+            return Enumerable.Range(1, 2).Select(index => new Product
+            {
+                ProductId = index,
+                ProductName = $"Product {index}",
+                CategoryId = index,
+                Price = index * 6,
+                BoothId = index,
+                IsDeleted = false,
+                DeleteTime = null,
+                AddTime = DateTime.Now,
+                IsAvailable = true,
+                IsAccepted = false,
+                Amount = 5,
+
+
+            }).ToList();
+        }
+
+        #endregion
     }
 }

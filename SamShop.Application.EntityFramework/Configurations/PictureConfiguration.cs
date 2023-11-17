@@ -13,16 +13,21 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Picture> entity)
         {
+            #region Entities
+
             entity.HasKey(p => p.PictureId);
             entity.Property(p => p.PictureId).ValueGeneratedOnAdd();
 
-          
+
 
             entity.HasOne(p => p.Product)
                 .WithMany(p => p.Pictures)
                 .HasForeignKey(p => p.ProductId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("Fk_Product_Picture"); ;
+                .HasConstraintName("Fk_Product_Picture");
+
+            #endregion
+
         }
     }
 }

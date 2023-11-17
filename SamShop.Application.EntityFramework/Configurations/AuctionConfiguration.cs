@@ -16,12 +16,6 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
             #region Entities
 
             entity.HasKey(a => a.AuctionId);
-            entity.Property(a => a.TheLowestOffer).HasPrecision(2);
-            
-
-            #endregion
-
-            #region Relations
 
             entity.HasOne(a => a.Product)
                 .WithMany(p => p.Auctions)
@@ -34,29 +28,31 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey(a => a.SellerId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Seller_Auction");
-            //entity.HasData(GetAuctions());
+            entity.HasData(GetAuctions());
             #endregion
+
         }
 
         #region DataSeeder
 
-        //private List<Auction> GetAuctions()
-        //{
-        //    return Enumerable.Range(1, 1).Select(index => new Auction
-        //    {
-        //        AuctionId = index,
-        //        ProductId = index,
-        //        AuctionTitle = $"AuctionSample {index}",
-        //        TheLowestOffer = index * 10,
-        //        SellerId = index,
-        //        IsAccepted = false,
-        //        IsCanceled = false,
-        //        StartTime = DateTime.Now,
-        //        EndTime = DateTime.Today,
+        private List<Auction> GetAuctions()
+        {
+            return Enumerable.Range(1, 1).Select(index => new Auction
+            {
+                AuctionId = index,
+                ProductId = index,
+                AuctionTitle = $"AuctionSample {index}",
+                TheLowestOffer = index * 10,
+                SellerId = index,
+                IsAccepted = false,
+                IsCanceled = false,
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Today,
 
-        //    }).ToList();
+            }).ToList();
 
-
-            #endregion
         }
+
+        #endregion
+    }
 }

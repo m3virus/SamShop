@@ -13,10 +13,11 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<AuctionOffer> entity)
         {
+            #region Entities
+
             entity.HasKey(a => a.OfferId);
             entity.Property(a => a.OfferId).ValueGeneratedOnAdd();
 
-            entity.Property(a => a.OfferValue).HasPrecision(2);
 
             entity.HasOne(a => a.Auction)
                 .WithMany(a => a.AuctionOffers)
@@ -29,19 +30,31 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Customer_AuctionOffer");
+            entity.HasData(GetAuctionOffers());
+
+            #endregion
+
         }
-        //private List<AuctionOffer> GetAuctionOffers()
-        //{
-        //    return Enumerable.Range(1, 3).Select(index => new AuctionOffer
-        //    {
-        //        OfferId = index,
-        //        AuctionId = 1,
-        //        OfferValue = index * 11,
-        //        CustomerId = index,
-        //        IsCanceled = false,
-        //        IsAccept = false,
+
+        #region DataSeeder
+
+        private List<AuctionOffer> GetAuctionOffers()
+        {
+            return Enumerable.Range(1, 2).Select(index => new AuctionOffer
+            {
+                OfferId = index,
+                AuctionId = 1,
+                OfferValue = index * 11,
+                CustomerId = index,
+                IsCanceled = false,
+                IsAccept = false,
 
 
-        //    }).ToList();
+
+            }).ToList();
         }
+
+        #endregion
+
+    }
 }

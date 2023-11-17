@@ -297,468 +297,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             PostCode = "10000",
                             State = "State 10",
                             Street = "street 10"
-                        },
-                        new
-                        {
-                            AddressId = 11,
-                            Alley = "alley 11",
-                            City = "City 11",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "11000",
-                            State = "State 11",
-                            Street = "street 11"
-                        },
-                        new
-                        {
-                            AddressId = 12,
-                            Alley = "alley 12",
-                            City = "City 12",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "12000",
-                            State = "State 12",
-                            Street = "street 12"
-                        },
-                        new
-                        {
-                            AddressId = 13,
-                            Alley = "alley 13",
-                            City = "City 13",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "13000",
-                            State = "State 13",
-                            Street = "street 13"
-                        },
-                        new
-                        {
-                            AddressId = 14,
-                            Alley = "alley 14",
-                            City = "City 14",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "14000",
-                            State = "State 14",
-                            Street = "street 14"
-                        },
-                        new
-                        {
-                            AddressId = 15,
-                            Alley = "alley 15",
-                            City = "City 15",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "15000",
-                            State = "State 15",
-                            Street = "street 15"
-                        },
-                        new
-                        {
-                            AddressId = 16,
-                            Alley = "alley 16",
-                            City = "City 16",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "16000",
-                            State = "State 16",
-                            Street = "street 16"
-                        },
-                        new
-                        {
-                            AddressId = 17,
-                            Alley = "alley 17",
-                            City = "City 17",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "17000",
-                            State = "State 17",
-                            Street = "street 17"
-                        },
-                        new
-                        {
-                            AddressId = 18,
-                            Alley = "alley 18",
-                            City = "City 18",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "18000",
-                            State = "State 18",
-                            Street = "street 18"
-                        },
-                        new
-                        {
-                            AddressId = 19,
-                            Alley = "alley 19",
-                            City = "City 19",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "19000",
-                            State = "State 19",
-                            Street = "street 19"
-                        },
-                        new
-                        {
-                            AddressId = 20,
-                            Alley = "alley 20",
-                            City = "City 20",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "20000",
-                            State = "State 20",
-                            Street = "street 20"
-                        },
-                        new
-                        {
-                            AddressId = 21,
-                            Alley = "alley 21",
-                            City = "City 21",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "21000",
-                            State = "State 21",
-                            Street = "street 21"
-                        },
-                        new
-                        {
-                            AddressId = 22,
-                            Alley = "alley 22",
-                            City = "City 22",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "22000",
-                            State = "State 22",
-                            Street = "street 22"
-                        },
-                        new
-                        {
-                            AddressId = 23,
-                            Alley = "alley 23",
-                            City = "City 23",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "23000",
-                            State = "State 23",
-                            Street = "street 23"
-                        },
-                        new
-                        {
-                            AddressId = 24,
-                            Alley = "alley 24",
-                            City = "City 24",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "24000",
-                            State = "State 24",
-                            Street = "street 24"
-                        },
-                        new
-                        {
-                            AddressId = 25,
-                            Alley = "alley 25",
-                            City = "City 25",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "25000",
-                            State = "State 25",
-                            Street = "street 25"
-                        },
-                        new
-                        {
-                            AddressId = 26,
-                            Alley = "alley 26",
-                            City = "City 26",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "26000",
-                            State = "State 26",
-                            Street = "street 26"
-                        },
-                        new
-                        {
-                            AddressId = 27,
-                            Alley = "alley 27",
-                            City = "City 27",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "27000",
-                            State = "State 27",
-                            Street = "street 27"
-                        },
-                        new
-                        {
-                            AddressId = 28,
-                            Alley = "alley 28",
-                            City = "City 28",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "28000",
-                            State = "State 28",
-                            Street = "street 28"
-                        },
-                        new
-                        {
-                            AddressId = 29,
-                            Alley = "alley 29",
-                            City = "City 29",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "29000",
-                            State = "State 29",
-                            Street = "street 29"
-                        },
-                        new
-                        {
-                            AddressId = 30,
-                            Alley = "alley 30",
-                            City = "City 30",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "30000",
-                            State = "State 30",
-                            Street = "street 30"
-                        },
-                        new
-                        {
-                            AddressId = 31,
-                            Alley = "alley 31",
-                            City = "City 31",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "31000",
-                            State = "State 31",
-                            Street = "street 31"
-                        },
-                        new
-                        {
-                            AddressId = 32,
-                            Alley = "alley 32",
-                            City = "City 32",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "32000",
-                            State = "State 32",
-                            Street = "street 32"
-                        },
-                        new
-                        {
-                            AddressId = 33,
-                            Alley = "alley 33",
-                            City = "City 33",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "33000",
-                            State = "State 33",
-                            Street = "street 33"
-                        },
-                        new
-                        {
-                            AddressId = 34,
-                            Alley = "alley 34",
-                            City = "City 34",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "34000",
-                            State = "State 34",
-                            Street = "street 34"
-                        },
-                        new
-                        {
-                            AddressId = 35,
-                            Alley = "alley 35",
-                            City = "City 35",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "35000",
-                            State = "State 35",
-                            Street = "street 35"
-                        },
-                        new
-                        {
-                            AddressId = 36,
-                            Alley = "alley 36",
-                            City = "City 36",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "36000",
-                            State = "State 36",
-                            Street = "street 36"
-                        },
-                        new
-                        {
-                            AddressId = 37,
-                            Alley = "alley 37",
-                            City = "City 37",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "37000",
-                            State = "State 37",
-                            Street = "street 37"
-                        },
-                        new
-                        {
-                            AddressId = 38,
-                            Alley = "alley 38",
-                            City = "City 38",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "38000",
-                            State = "State 38",
-                            Street = "street 38"
-                        },
-                        new
-                        {
-                            AddressId = 39,
-                            Alley = "alley 39",
-                            City = "City 39",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "39000",
-                            State = "State 39",
-                            Street = "street 39"
-                        },
-                        new
-                        {
-                            AddressId = 40,
-                            Alley = "alley 40",
-                            City = "City 40",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "40000",
-                            State = "State 40",
-                            Street = "street 40"
-                        },
-                        new
-                        {
-                            AddressId = 41,
-                            Alley = "alley 41",
-                            City = "City 41",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "41000",
-                            State = "State 41",
-                            Street = "street 41"
-                        },
-                        new
-                        {
-                            AddressId = 42,
-                            Alley = "alley 42",
-                            City = "City 42",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "42000",
-                            State = "State 42",
-                            Street = "street 42"
-                        },
-                        new
-                        {
-                            AddressId = 43,
-                            Alley = "alley 43",
-                            City = "City 43",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "43000",
-                            State = "State 43",
-                            Street = "street 43"
-                        },
-                        new
-                        {
-                            AddressId = 44,
-                            Alley = "alley 44",
-                            City = "City 44",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "44000",
-                            State = "State 44",
-                            Street = "street 44"
-                        },
-                        new
-                        {
-                            AddressId = 45,
-                            Alley = "alley 45",
-                            City = "City 45",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "45000",
-                            State = "State 45",
-                            Street = "street 45"
-                        },
-                        new
-                        {
-                            AddressId = 46,
-                            Alley = "alley 46",
-                            City = "City 46",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "46000",
-                            State = "State 46",
-                            Street = "street 46"
-                        },
-                        new
-                        {
-                            AddressId = 47,
-                            Alley = "alley 47",
-                            City = "City 47",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "47000",
-                            State = "State 47",
-                            Street = "street 47"
-                        },
-                        new
-                        {
-                            AddressId = 48,
-                            Alley = "alley 48",
-                            City = "City 48",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "48000",
-                            State = "State 48",
-                            Street = "street 48"
-                        },
-                        new
-                        {
-                            AddressId = 49,
-                            Alley = "alley 49",
-                            City = "City 49",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "49000",
-                            State = "State 49",
-                            Street = "street 49"
-                        },
-                        new
-                        {
-                            AddressId = 50,
-                            Alley = "alley 50",
-                            City = "City 50",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "50000",
-                            State = "State 50",
-                            Street = "street 50"
-                        },
-                        new
-                        {
-                            AddressId = 51,
-                            Alley = "alley 51",
-                            City = "City 51",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "51000",
-                            State = "State 51",
-                            Street = "street 51"
-                        },
-                        new
-                        {
-                            AddressId = 52,
-                            Alley = "alley 52",
-                            City = "City 52",
-                            ExtraPart = "level 1",
-                            IsDeleted = false,
-                            PostCode = "52000",
-                            State = "State 52",
-                            Street = "street 52"
                         });
                 });
 
@@ -783,6 +321,20 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("AddressCustomers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddressId = 2,
+                            CustomerId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 3,
+                            CustomerId = 2
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Admin", b =>
@@ -827,6 +379,17 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasFilter("[PictureId] IS NOT NULL");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            AdminId = 1,
+                            AddressId = 1,
+                            AppUserId = 1,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 610, DateTimeKind.Local).AddTicks(1271),
+                            IsDeleted = false,
+                            Wallet = 100m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AppRole", b =>
@@ -978,7 +541,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2d5f8bdc-e78f-477b-ab58-b7d8a35f4ac7",
+                            ConcurrencyStamp = "773e7556-e2a3-4c22-b260-527145cf614d",
                             Email = "m3virus@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Mohammadhasan",
@@ -986,11 +549,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "Yazdani",
                             LockoutEnabled = false,
                             NormalizedUserName = "M3VIRUS",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPU9hZAweY1OPWh9f/nJ84fe9JYM5A5z0/PUm8jipmYrjDmXrRavqKTL/cjrB+E4xg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHS+LxRw0bFq7mSclWzhwYZgzVlaPGTrPhABt/I8ANGPlOHI/7lLuqzcymCeZ7hgXA==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8028),
-                            SecurityStamp = "48d56213-b66b-4cbd-a1d0-88ba9e2750b4",
+                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9662),
+                            SecurityStamp = "108e4732-815b-44a2-8c2a-1524ead9c844",
                             TwoFactorEnabled = false,
                             UserName = "M3Virus"
                         },
@@ -998,7 +561,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd2299bb-b9b1-4a41-a03c-d5c8c79df15d",
+                            ConcurrencyStamp = "c8f33d5e-f8f5-48e7-a119-b897dda14fdb",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -1006,11 +569,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKRojCsoeApeNw0L+baW/Mc1FC79PWh+CqgCSnkCA9fQLhPE5IbkXkak4ASCcmVN+Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHx0b7Mr/Yco43C9NXuPDVvseFRI3BUA1FQbnZCvFsCGBAvWCcHhXnz/IYN88nZRUA==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8054),
-                            SecurityStamp = "872bd289-135e-4b03-84f7-b946ebb3b666",
+                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9690),
+                            SecurityStamp = "af1bf010-1ab1-4d6a-8042-8ee4235bfb27",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -1018,7 +581,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dabac918-515f-4ea6-8ef3-0e5654f35c6b",
+                            ConcurrencyStamp = "851f60bf-cc5b-4aeb-aa7e-f91a634681f1",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -1026,11 +589,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMUmKXdMXcberhHa02Cup6Spu9zLXW5QOiVjG7zoVFhpBL4yH9fzWi3ZTBu8M+Y0Jw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBr+LVWh6Zs5LNZPYmw4KqyO7fbkO+2hgyfVpYpxLdVzH2z0N19bTDbbRvGhnbKtRQ==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8065),
-                            SecurityStamp = "b3c9f43c-4ff6-4f49-8008-63a82601c5f7",
+                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9705),
+                            SecurityStamp = "7710cb9b-3d64-4bd3-91e1-eb992fe4d2da",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -1038,7 +601,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad6038a9-b3df-4470-9acd-fccea818360b",
+                            ConcurrencyStamp = "9c5a4bb4-9a89-4dff-b693-566ad4e8963c",
                             Email = "Seller1@mail.com",
                             EmailConfirmed = true,
                             FirstName = "sel",
@@ -1046,11 +609,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "ler",
                             LockoutEnabled = false,
                             NormalizedUserName = "Seller1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGcpUWHRIvTDlOK6lysA1YzkmGJREcqruOdHHDiH36mnm4HIr10JJ6m6PW+MgdfvjQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ6qZymXhSUzQm6kWX6L44tBrPdxgQHL6QC0wfq6IefZWVBv/jRYuMwGeSc+XSJ43g==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 13, 18, 32, 15, 552, DateTimeKind.Local).AddTicks(8083),
-                            SecurityStamp = "7b47923c-1f0d-4e5f-8716-b44b7fb14bff",
+                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9780),
+                            SecurityStamp = "d8afe73f-2643-407e-9538-aedb9085d212",
                             TwoFactorEnabled = false,
                             UserName = "Seller1"
                         });
@@ -1090,8 +653,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TheLowestOffer")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("AuctionId");
 
@@ -1100,6 +662,20 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("SellerId");
 
                     b.ToTable("Auctions");
+
+                    b.HasData(
+                        new
+                        {
+                            AuctionId = 1,
+                            AuctionTitle = "AuctionSample 1",
+                            EndTime = new DateTime(2023, 11, 17, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsAccepted = false,
+                            IsCanceled = false,
+                            ProductId = 1,
+                            SellerId = 1,
+                            StartTime = new DateTime(2023, 11, 17, 10, 13, 23, 609, DateTimeKind.Local).AddTicks(7687),
+                            TheLowestOffer = 10m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AuctionOffer", b =>
@@ -1129,8 +705,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("OfferValue")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OfferId");
 
@@ -1139,6 +714,28 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("AuctionOffers");
+
+                    b.HasData(
+                        new
+                        {
+                            OfferId = 1,
+                            AuctionId = 1,
+                            CustomerId = 1,
+                            IsAccept = false,
+                            IsCanceled = false,
+                            OfferTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferValue = 11m
+                        },
+                        new
+                        {
+                            OfferId = 2,
+                            AuctionId = 1,
+                            CustomerId = 2,
+                            IsAccept = false,
+                            IsCanceled = false,
+                            OfferTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferValue = 22m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Booth", b =>
@@ -1171,6 +768,24 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsUnique();
 
                     b.ToTable("Booths");
+
+                    b.HasData(
+                        new
+                        {
+                            BoothId = 1,
+                            AddressId = 5,
+                            BoothName = "booth 1",
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 610, DateTimeKind.Local).AddTicks(9810),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            BoothId = 2,
+                            AddressId = 6,
+                            BoothName = "booth 2",
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 610, DateTimeKind.Local).AddTicks(9816),
+                            IsDeleted = false
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Cart", b =>
@@ -1197,14 +812,33 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("CartId");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Carts");
+
+                    b.HasData(
+                        new
+                        {
+                            CartId = 1,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(3176),
+                            CustomerId = 1,
+                            IsCanceled = false,
+                            IsPayed = false,
+                            TotalPrice = 0m
+                        },
+                        new
+                        {
+                            CartId = 2,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(3180),
+                            CustomerId = 2,
+                            IsCanceled = false,
+                            IsPayed = false,
+                            TotalPrice = 0m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Category", b =>
@@ -1234,6 +868,24 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "category 1",
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(4157),
+                            IsAccepted = true,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "category 2",
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(4175),
+                            IsAccepted = true,
+                            IsDeleted = false
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Comment", b =>
@@ -1274,6 +926,28 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            CommentId = 1,
+                            CommentDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = 1,
+                            IsAccepted = true,
+                            IsDeleted = false,
+                            Message = "Message 1",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            CommentId = 2,
+                            CommentDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = 2,
+                            IsAccepted = true,
+                            IsDeleted = false,
+                            Message = "Message 2",
+                            ProductId = 1
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Customer", b =>
@@ -1300,8 +974,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Wallet")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("CustomerId");
 
@@ -1313,6 +986,24 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasFilter("[PictureId] IS NOT NULL");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerId = 1,
+                            AppUserId = 2,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(1922),
+                            IsDeleted = false,
+                            Wallet = 10m
+                        },
+                        new
+                        {
+                            CustomerId = 2,
+                            AppUserId = 3,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(1931),
+                            IsDeleted = false,
+                            Wallet = 20m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Medal", b =>
@@ -1337,12 +1028,21 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("WagePercentage")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("MedalId");
 
                     b.ToTable("Medals");
+
+                    b.HasData(
+                        new
+                        {
+                            MedalId = 1,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(7361),
+                            IsDeleted = false,
+                            MedalType = "Medal 1",
+                            WagePercentage = 4m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Picture", b =>
@@ -1409,8 +1109,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -1423,6 +1122,34 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            AddTime = new DateTime(2023, 11, 17, 10, 13, 23, 612, DateTimeKind.Local).AddTicks(4853),
+                            Amount = 5,
+                            BoothId = 1,
+                            CategoryId = 1,
+                            IsAccepted = false,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Price = 6m,
+                            ProductName = "Product 1"
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            AddTime = new DateTime(2023, 11, 17, 10, 13, 23, 612, DateTimeKind.Local).AddTicks(4861),
+                            Amount = 5,
+                            BoothId = 2,
+                            CategoryId = 2,
+                            IsAccepted = false,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Price = 12m,
+                            ProductName = "Product 2"
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.ProductCart", b =>
@@ -1446,6 +1173,20 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductCarts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CartId = 1,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CartId = 2,
+                            ProductId = 2
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Seller", b =>
@@ -1481,8 +1222,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Wallet")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SellerId");
 
@@ -1503,6 +1243,19 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasFilter("[PictureId] IS NOT NULL");
 
                     b.ToTable("Sellers");
+
+                    b.HasData(
+                        new
+                        {
+                            SellerId = 1,
+                            AddressId = 4,
+                            AppUserId = 4,
+                            BoothId = 1,
+                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 613, DateTimeKind.Local).AddTicks(592),
+                            IsDeleted = false,
+                            MedalId = 1,
+                            Wallet = 100m
+                        });
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Wage", b =>
@@ -1526,8 +1279,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -1546,6 +1298,18 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsUnique();
 
                     b.ToTable("Wages");
+
+                    b.HasData(
+                        new
+                        {
+                            WageId = 1,
+                            AdminId = 1,
+                            IsDeleted = false,
+                            PayTime = new DateTime(2023, 11, 17, 10, 13, 23, 613, DateTimeKind.Local).AddTicks(3263),
+                            Price = 4m,
+                            ProductId = 1,
+                            SellerId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

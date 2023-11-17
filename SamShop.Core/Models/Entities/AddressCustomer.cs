@@ -13,9 +13,7 @@ namespace SamShop.Domain.Core.Models.Entities
         public int AddressId { get; set; }
         public int CustomerId { get; set; }
 
-        public Address Address { get; set; } 
-        public Customer Customer { get; set; } 
-
-
+        public Address Address { get; set; }
+        public Customer Customer { get; set; }
     }
 }
