@@ -8,6 +8,8 @@ namespace SamShop.Domain.Core.Models.Entities
 {
     public class Wage
     {
+        #region Entities
+
         public int WageId { get; set; }
 
         public int ProductId { get; set; }
@@ -24,10 +26,17 @@ namespace SamShop.Domain.Core.Models.Entities
 
         public DateTime? DeleteTime { get; set; }
 
+        #endregion
+
+        #region Navigations
+
         public virtual Product Product { get; set; }
 
         public virtual Seller Seller { get; set; }
 
         public virtual Admin Admin { get; set; }
+
+        #endregion
+
     }
 }

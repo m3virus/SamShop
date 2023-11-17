@@ -5,6 +5,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Category
 {
+    #region Entities
+
     public int CategoryId { get; set; }
 
     public string CategoryName { get; set; }
@@ -17,5 +19,12 @@ public partial class Category
 
     public DateTime CreateTime { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } 
+    #endregion
+
+    #region Navigations
+
+    public virtual ICollection<Product> Products { get; set; }
+
+    #endregion
+
 }

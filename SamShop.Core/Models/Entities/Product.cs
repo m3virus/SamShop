@@ -5,9 +5,11 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Product
 {
+    #region Entities
+
     public int ProductId { get; set; }
 
-    public string ProductName { get; set; } 
+    public string ProductName { get; set; }
 
     public int CategoryId { get; set; }
 
@@ -27,17 +29,24 @@ public partial class Product
 
     public DateTime? DeleteTime { get; set; }
 
-    public virtual ICollection<Auction> Auctions { get; set; } 
+    #endregion
 
-    public virtual Booth Booth { get; set; } 
+    #region Navigation
 
-    public virtual Category Category { get; set; } 
+    public virtual ICollection<Auction> Auctions { get; set; }
+
+    public virtual Booth Booth { get; set; }
+
+    public virtual Category Category { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; }
 
-    public virtual ICollection<Picture> Pictures { get; set; } 
+    public virtual ICollection<Picture> Pictures { get; set; }
 
-    public virtual ICollection<ProductCart> ProductCarts { get; set; } 
+    public virtual ICollection<ProductCart> ProductCarts { get; set; }
 
-    public virtual Wage Wage { get; set; } 
+    public virtual Wage Wage { get; set; }
+
+    #endregion
+
 }

@@ -6,6 +6,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Admin
 {
+    #region Entities
+
     public int AdminId { get; set; }
 
     public int AddressId { get; set; }
@@ -22,13 +24,21 @@ public partial class Admin
 
     public decimal Wallet { get; set; }
 
-    public virtual Address Address { get; set; } 
+
+    #endregion
+
+    #region Navigations
+
+    public virtual Address Address { get; set; }
 
     public virtual Picture? Picture { get; set; }
 
-    public virtual AppUser Appuser { get; set; } 
+    public virtual AppUser Appuser { get; set; }
 
-    public virtual ICollection<Wage> Wages { get; set; } 
+    public virtual ICollection<Wage> Wages { get; set; }
+
+    #endregion
+
 
 
 

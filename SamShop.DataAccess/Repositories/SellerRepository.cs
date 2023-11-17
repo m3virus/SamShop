@@ -57,7 +57,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 
                 changeSeller.Wallet = Seller.Wallet;
                 changeSeller.BoothId = Seller.BoothId;
-                changeSeller.MedalId = Seller.MedalId;
+                changeSeller.MedalId = 1;
                 changeSeller.PictureId = Seller.PictureId;
                 changeSeller.AddressId = Seller.AddressId;
             }

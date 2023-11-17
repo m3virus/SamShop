@@ -10,7 +10,7 @@ namespace SamShop.Domain.Core.Interfaces.AppServices.UserAppServices
 {
     public interface IUserAppService
     {
-        Task <IdentityResult> Register (AppUser appUser, string password ,AppRole appRole , CancellationToken cancellation);
+        Task <IdentityResult> Register (AppUser appUser, string password ,string appRole , CancellationToken cancellation);
         Task<SignInResult> SignIn(AppUser appUser, string password , CancellationToken cancellation);
     }
 }

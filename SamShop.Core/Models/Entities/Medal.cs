@@ -5,6 +5,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Medal
 {
+    #region Entities
+
     public int MedalId { get; set; }
 
     public string MedalType { get; set; }
@@ -17,5 +19,12 @@ public partial class Medal
 
     public DateTime CreateTime { get; set; }
 
-    public virtual Seller Seller { get; set; } 
+    #endregion
+
+    #region Navigations
+
+    public virtual Seller Seller { get; set; }
+
+    #endregion
+
 }

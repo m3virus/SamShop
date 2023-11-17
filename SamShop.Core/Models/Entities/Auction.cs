@@ -5,6 +5,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Auction
 {
+    #region Entities
+
     public int AuctionId { get; set; }
 
     public int ProductId { get; set; }
@@ -25,9 +27,16 @@ public partial class Auction
 
     public DateTime? CancelTime { get; set; }
 
+    #endregion
+
+    #region Navigations
+
     public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
 
-    public virtual Product Product { get; set; } 
+    public virtual Product Product { get; set; }
 
-    public virtual Seller Seller { get; set; } 
+    public virtual Seller Seller { get; set; }
+
+    #endregion
+
 }

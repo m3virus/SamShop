@@ -5,6 +5,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Comment
 {
+    #region Entities
+
     public int CommentId { get; set; }
 
     public int ProductId { get; set; }
@@ -21,7 +23,14 @@ public partial class Comment
 
     public DateTime CommentDate { get; set; }
 
-    public virtual Customer Customer { get; set; } 
+    #endregion
 
-    public virtual Product Product { get; set; } 
+    #region Navigations
+
+    public virtual Customer Customer { get; set; }
+
+    public virtual Product Product { get; set; }
+
+    #endregion
+
 }

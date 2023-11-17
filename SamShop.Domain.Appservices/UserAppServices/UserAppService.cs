@@ -20,10 +20,10 @@ namespace SamShop.Domain.Appservices.UserAppServices
             _signInManager = signInManager;
         }
 
-        public async Task<IdentityResult> Register(AppUser appUser, string password, AppRole appRole, CancellationToken cancellation)
+        public async Task<IdentityResult> Register(AppUser appUser, string password, string appRole, CancellationToken cancellation)
         {
             var user = await _userManager.CreateAsync(appUser, password);
-            await _userManager.AddToRoleAsync(appUser, appRole.ToString());
+            await _userManager.AddToRoleAsync(appUser, appRole);
             return user;
         }
 

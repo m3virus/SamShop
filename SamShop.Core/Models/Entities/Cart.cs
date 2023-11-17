@@ -5,6 +5,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Cart
 {
+    #region Entities
+
     public int CartId { get; set; }
 
     public decimal TotalPrice { get; set; }
@@ -19,7 +21,14 @@ public partial class Cart
 
     public DateTime? CancelTime { get; set; }
 
+    #endregion
+
+    #region Navigations
+
     public virtual Customer Customer { get; set; }
 
     public virtual ICollection<ProductCart> ProductCarts { get; set; }
+
+    #endregion
+
 }

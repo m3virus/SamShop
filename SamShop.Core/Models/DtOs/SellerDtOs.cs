@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamShop.Domain.Core.Models.DtOs
 {
-    internal class SellerDtOs
+    public class SellerDtOs
     {
     }
 }
