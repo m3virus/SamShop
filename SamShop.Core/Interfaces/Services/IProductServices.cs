@@ -12,5 +12,9 @@ namespace SamShop.Domain.Core.Interfaces.Services
         Task ConfirmProduct(int ProductId, CancellationToken cancellation);
         Task DeleteProduct(int ProductId, CancellationToken cancellation);
         IEnumerable<Product> GetProductsByIsAccepted();
+        IEnumerable<Product> GetAllProduct();
+        Task<Product?> GetProductById(int id, CancellationToken cancellation);
+        Task AddProduct(Product Product, CancellationToken cancellation);
+        Task UpdateProduct(Product Product, CancellationToken cancellation);
     }
 }

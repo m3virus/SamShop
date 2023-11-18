@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.Entities;
 using SamShop.Domain.Service;
 
 namespace SamShop.endpoint.Areas.Admin.Controllers
@@ -18,6 +19,29 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
         {
             return View(_productServices.GetProductsByIsAccepted());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int productId , CancellationToken cancellation)
+        {
+            var result = await _productServices.GetProductById(productId , cancellation);
+            if (result != null)
+            {
+                return View(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Edit(Product product, CancellationToken cancellation)
+        {
+            await _productServices.UpdateProduct(product, cancellation);
+
+        }
         public async Task<IActionResult> Confirm(int productId, CancellationToken cancellation)
         {
             await _productServices.ConfirmProduct(productId, cancellation);
@@ -31,5 +55,6 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
             await _productServices.DeleteProduct(productId, cancellation);
             return RedirectToAction("Index");
         }
+
     }
 }

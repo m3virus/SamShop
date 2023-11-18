@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddSeller(Seller Seller, CancellationToken cancellation)
+        public async Task<int> AddSeller(Seller Seller, CancellationToken cancellation)
 
         {
             Seller SellerAdding = new Seller()
@@ -33,6 +33,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Sellers.AddAsync(SellerAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return SellerAdding.SellerId;
         }
 
         public IEnumerable<Seller> GetAllSeller()

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using SamShop.Domain.Core.Interfaces.AppServices.BoothAppServices;
+using SamShop.Domain.Core.Interfaces.AppServices.SellerAppServices;
 using SamShop.Domain.Core.Interfaces.AppServices.UserAppServices;
 using SamShop.Domain.Core.Models.DtOs;
 using SamShop.Domain.Core.Models.Entities;
@@ -13,9 +15,9 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
 
 
         protected readonly IUserAppService _userAppService;
-        protected readonly IBoothAppService _boothAppService;
-        protected readonly ISellerAppService _sellerAppService;
-        public IdentityController(IUserAppService userAppService, IBoothAppService boothAppService, ISellerAppService sellerAppService)
+        protected readonly IBoothAppServices _boothAppService;
+        protected readonly ISellerAppServices _sellerAppService;
+        public IdentityController(IUserAppService userAppService, IBoothAppServices boothAppService, ISellerAppServices sellerAppService)
         {
             _userAppService = userAppService;
             _boothAppService = boothAppService;

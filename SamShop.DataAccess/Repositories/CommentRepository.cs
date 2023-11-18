@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddComment(Comment Comment, CancellationToken cancellation)
+        public async Task<int> AddComment(Comment Comment, CancellationToken cancellation)
 
         {
             Comment CommentAdding = new Comment()
@@ -26,11 +26,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsDeleted = false,
                 DeleteTime = null,
                 CommentDate = DateTime.Now
-
-
-            };
+           };
             await _context.Comments.AddAsync(CommentAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return CommentAdding.CommentId;
         }
 
         public IEnumerable<Comment> GetAllComment()

@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCustomer(Customer Customer, CancellationToken cancellation)
+        public async Task<int> AddCustomer(Customer Customer, CancellationToken cancellation)
 
         {
             Customer CustomerAdding = new Customer()
@@ -27,6 +27,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Customers.AddAsync(CustomerAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return CustomerAdding.CustomerId;
         }
 
         public IEnumerable<Customer> GetAllCustomer()

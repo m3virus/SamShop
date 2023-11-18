@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddMedal(Medal Medal, CancellationToken cancellation)
+        public async Task<int> AddMedal(Medal Medal, CancellationToken cancellation)
 
         {
             Medal MedalAdding = new Medal()
@@ -28,6 +28,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Medals.AddAsync(MedalAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return MedalAdding.MedalId;
         }
 
         public IEnumerable<Medal> GetAllMedal()

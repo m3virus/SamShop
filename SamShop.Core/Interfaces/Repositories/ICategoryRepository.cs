@@ -6,7 +6,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<Category> GetAllCategory();
         Task<Category?> GetCategoryById(int id , CancellationToken cancellation);
-        Task AddCategory(Category Category, CancellationToken cancellation);
+        Task<int> AddCategory(Category Category, CancellationToken cancellation);
         Task UpdateCategory(Category Category, CancellationToken cancellation);
         Task DeleteCategory(int id , CancellationToken cancellation);
     }

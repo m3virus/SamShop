@@ -24,6 +24,27 @@ namespace SamShop.Domain.Service
 
             return Products.Where(c => c is { IsAccepted: false, IsDeleted: false });
         }
+
+        public IEnumerable<Product> GetAllProduct()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product?> GetProductById(int id, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddProduct(Product Product, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateProduct(Product Product, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task ConfirmProduct(int productId, CancellationToken cancellation)
         {
             var result = await _productRepository.GetProductById(productId, cancellation);

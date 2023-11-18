@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddProduct(Product Product, CancellationToken cancellation)
+        public async Task<int> AddProduct(Product Product, CancellationToken cancellation)
 
         {
             Product ProductAdding = new Product()
@@ -30,6 +30,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Products.AddAsync(ProductAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return ProductAdding.ProductId;
         }
 
         public IEnumerable<Product> GetAllProduct()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +15,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAddress(Address address, CancellationToken cancellation)
+        public async Task<int> AddAddress(Address address, CancellationToken cancellation)
         {
             Address addressAdding = new Address()
             {
@@ -28,6 +29,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Addresses.AddAsync(addressAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return addressAdding.AddressId;
+           
         }
 
         public IEnumerable<Address> GetAllAddress()
@@ -39,7 +42,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Address?> GetAddressById(int id, CancellationToken cancellation)
         {
-            return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id, cancellation);
+            return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id , cancellation);
 
         }
         public async Task UpdateAddress(Address address, CancellationToken cancellation)

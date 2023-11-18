@@ -29,7 +29,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return _context.Wages.FirstOrDefaultAsync(x => x.WageId == id, cancellation);
         }
 
-        public async Task AddWage(Wage wage, CancellationToken cancellation)
+        public async Task<int> AddWage(Wage wage, CancellationToken cancellation)
         {
             Wage AddingWage = new Wage()
             {
@@ -43,6 +43,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.AddAsync(AddingWage, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return AddingWage.WageId;
+            return AddingWage.WageId;
         }
 
         public async Task UpdateWage(Wage wage, CancellationToken cancellation)

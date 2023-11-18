@@ -7,18 +7,17 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
 {
     public class AdminPanelController : Controller
     {
-        private readonly IAdminReository _adminReository;
+        private readonly IAdminRepository _adminRepository;
 
-        public AdminPanelController(IAdminReository adminReository)
+        public AdminPanelController(IAdminRepository adminRepository)
         {
-            _adminReository = adminReository;
+            _adminRepository = adminRepository;
         }
         [Area("Admin")]
         // GET: AdminPanelController
         public ActionResult Index()
         {
-            
-            return View(_adminReository.GetAllAdmin());
+            return View();
         }
 
         // GET: AdminPanelController/Details/5

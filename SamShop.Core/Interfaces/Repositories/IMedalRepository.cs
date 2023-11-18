@@ -6,7 +6,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<Medal> GetAllMedal();
         Task<Medal?> GetMedalById(int id, CancellationToken cancellation);
-        Task AddMedal(Medal Medal , CancellationToken cancellation);
+        Task<int> AddMedal(Medal Medal , CancellationToken cancellation);
         Task UpdateMedal(Medal Medal, CancellationToken cancellation);
         Task DeleteMedal(int id, CancellationToken cancellation);
     }

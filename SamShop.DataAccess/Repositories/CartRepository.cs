@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCart(Cart Cart, CancellationToken cancellation)
+        public async Task<int> AddCart(Cart Cart, CancellationToken cancellation)
 
         {
             Cart CartAdding = new Cart()
@@ -29,6 +29,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Carts.AddAsync(CartAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return CartAdding.CartId;
         }
 
         public IEnumerable<Cart> GetAllCart()

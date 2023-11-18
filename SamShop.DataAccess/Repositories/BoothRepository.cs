@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddBooth(Booth Booth, CancellationToken cancellation)
+        public async Task<int> AddBooth(Booth Booth, CancellationToken cancellation)
 
         {
             Booth BoothAdding = new Booth()
@@ -27,6 +27,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Booths.AddAsync(BoothAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return BoothAdding.BoothId;
         }
 
         public IEnumerable<Booth> GetAllBooth()

@@ -15,7 +15,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddPicture(Picture Picture, CancellationToken cancellation)
+        public async Task<int> AddPicture(Picture Picture, CancellationToken cancellation)
 
         {
             Picture PictureAdding = new Picture()
@@ -29,6 +29,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Pictures.AddAsync(PictureAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return PictureAdding.PictureId;
         }
 
         public IEnumerable<Picture> GetAllPicture()

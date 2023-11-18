@@ -6,7 +6,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<AuctionOffer> GetAllAuctionOffer();
         Task<AuctionOffer?> GetAuctionOfferById(int id , CancellationToken cancellation);
-        Task AddAuctionOffer(AuctionOffer AuctionOffer , CancellationToken cancellation);
+        Task<int> AddAuctionOffer(AuctionOffer AuctionOffer , CancellationToken cancellation);
         Task UpdateAuctionOffer(AuctionOffer AuctionOffer , CancellationToken cancellation);
         Task DeleteAuctionOffer(int id , CancellationToken cancellation);
     }

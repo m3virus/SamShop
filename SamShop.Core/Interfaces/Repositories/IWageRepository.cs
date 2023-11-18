@@ -11,7 +11,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<Wage> GetAllWage();
         Task<Wage?> GetWageById(int id, CancellationToken cancellation);
-        Task AddWage(Wage Wage, CancellationToken cancellation);
+        Task<int> AddWage(Wage Wage, CancellationToken cancellation);
         Task UpdateWage(Wage Wage, CancellationToken cancellation);
         Task DeleteWage(int id, CancellationToken cancellation);
     }

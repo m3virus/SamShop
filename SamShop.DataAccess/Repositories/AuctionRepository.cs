@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAuction(Auction Auction, CancellationToken cancellation)
+        public async Task<int> AddAuction(Auction Auction, CancellationToken cancellation)
 
         {
             Auction AuctionAdding = new Auction()
@@ -33,6 +33,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Auctions.AddAsync(AuctionAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return AuctionAdding.AuctionId;
         }
 
         public IEnumerable<Auction> GetAllAuction()

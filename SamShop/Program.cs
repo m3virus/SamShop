@@ -28,7 +28,7 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
-builder.Services.AddScoped<IAdminReository, AdminRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 

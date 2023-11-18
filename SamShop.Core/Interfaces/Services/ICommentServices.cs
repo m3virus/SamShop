@@ -12,5 +12,10 @@ namespace SamShop.Domain.Core.Interfaces.Services
         Task ConfirmComment(int commentId, CancellationToken cancellation);
         Task DeleteComment(int commentId , CancellationToken cancellation);
         IEnumerable<Comment> GetCommentsByIsAccepted();
+        IEnumerable<Comment> GetAllComment();
+        Task<Comment?> GetCommentById(int id, CancellationToken cancellation);
+        Task AddComment(Comment Comment, CancellationToken cancellation);
+        Task UpdateComment(Comment Comment, CancellationToken cancellation);
+        
     }
 }

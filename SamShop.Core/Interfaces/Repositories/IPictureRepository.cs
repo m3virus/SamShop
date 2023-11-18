@@ -6,7 +6,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<Picture> GetAllPicture();
         Task<Picture?> GetPictureById(int id , CancellationToken cancellation);
-        Task AddPicture(Picture Picture , CancellationToken cancellation);
+        Task<int> AddPicture(Picture Picture , CancellationToken cancellation);
         Task UpdatePicture(Picture Picture , CancellationToken cancellation);
         Task DeletePicture(int id , CancellationToken cancellation);
     }

@@ -6,7 +6,7 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<Comment> GetAllComment();
         Task<Comment?> GetCommentById(int id, CancellationToken cancellation);
-        Task AddComment(Comment Comment , CancellationToken cancellation);
+        Task<int> AddComment(Comment Comment , CancellationToken cancellation);
         Task UpdateComment(Comment Comment, CancellationToken cancellation);
         Task DeleteComment(int id , CancellationToken cancellation);
     }

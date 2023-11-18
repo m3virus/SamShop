@@ -5,7 +5,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    public class AdminRepository : IAdminReository
+    public class AdminRepository : IAdminRepository
     {
         protected readonly SamShopDbContext _context;
 
@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddAdmin(Admin Admin, CancellationToken cancellation)
+        public async Task<int> AddAdmin(Admin Admin, CancellationToken cancellation)
 
         {
             Admin adminAdding = new Admin()
@@ -29,13 +29,14 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Admins.AddAsync(adminAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return adminAdding.AdminId;
         }
 
 
 
         public IEnumerable<Admin> GetAllAdmin()
         {
-            return _context.Admins;
+            return _context.Admins; 
         }
 
 

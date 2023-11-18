@@ -14,7 +14,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task AddCategory(Category Category, CancellationToken cancellation)
+        public async Task<int> AddCategory(Category Category, CancellationToken cancellation)
 
         {
             Category CategoryAdding = new Category()
@@ -28,6 +28,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             };
             await _context.Categories.AddAsync(CategoryAdding, cancellation);
             await _context.SaveChangesAsync(cancellation);
+            return CategoryAdding.CategoryId;
         }
 
         public IEnumerable<Category> GetAllCategory()
