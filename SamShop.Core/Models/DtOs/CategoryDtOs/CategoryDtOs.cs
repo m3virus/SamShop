@@ -5,33 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamShop.Domain.Core.Models.DtOs
+namespace SamShop.Domain.Core.Models.DtOs.CategoryDtOs
 {
-    public class BoothDtOs
+    public class CategoryDtOs
     {
         #region Entities
 
-        public int BoothId { get; set; }
+        public int CategoryId { get; set; }
 
-        public int AddressId { get; set; }
+        public string CategoryName { get; set; }
 
-        public string BoothName { get; set; }
-
-        public DateTime CreateTime { get; set; }
+        public bool IsAccepted { get; set; }
 
         public bool IsDeleted { get; set; }
 
         public DateTime? DeleteTime { get; set; }
 
+        public DateTime CreateTime { get; set; }
+
         #endregion
 
         #region Navigations
 
-        public virtual Address Address { get; set; }
-
         public virtual ICollection<Product> Products { get; set; }
-
-        public virtual Seller Seller { get; set; }
 
         #endregion
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamShop.Domain.Core.Models.DtOs
+namespace SamShop.Domain.Core.Models.DtOs.CartDtOs
 {
     public class CartDtOs
     {

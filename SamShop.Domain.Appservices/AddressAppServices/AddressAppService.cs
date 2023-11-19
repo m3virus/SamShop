@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.AppServices.AddressAppServices;
 using SamShop.Domain.Core.Interfaces.Services;
-using SamShop.Domain.Core.Models.DtOs;
+using SamShop.Domain.Core.Models.DtOs.AddressDtos;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.AppServices.AddressAppServices

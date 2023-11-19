@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
-using SamShop.Domain.Core.Models.DtOs;
+using SamShop.Domain.Core.Models.DtOs.AddressDtos;
 
 namespace SamShop.Domain.Service
 {
