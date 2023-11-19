@@ -39,8 +39,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Customer?> GetCustomerById(int id, CancellationToken cancellation)
         {
-            return await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id, cancellation);
-
+            var customer = await _context.Customers
+                .Include(c => c.AppUser)
+                .Include(a => a.Picture)
+                .Include(c => c.AddressCustomers)
+                    .ThenInclude(a => a.Address)
+                .FirstOrDefaultAsync(c => c.CustomerId == id, cancellation);
+            return customer;
         }
 
         public async Task UpdateCustomer(Customer Customer, CancellationToken cancellation)

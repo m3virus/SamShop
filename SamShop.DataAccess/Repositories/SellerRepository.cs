@@ -45,7 +45,15 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Seller?> GetSellerById(int id, CancellationToken cancellation)
         {
-            return await _context.Sellers.FirstOrDefaultAsync(s => s.SellerId == id, cancellation);
+            var seller = await _context.Sellers
+                .Include(s => s.Booth)
+                    .ThenInclude(b => b.Address)
+                .Include(s => s.AppUser)
+                .Include(s => s.Address)
+                .Include(s => s.Medal)
+                .Include(s => s.Picture)
+                .FirstOrDefaultAsync(s => s.SellerId == id, cancellation);
+            return seller;
 
         }
 

@@ -41,7 +41,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Comment?> GetCommentById(int id, CancellationToken cancellation)
         {
-            return await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == id, cancellation);
+            return await _context.Comments
+                .Include(c => c.Customer)
+                .ThenInclude(c => c.AppUser)
+                .FirstOrDefaultAsync(c => c.CommentId == id, cancellation);
 
         }
         public async Task UpdateComment(Comment Comment, CancellationToken cancellation)

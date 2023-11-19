@@ -42,7 +42,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Product?> GetProductById(int id, CancellationToken cancellation)
         {
-            return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id, cancellation);
+            return await _context.Products.AsNoTracking()
+                .Include(p => p.Pictures)
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.ProductId == id, cancellation);
 
         }
 

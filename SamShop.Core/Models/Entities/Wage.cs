@@ -20,7 +20,7 @@ namespace SamShop.Domain.Core.Models.Entities
 
         public decimal Price { get; set; }
 
-        public DateTime PayTime { get; set; }
+        public DateTime? PayTime { get; set; }
 
         public bool IsDeleted { get; set; }
 

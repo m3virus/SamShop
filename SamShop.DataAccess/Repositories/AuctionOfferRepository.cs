@@ -43,7 +43,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<AuctionOffer?> GetAuctionOfferById(int id, CancellationToken cancellation)
         {
-            return await _context.AuctionOffers.FirstOrDefaultAsync(a => a.OfferId == id, cancellation);
+            return await _context.AuctionOffers.AsNoTracking()
+                .Include(a => a.Customer)
+                .Include(a => a.Auction)
+                .FirstOrDefaultAsync(a => a.OfferId == id, cancellation);
 
         }
         public async Task UpdateAuctionOffer(AuctionOffer AuctionOffer, CancellationToken cancellation)

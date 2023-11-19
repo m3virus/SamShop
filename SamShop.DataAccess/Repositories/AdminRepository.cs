@@ -43,7 +43,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Admin?> GetAdminById(int id, CancellationToken cancellation)
         {
-            return await _context.Admins.FirstOrDefaultAsync(a => a.AdminId == id, cancellation);
+            var admin = await _context.Admins.AsNoTracking()
+                .Include(a => a.Appuser)
+                .Include(a => a.Address)
+                .Include(a => a.Picture)
+                .FirstOrDefaultAsync(a => a.AdminId == id, cancellation);
+            return admin;
 
         }
         public async Task UpdateAdmin(Admin Admin, CancellationToken cancellation)

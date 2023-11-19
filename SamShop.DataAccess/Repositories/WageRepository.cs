@@ -26,7 +26,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public Task<Wage?> GetWageById(int id, CancellationToken cancellation)
         {
-            return _context.Wages.FirstOrDefaultAsync(x => x.WageId == id, cancellation);
+            return _context.Wages.AsNoTracking()
+                .Include(w => w.Product)
+                .Include(w => w.Seller)
+                .FirstOrDefaultAsync(x => x.WageId == id, cancellation);
         }
 
         public async Task<int> AddWage(Wage wage, CancellationToken cancellation)
@@ -34,17 +37,17 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             Wage AddingWage = new Wage()
             {
                 Price = wage.Price,
-                PayTime = wage.PayTime,
+                PayTime = null,
                 AdminId = wage.AdminId,
                 SellerId = wage.SellerId,
                 ProductId = wage.ProductId,
                 DeleteTime = null,
-                IsDeleted = false
+                IsDeleted = false,
             };
             await _context.AddAsync(AddingWage, cancellation);
             await _context.SaveChangesAsync(cancellation);
             return AddingWage.WageId;
-            return AddingWage.WageId;
+            
         }
 
         public async Task UpdateWage(Wage wage, CancellationToken cancellation)

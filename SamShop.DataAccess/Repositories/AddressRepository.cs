@@ -42,7 +42,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Address?> GetAddressById(int id, CancellationToken cancellation)
         {
-            return await _context.Addresses.FirstOrDefaultAsync(a => a.AddressId == id , cancellation);
+            return await _context.Addresses.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.AddressId == id , cancellation);
 
         }
         public async Task UpdateAddress(Address address, CancellationToken cancellation)

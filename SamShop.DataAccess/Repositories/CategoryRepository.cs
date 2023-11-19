@@ -40,7 +40,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Category?> GetCategoryById(int id, CancellationToken cancellation)
         {
-            return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
+            return await _context.Categories
+                .AsNoTracking()
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
 
         }
         public async Task UpdateCategory(Category Category, CancellationToken cancellation)

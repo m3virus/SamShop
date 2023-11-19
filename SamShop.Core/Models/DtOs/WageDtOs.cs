@@ -21,7 +21,7 @@ namespace SamShop.Domain.Core.Models.DtOs
 
         public decimal Price { get; set; }
 
-        public DateTime PayTime { get; set; }
+        public DateTime? PayTime { get; set; }
 
         public bool IsDeleted { get; set; }
 

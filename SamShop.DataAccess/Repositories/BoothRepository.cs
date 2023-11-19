@@ -39,7 +39,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Booth?> GetBoothById(int id, CancellationToken cancellation)
         {
-            return await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == id, cancellation);
+            var booth = await _context.Booths
+                .Include(b => b.Address)
+                .Include(b => b.Seller)
+                    .ThenInclude(s => s.AppUser)
+                .Include(b => b.Products)
+                .FirstOrDefaultAsync(b => b.BoothId == id, cancellation);
+            return booth;
 
         }
         public async Task UpdateBooth(Booth Booth, CancellationToken cancellation)
