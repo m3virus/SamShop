@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.MedalDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +15,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddMedal(Medal Medal, CancellationToken cancellation)
+        public async Task<int> AddMedal(MedalDtOs Medal, CancellationToken cancellation)
 
         {
             Medal MedalAdding = new Medal()
@@ -31,21 +32,45 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return MedalAdding.MedalId;
         }
 
-        public IEnumerable<Medal> GetAllMedal()
+        public IEnumerable<MedalDtOs> GetAllMedal()
         {
-            return _context.Medals;
+            var Medals = _context.Medals.AsNoTracking();
+            var MedalDtOs = new List<MedalDtOs>();
+
+            foreach (var Medal in Medals)
+            {
+                var a = new MedalDtOs()
+                {
+                    MedalType = Medal.MedalType,
+                    DeleteTime = Medal.DeleteTime,
+                    IsDeleted = Medal.IsDeleted,
+                    CreateTime = Medal.CreateTime,
+                    WagePercentage = Medal.WagePercentage
+
+                };
+                MedalDtOs.Add(a);
+            }
         }
 
 
 
-        public async Task<Medal?> GetMedalById(int id, CancellationToken cancellation)
+        public async Task<MedalDtOs?> GetMedalById(int id, CancellationToken cancellation)
         {
-            return await _context.Medals.AsNoTracking()
-                .Include(m => m.Sellers)
-                .FirstOrDefaultAsync(m => m.MedalId == id, cancellation);
+            var Medal = await _context.Medals.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.MedalId == id, cancellation);
+
+            var MedalById = new MedalDtOs()
+            {
+                MedalType = Medal.MedalType,
+                DeleteTime = Medal.DeleteTime,
+                IsDeleted = Medal.IsDeleted,
+                CreateTime = Medal.CreateTime,
+                WagePercentage = Medal.WagePercentage
+            };
+            return MedalById;
 
         }
-        public async Task UpdateMedal(Medal Medal, CancellationToken cancellation)
+        public async Task UpdateMedal(MedalDtOs Medal, CancellationToken cancellation)
         {
             Medal? changeMedal = await _context.Medals.FirstOrDefaultAsync(c => c.MedalId == Medal.MedalId, cancellation);
             if (changeMedal != null)

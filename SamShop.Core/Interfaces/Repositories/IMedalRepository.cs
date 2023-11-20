@@ -1,13 +1,14 @@
-﻿using SamShop.Domain.Core.Models.Entities;
+﻿using SamShop.Domain.Core.Models.DtOs.MedalDtOs;
+using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IMedalRepository
     {
-        IEnumerable<Medal> GetAllMedal();
-        Task<Medal?> GetMedalById(int id, CancellationToken cancellation);
-        Task<int> AddMedal(Medal Medal , CancellationToken cancellation);
-        Task UpdateMedal(Medal Medal, CancellationToken cancellation);
+        IEnumerable<MedalDtOs> GetAllMedal();
+        Task<MedalDtOs?> GetMedalById(int id, CancellationToken cancellation);
+        Task<int> AddMedal(MedalDtOs Medal , CancellationToken cancellation);
+        Task UpdateMedal(MedalDtOs Medal, CancellationToken cancellation);
         Task DeleteMedal(int id, CancellationToken cancellation);
     }
 }
