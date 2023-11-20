@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.DtOs;
+using SamShop.Domain.Core.Models.DtOs.AddressDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -15,7 +16,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddAddress(Address address, CancellationToken cancellation)
+        public async Task<int> AddAddress(AddressDtOs address, CancellationToken cancellation)
         {
             Address addressAdding = new Address()
             {
@@ -25,6 +26,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Alley = address.Alley,
                 ExtraPart = address.ExtraPart,
                 PostCode = address.PostCode,
+                IsDeleted = false
                 
             };
             await _context.Addresses.AddAsync(addressAdding, cancellation);
@@ -33,20 +35,46 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
            
         }
 
-        public IEnumerable<Address> GetAllAddress()
+        public IEnumerable<AddressDtOs> GetAllAddress()
         {
-            return _context.Addresses;
+            var addresses = _context.Addresses;
+            var addressDtos = new List<AddressDtOs>();
+
+            foreach (var address in addresses)
+            {
+                var addressDto = new AddressDtOs()
+                {
+                    State = address.State,
+                    City = address.City,
+                    Street = address.Street,
+                    Alley = address.Alley,
+                    ExtraPart = address.ExtraPart,
+                    PostCode = address.PostCode,
+                };
+                addressDtos.Add(addressDto);
+            }
+
+            return addressDtos;
         }
 
 
 
-        public async Task<Address?> GetAddressById(int id, CancellationToken cancellation)
+        public async Task<AddressDtOs?> GetAddressById(int id, CancellationToken cancellation)
         {
-            return await _context.Addresses.AsNoTracking()
-                .FirstOrDefaultAsync(a => a.AddressId == id , cancellation);
+            var addressById = await _context.Addresses.FirstOrDefaultAsync(x => x.AddressId == id && x.IsDeleted != true, cancellation);
+            var addressService = new AddressDtOs()
+            {
+                State = addressById.State,
+                City = addressById.City,
+                Street = addressById.Street,
+                Alley = addressById.Alley,
+                ExtraPart = addressById.ExtraPart,
+                PostCode = addressById.PostCode,
+            };
+            return addressService;
 
         }
-        public async Task UpdateAddress(Address address, CancellationToken cancellation)
+        public async Task UpdateAddress(AddressDtOs address, CancellationToken cancellation)
         {
             Address? changeAddress = await _context.Addresses.FirstOrDefaultAsync(p => p.AddressId == address.AddressId, cancellation);
             if (changeAddress != null)

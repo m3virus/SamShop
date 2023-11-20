@@ -23,7 +23,7 @@ public partial class Medal
 
     #region Navigations
 
-    public virtual Seller Seller { get; set; }
+    public virtual ICollection<Seller> Sellers { get; set; }
 
     #endregion
 

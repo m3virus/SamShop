@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SamShop.Domain.Core.Models.DtOs.AddressDtos;
+
+using SamShop.Domain.Core.Models.DtOs.AddressDtOs;
 
 namespace SamShop.Domain.Core.Interfaces.AppServices.AddressAppServices
 {

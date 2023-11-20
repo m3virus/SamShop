@@ -1,4 +1,5 @@
-﻿using SamShop.Domain.Core.Models.Entities;
+﻿using SamShop.Domain.Core.Models.DtOs.MedalDtOs;
+using SamShop.Domain.Core.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace SamShop.Domain.Core.Interfaces.Services
 {
     public interface IMedalServices
     {
-        IEnumerable<Medal> GetAllMedal();
-        Task<Medal?> GetMedalById(int id, CancellationToken cancellation);
-        Task AddMedal(Medal Medal, CancellationToken cancellation);
-        Task UpdateMedal(Medal Medal, CancellationToken cancellation);
+        IEnumerable<MedalDtOs> GetAllMedal();
+        Task<MedalDtOs?> GetMedalById(int id, CancellationToken cancellation);
+        Task<int> AddMedal(MedalDtOs Medal, CancellationToken cancellation);
+        Task UpdateMedal(MedalDtOs Medal, CancellationToken cancellation);
         Task DeleteMedal(int id, CancellationToken cancellation);
     }
 }

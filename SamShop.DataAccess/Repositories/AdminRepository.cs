@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.AdminDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +16,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddAdmin(Admin Admin, CancellationToken cancellation)
+        public async Task<int> AddAdmin(AdminDtOs Admin, CancellationToken cancellation)
 
         {
             Admin adminAdding = new Admin()
@@ -34,24 +36,50 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
 
 
-        public IEnumerable<Admin> GetAllAdmin()
+        public IEnumerable<AdminDtOs> GetAllAdmin()
         {
-            return _context.Admins; 
+            var Admin = _context.Admins.AsNoTracking();
+            var adminDtOs = new List<AdminDtOs>();
+
+             foreach (var a in Admin)
+             {
+                 var admin = new AdminDtOs()
+                 {
+                     AddressId = a.AddressId,
+                     PictureId = a.PictureId,
+                     Wallet = a.Wallet,
+                     IsDeleted = a.IsDeleted,
+                     CreateTime = a.CreateTime,
+                     DeleteTime = a.DeleteTime,
+                     AppUserId = a.AppUserId,
+                 };
+                 adminDtOs.Add(admin);
+             }
+
+             return adminDtOs;
         }
 
 
 
-        public async Task<Admin?> GetAdminById(int id, CancellationToken cancellation)
+        public async Task<AdminDtOs?> GetAdminById(int id, CancellationToken cancellation)
         {
             var admin = await _context.Admins.AsNoTracking()
-                .Include(a => a.Appuser)
-                .Include(a => a.Address)
-                .Include(a => a.Picture)
                 .FirstOrDefaultAsync(a => a.AdminId == id, cancellation);
-            return admin;
 
+                var adminById = new AdminDtOs()
+                {
+                    AddressId = admin.AddressId,
+                    PictureId = admin.PictureId,
+                    Wallet = admin.Wallet,
+                    IsDeleted = admin.IsDeleted,
+                    CreateTime = admin.CreateTime,
+                    DeleteTime = admin.DeleteTime,
+                    AppUserId = admin.AppUserId,
+                };
+                return adminById;
+            
         }
-        public async Task UpdateAdmin(Admin Admin, CancellationToken cancellation)
+        public async Task UpdateAdmin(AdminDtOs Admin, CancellationToken cancellation)
         {
             Admin? changeAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == Admin.AdminId, cancellation);
             if (changeAdmin != null)

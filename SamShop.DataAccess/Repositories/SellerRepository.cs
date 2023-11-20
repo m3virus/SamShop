@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +15,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddSeller(Seller Seller, CancellationToken cancellation)
+        public async Task<int> AddSeller(SellerDtOs Seller, CancellationToken cancellation)
 
         {
             Seller SellerAdding = new Seller()
@@ -22,12 +23,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 
                 Wallet = Seller.Wallet,
                 PictureId = Seller.PictureId,
-                MedalId = Seller.MedalId,
+                MedalId = 1,
                 BoothId = Seller.BoothId,
                 AddressId = Seller.AddressId,
+                AppUserId = Seller.AppUserId,
                 IsDeleted = false,
                 DeleteTime = null,
-                CreateTime = DateTime.Now
+                CreateTime = DateTime.Now,
                 
 
             };
@@ -36,28 +38,57 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return SellerAdding.SellerId;
         }
 
-        public IEnumerable<Seller> GetAllSeller()
+        public IEnumerable<SellerDtOs> GetAllSeller()
         {
-            return _context.Sellers;
+            var Sellers =  _context.Sellers.AsNoTracking();
+            var SellerDtOs = new List<SellerDtOs>();
+
+            foreach (var a in Sellers)
+            {
+                var Seller = new SellerDtOs()
+                {
+                    Wallet = a.Wallet,
+                    PictureId = a.PictureId,
+                    MedalId = a.MedalId,
+                    BoothId = a.BoothId,
+                    AddressId = a.AddressId,
+                    AppUserId = a.AppUserId,
+                    IsDeleted = a.IsDeleted,
+                    DeleteTime = a.DeleteTime,
+                    CreateTime = a.CreateTime,
+
+                };
+                SellerDtOs.Add(Seller);
+            }
+
+            return SellerDtOs;
         }
 
 
 
-        public async Task<Seller?> GetSellerById(int id, CancellationToken cancellation)
+        public async Task<SellerDtOs?> GetSellerById(int id, CancellationToken cancellation)
         {
-            var seller = await _context.Sellers
-                .Include(s => s.Booth)
-                    .ThenInclude(b => b.Address)
-                .Include(s => s.AppUser)
-                .Include(s => s.Address)
-                .Include(s => s.Medal)
-                .Include(s => s.Picture)
-                .FirstOrDefaultAsync(s => s.SellerId == id, cancellation);
-            return seller;
+            var Seller = await _context.Sellers.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.SellerId == id, cancellation);
+
+            var SellerById = new SellerDtOs()
+            {
+
+                Wallet = Seller.Wallet,
+                PictureId = Seller.PictureId,
+                MedalId = Seller.MedalId,
+                BoothId = Seller.BoothId,
+                AddressId = Seller.AddressId,
+                AppUserId = Seller.AppUserId,
+                IsDeleted = Seller.IsDeleted,
+                DeleteTime = Seller.DeleteTime,
+                CreateTime = Seller.CreateTime,
+            };
+            return SellerById; ;
 
         }
 
-        public async Task UpdateSeller(Seller Seller, CancellationToken cancellation)
+        public async Task UpdateSeller(SellerDtOs Seller, CancellationToken cancellation)
         {
             Seller? changeSeller =
                 await _context.Sellers.FirstOrDefaultAsync(s => s.SellerId == Seller.SellerId, cancellation);
@@ -66,7 +97,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 
                 changeSeller.Wallet = Seller.Wallet;
                 changeSeller.BoothId = Seller.BoothId;
-                changeSeller.MedalId = 1;
+                changeSeller.MedalId = Seller.MedalId;
                 changeSeller.PictureId = Seller.PictureId;
                 changeSeller.AddressId = Seller.AddressId;
             }

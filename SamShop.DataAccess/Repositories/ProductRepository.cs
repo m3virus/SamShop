@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
+using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,18 +16,20 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddProduct(Product Product, CancellationToken cancellation)
+        public async Task<int> AddProduct(ProductDtOs Product, CancellationToken cancellation)
 
         {
             Product ProductAdding = new Product()
             {
+                CategoryId = Product.CategoryId,
                 ProductName = Product.ProductName,
                 Price = Product.Price,
                 Amount = Product.Amount,
                 IsDeleted = false,
                 IsAvailable = true,
                 AddTime = DateTime.Now,
-                DeleteTime = null
+                DeleteTime = null,
+                IsAccepted = false,
 
             };
             await _context.Products.AddAsync(ProductAdding, cancellation);
@@ -33,23 +37,53 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return ProductAdding.ProductId;
         }
 
-        public IEnumerable<Product> GetAllProduct()
+        public IEnumerable<ProductDtOs> GetAllProduct()
         {
-            return _context.Products;
+            var Products = _context.Products.AsNoTracking();
+            var ProductDtOs = new List<ProductDtOs>();
+
+            foreach (var a in Products)
+            {
+                var Product = new ProductDtOs()
+                {
+                    IsDeleted = a.IsDeleted,
+                    DeleteTime = a.DeleteTime,
+                    CategoryId = a.CategoryId,
+                    ProductName = a.ProductName,
+                    Price = a.Price,
+                    Amount = a.Amount,
+                    IsAvailable = a.IsAvailable,
+                    IsAccepted = a.IsAccepted,
+
+                };
+                ProductDtOs.Add(Product);
+            }
+
+            return ProductDtOs;
         }
 
 
 
-        public async Task<Product?> GetProductById(int id, CancellationToken cancellation)
+        public async Task<ProductDtOs?> GetProductById(int id, CancellationToken cancellation)
         {
-            return await _context.Products.AsNoTracking()
-                .Include(p => p.Pictures)
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(p => p.ProductId == id, cancellation);
+            var Product = await _context.Products.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.ProductId == id, cancellation);
 
+            var ProductById = new ProductDtOs()
+            {
+                IsDeleted = Product.IsDeleted,
+                Price = Product.Price,
+                DeleteTime = Product.DeleteTime,
+                CategoryId = Product.CategoryId,
+                Amount = Product.Amount,
+                IsAvailable = Product.IsAvailable,
+                IsAccepted = Product.IsAccepted,
+                ProductName = Product.ProductName
+            };
+            return ProductById;
         }
 
-        public async Task UpdateProduct(Product Product, CancellationToken cancellation)
+        public async Task UpdateProduct(ProductDtOs Product, CancellationToken cancellation)
         {
             Product? changeProduct =
                 await _context.Products.FirstOrDefaultAsync(p => p.ProductId == Product.ProductId, cancellation);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Service
@@ -18,30 +19,29 @@ namespace SamShop.Domain.Service
             _boothRepository = boothRepository;
         }
 
-        public IEnumerable<Booth> GetAllBooth()
+        public IEnumerable<BoothDtOs> GetAllBooth()
         {
-            throw new NotImplementedException();
+            return _boothRepository.GetAllBooth();
         }
 
-        public Task<Booth?> GetBoothById(int id, CancellationToken cancellation)
+        public async Task<BoothDtOs?> GetBoothById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _boothRepository.GetBoothById(id, cancellation);
         }
 
-        public async Task<int> AddBooth(Booth Booth, CancellationToken cancellation)
+        public async Task<int> AddBooth(BoothDtOs Booth, CancellationToken cancellation)
         {
-            await _boothRepository.AddBooth(Booth, cancellation);
-            return Booth.BoothId;
+            return await _boothRepository.AddBooth(Booth, cancellation);
         }
 
-        public Task UpdateBooth(Booth Booth, CancellationToken cancellation)
+        public async Task UpdateBooth(BoothDtOs Booth, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _boothRepository.UpdateBooth(Booth, cancellation);
         }
 
-        public Task DeleteBooth(int id, CancellationToken cancellation)
+        public async Task DeleteBooth(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _boothRepository.DeleteBooth(id, cancellation);
         }
     }
 }

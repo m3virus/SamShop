@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SamShop.Domain.Core.Models.DtOs.WageDtOs;
 
 namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IWageRepository
     {
-        IEnumerable<Wage> GetAllWage();
-        Task<Wage?> GetWageById(int id, CancellationToken cancellation);
-        Task<int> AddWage(Wage Wage, CancellationToken cancellation);
-        Task UpdateWage(Wage Wage, CancellationToken cancellation);
+        IEnumerable<WageDtOs> GetAllWage();
+        Task<WageDtOs?> GetWageById(int id, CancellationToken cancellation);
+        Task<int> AddWage(WageDtOs Wage, CancellationToken cancellation);
+        Task UpdateWage(WageDtOs Wage, CancellationToken cancellation);
         Task DeleteWage(int id, CancellationToken cancellation);
     }
 }

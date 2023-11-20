@@ -1,13 +1,14 @@
-﻿using SamShop.Domain.Core.Models.Entities;
+﻿using SamShop.Domain.Core.Models.DtOs.CustomerDtOs;
+using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface ICustomerRepository
     {
-        IEnumerable<Customer> GetAllCustomer();
-        Task<Customer?> GetCustomerById(int id , CancellationToken cancellation);
-        Task<int> AddCustomer(Customer Customer, CancellationToken cancellation);
-        Task UpdateCustomer(Customer Customer , CancellationToken cancellation);
+        IEnumerable<CustomerDtOs> GetAllCustomer();
+        Task<CustomerDtOs?> GetCustomerById(int id , CancellationToken cancellation);
+        Task<int> AddCustomer(CustomerDtOs Customer, CancellationToken cancellation);
+        Task UpdateCustomer(CustomerDtOs Customer , CancellationToken cancellation);
         Task DeleteCustomer(int id, CancellationToken cancellation);
     }
 }

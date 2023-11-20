@@ -37,39 +37,39 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> SellerRegister(SellerRegisterViewModel sellerRegister , CancellationToken cancellation)
         {
-            if (ModelState.IsValid)
-            {
-                var registerAppUser = new AppUser()
-                {
+            //if (ModelState.IsValid)
+            //{
+            //    var registerAppUser = new AppUser()
+            //    {
                     
-                };
+            //    };
 
-                var AppUserRegisterResult = await _userAppService.Register(registerAppUser ,sellerRegister.password ,"Seller", cancellation);
+            //    var AppUserRegisterResult = await _userAppService.Register(registerAppUser ,sellerRegister.password ,"Seller", cancellation);
                 
-                if (AppUserRegisterResult.Succeeded)
-                {
-                    var registerBoothAddress = new AddressDtOs()
-                    {
+            //    if (AppUserRegisterResult.Succeeded)
+            //    {
+            //        var registerBoothAddress = new AddressDtOs()
+            //        {
 
-                    };
-                    var registerBooth = new BoothDtOs()
-                    {
+            //        };
+            //        var registerBooth = new BoothDtOs()
+            //        {
 
-                    };
-                    await _boothAppService.Create(registerBooth , registerBoothAddress , cancellation);
+            //        };
+            //        await _boothAppService.Create(registerBooth , registerBoothAddress , cancellation);
 
-                    var registerSeller = new SellerDtOs()
-                    {
+            //        var registerSeller = new SellerDtOs()
+            //        {
 
-                    };
-                    var registerSellerAddress = new AddressDtOs()
-                    {
+            //        };
+            //        var registerSellerAddress = new AddressDtOs()
+            //        {
 
-                    };
-                    await _sellerAppService.create(registerSeller ,  registerSellerAddress , cancellation);
+            //        };
+            //        await _sellerAppService.create(registerSeller ,  registerSellerAddress , cancellation);
 
-                }
-            }
+            //    }
+            //}
             return View();
         }
 
@@ -77,11 +77,11 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userAppService.Register();
-                if (result)
-                {
+                //var result = await _userAppService.Register();
+                //if (result)
+                //{
 
-                }
+                //}
             }
             return View();
         }

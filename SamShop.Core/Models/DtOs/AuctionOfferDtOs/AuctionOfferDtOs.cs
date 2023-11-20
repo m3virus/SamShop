@@ -9,7 +9,7 @@ namespace SamShop.Domain.Core.Models.DtOs.AuctionOfferDtOs
 {
     public class AuctionOfferDtOs
     {
-        #region Entiti
+        #region Entities
 
         public int OfferId { get; set; }
 

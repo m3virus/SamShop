@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
+using SamShop.Domain.Core.Models.DtOs.CommentDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +16,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddComment(Comment Comment, CancellationToken cancellation)
+        public async Task<int> AddComment(CommentDtOs Comment, CancellationToken cancellation)
 
         {
             Comment CommentAdding = new Comment()
@@ -32,22 +34,51 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return CommentAdding.CommentId;
         }
 
-        public IEnumerable<Comment> GetAllComment()
+        public IEnumerable<CommentDtOs> GetAllComment()
         {
-            return _context.Comments;
+            var Comments = _context.Comments.AsNoTracking();
+            var CommentDtOs = new List<CommentDtOs>();
+
+            foreach (var a in Comments)
+            {
+                var Comment = new CommentDtOs()
+                {
+                    Message = a.Message,
+                    IsDeleted = a.IsDeleted,
+                    DeleteTime = a.DeleteTime,
+                    CustomerId = a.CustomerId,
+                    IsAccepted = a.IsAccepted,
+                    ProductId = a.ProductId,
+                    CommentDate = a.CommentDate,
+
+                };
+                CommentDtOs.Add(Comment);
+            }
+
+            return CommentDtOs;
+
         }
 
 
 
-        public async Task<Comment?> GetCommentById(int id, CancellationToken cancellation)
+        public async Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation)
         {
-            return await _context.Comments
-                .Include(c => c.Customer)
-                .ThenInclude(c => c.AppUser)
-                .FirstOrDefaultAsync(c => c.CommentId == id, cancellation);
+            var Comment = await _context.Comments.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.CommentId == id, cancellation);
 
+            var CommentById = new CommentDtOs()
+            {
+                Message = Comment.Message,
+                IsDeleted = Comment.IsDeleted,
+                CommentDate = Comment.CommentDate,
+                DeleteTime = Comment.DeleteTime,
+                CustomerId = Comment.CustomerId,
+                ProductId = Comment.ProductId,
+                IsAccepted = Comment.IsAccepted,
+            };
+            return CommentById;
         }
-        public async Task UpdateComment(Comment Comment, CancellationToken cancellation)
+        public async Task UpdateComment(CommentDtOs Comment, CancellationToken cancellation)
         {
             Comment? changeComment = await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == Comment.CommentId, cancellation);
             if (changeComment != null)

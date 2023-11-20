@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.DtOs.CommentDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Service
@@ -19,12 +20,32 @@ namespace SamShop.Domain.Service
             _commentRepository = commentRepository;
         }
 
-        public IEnumerable<Comment> GetCommentsByIsAccepted()
+        public IEnumerable<CommentDtOs> GetCommentsByIsAccepted()
         {
             var Comments = _commentRepository.GetAllComment();
-
-            return Comments.Where(c => c is { IsAccepted: false, IsDeleted: false });
+            return Comments.Where(c => c.IsAccepted !=true && c.IsDeleted != true);
         }
+
+        public IEnumerable<CommentDtOs> GetAllComment()
+        {
+            return _commentRepository.GetAllComment();
+        }
+
+        public async Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation)
+        {
+            return await _commentRepository.GetCommentById(id, cancellation);
+        }
+
+        public async Task<int> AddComment(CommentDtOs Comment, CancellationToken cancellation)
+        {
+            return  await _commentRepository.AddComment(Comment, cancellation);
+        }
+
+        public async Task UpdateComment(CommentDtOs Comment, CancellationToken cancellation)
+        {
+            await _commentRepository.UpdateComment(Comment, cancellation);
+        }
+
         public async Task ConfirmComment(int commentId, CancellationToken cancellation)
         {
             var result = await _commentRepository.GetCommentById(commentId , cancellation);

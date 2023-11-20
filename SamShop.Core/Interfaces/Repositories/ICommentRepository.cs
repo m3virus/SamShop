@@ -1,13 +1,14 @@
-﻿using SamShop.Domain.Core.Models.Entities;
+﻿using SamShop.Domain.Core.Models.DtOs.CommentDtOs;
+using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface ICommentRepository
     {
-        IEnumerable<Comment> GetAllComment();
-        Task<Comment?> GetCommentById(int id, CancellationToken cancellation);
-        Task<int> AddComment(Comment Comment , CancellationToken cancellation);
-        Task UpdateComment(Comment Comment, CancellationToken cancellation);
+        IEnumerable<CommentDtOs> GetAllComment();
+        Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation);
+        Task<int> AddComment(CommentDtOs Comment , CancellationToken cancellation);
+        Task UpdateComment(CommentDtOs Comment, CancellationToken cancellation);
         Task DeleteComment(int id , CancellationToken cancellation);
     }
 }

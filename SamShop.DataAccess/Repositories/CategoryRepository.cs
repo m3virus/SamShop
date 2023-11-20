@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.CategoryDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +15,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddCategory(Category Category, CancellationToken cancellation)
+        public Task<CategoryDtOs?> GetCategoryById(int id, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> AddCategory(CategoryDtOs Category, CancellationToken cancellation)
 
         {
             Category CategoryAdding = new Category()
@@ -31,22 +37,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return CategoryAdding.CategoryId;
         }
 
-        public IEnumerable<Category> GetAllCategory()
-        {
-            return _context.Categories;
-        }
-
-
-
-        public async Task<Category?> GetCategoryById(int id, CancellationToken cancellation)
-        {
-            return await _context.Categories
-                .AsNoTracking()
-                .Include(c => c.Products)
-                .FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
-
-        }
-        public async Task UpdateCategory(Category Category, CancellationToken cancellation)
+        public async Task UpdateCategory(CategoryDtOs Category, CancellationToken cancellation)
         {
             Category? changeCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == Category.CategoryId, cancellation);
             if (changeCategory != null)
@@ -60,7 +51,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             await _context.SaveChangesAsync(cancellation);
         }
 
-
         public async Task DeleteCategory(int id, CancellationToken cancellation)
         {
             Category? removingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id, cancellation);
@@ -69,7 +59,29 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 removingCategory.IsDeleted = true;
                 removingCategory.DeleteTime = DateTime.Now;
             }
+
             await _context.SaveChangesAsync(cancellation);
+        }
+
+        public IEnumerable<CategoryDtOs> GetAllCategory()
+        {
+            var Categories = _context.Categories.AsNoTracking();
+            var CategoryDtOs = new List<CategoryDtOs>();
+
+            foreach (var Category in Categories)
+            {
+                var a = new CategoryDtOs()
+                {
+                    CategoryName = Category.CategoryName,
+                    IsDeleted = Category.IsDeleted,
+                    CreateTime = Category.CreateTime,
+                    DeleteTime = Category.DeleteTime
+
+                };
+                CategoryDtOs.Add(a);
+            }
+
+            return CategoryDtOs;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Service
@@ -18,32 +19,13 @@ namespace SamShop.Domain.Service
             _productRepository = productRepository;
         }
 
-        public IEnumerable<Product> GetProductsByIsAccepted()
+        public IEnumerable<ProductDtOs> GetProductsByIsAccepted()
         {
             var Products = _productRepository.GetAllProduct();
 
             return Products.Where(c => c is { IsAccepted: false, IsDeleted: false });
         }
 
-        public IEnumerable<Product> GetAllProduct()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Product?> GetProductById(int id, CancellationToken cancellation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddProduct(Product Product, CancellationToken cancellation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateProduct(Product Product, CancellationToken cancellation)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task ConfirmProduct(int productId, CancellationToken cancellation)
         {

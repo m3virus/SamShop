@@ -10,21 +10,26 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
     public class AdminUserController : Controller
     {
         protected readonly UserManager<AppUser> _userManager;
+        protected readonly ISellerRepository _sellerRepository;
+        protected readonly ICustomerRepository _customerRepository;
 
         public AdminUserController(UserManager<AppUser> userManager, ISellerRepository sellerRepository, ICustomerRepository customerRepository)
         {
             _userManager = userManager;
+            _sellerRepository = sellerRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            //return View(_userManager.Users);
-            return Content("hello");
+            return View(_userManager.Users);
+            //return Content("hello");
         }
 
         public async Task<IActionResult> Detail(int Id , CancellationToken cancellation)
         {
-            var result = _userManager.Users.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken: cancellation);
+            var result = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == Id, cancellation);
+            var result2 = await _sellerRepository.GetSellerById(result.Id , cancellation);
             if (result != null)
             {
                 return View(result);

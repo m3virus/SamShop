@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.AuctionOfferDtOs;
+using SamShop.Domain.Core.Models.DtOs.AuctionOfferDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +16,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddAuctionOffer(AuctionOffer AuctionOffer, CancellationToken cancellation)
+        public async Task<int> AddAuctionOffer(AuctionOfferDtOs AuctionOffer, CancellationToken cancellation)
 
         {
             AuctionOffer auctionOfferAdding = new AuctionOffer()
@@ -34,22 +36,50 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return auctionOfferAdding.OfferId;
         }
 
-        public IEnumerable<AuctionOffer> GetAllAuctionOffer()
+        public IEnumerable<AuctionOfferDtOs> GetAllAuctionOffer()
         {
-            return _context.AuctionOffers;
+            var AuctionOffers = _context.AuctionOffers.AsNoTracking();
+            var AuctionOfferDtOs = new List<AuctionOfferDtOs>();
+
+            foreach (var a in AuctionOffers)
+            {
+                var AuctionOffer = new AuctionOfferDtOs()
+                {
+                    OfferValue = a.OfferValue,
+                    AuctionId = a.AuctionId,
+                    CustomerId = a.CustomerId,
+                    IsCanceled = a.IsCanceled,
+                    IsAccept = a.IsAccept,
+                    OfferTime = a.OfferTime,
+                    CancelTime = a.CancelTime,
+                };
+                AuctionOfferDtOs.Add(AuctionOffer);
+            }
+
+            return AuctionOfferDtOs;
         }
 
 
 
-        public async Task<AuctionOffer?> GetAuctionOfferById(int id, CancellationToken cancellation)
+        public async Task<AuctionOfferDtOs?> GetAuctionOfferById(int id, CancellationToken cancellation)
         {
-            return await _context.AuctionOffers.AsNoTracking()
-                .Include(a => a.Customer)
-                .Include(a => a.Auction)
+            var AuctionOffer = await _context.AuctionOffers.AsNoTracking()
                 .FirstOrDefaultAsync(a => a.OfferId == id, cancellation);
 
+            var AuctionOfferById = new AuctionOfferDtOs()
+            {
+                OfferValue = AuctionOffer.OfferValue,
+                AuctionId = AuctionOffer.AuctionId,
+                CustomerId = AuctionOffer.CustomerId,
+                IsCanceled = AuctionOffer.IsCanceled,
+                IsAccept = AuctionOffer.IsAccept,
+                OfferTime = AuctionOffer.OfferTime,
+                CancelTime = AuctionOffer.CancelTime,
+            };
+            return AuctionOfferById;
+
         }
-        public async Task UpdateAuctionOffer(AuctionOffer AuctionOffer, CancellationToken cancellation)
+        public async Task UpdateAuctionOffer(AuctionOfferDtOs AuctionOffer, CancellationToken cancellation)
         {
             AuctionOffer? changeAuctionOffer = await _context.AuctionOffers.FirstOrDefaultAsync(p => p.OfferId == AuctionOffer.OfferId, cancellation);
             if (changeAuctionOffer != null)

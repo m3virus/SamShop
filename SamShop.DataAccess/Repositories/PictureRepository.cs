@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.PictureDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -15,7 +16,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddPicture(Picture Picture, CancellationToken cancellation)
+        public async Task<int> AddPicture(PictureDtOs Picture, CancellationToken cancellation)
 
         {
             Picture PictureAdding = new Picture()
@@ -32,20 +33,49 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return PictureAdding.PictureId;
         }
 
-        public IEnumerable<Picture> GetAllPicture()
+        public IEnumerable<PictureDtOs> GetAllPicture()
         {
-            return _context.Pictures;
+            var Pictures = _context.Pictures.AsNoTracking();
+            var PictureDtOs = new List<PictureDtOs>();
+
+            foreach (var Picture in Pictures)
+            {
+                var a = new PictureDtOs()
+                {
+                    Url = Picture.Url,
+                    ProductId = Picture.ProductId,
+                    IsDeleted = Picture.IsDeleted,
+                    DeleteTime = Picture.DeleteTime,
+                    CreateTime = Picture.CreateTime
+
+                };
+                PictureDtOs.Add(a);
+            }
+
+            return PictureDtOs;
         }
 
 
 
-        public async Task<Picture?> GetPictureById(int id, CancellationToken cancellation)
+        public async Task<PictureDtOs?> GetPictureById(int id, CancellationToken cancellation)
         {
-            return await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == id, cancellation);
+            var Picture = await _context.Pictures.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.PictureId == id, cancellation);
+
+            var PictureById = new PictureDtOs()
+            {
+                Url = Picture.Url,
+                ProductId = Picture.ProductId,
+                IsDeleted = Picture.IsDeleted,
+                DeleteTime = Picture.DeleteTime,
+                CreateTime = Picture.CreateTime
+
+            };
+            return PictureById;
 
         }
 
-        public async Task UpdatePicture(Picture Picture, CancellationToken cancellation)
+        public async Task UpdatePicture(PictureDtOs Picture, CancellationToken cancellation)
         {
             Picture? changePicture =
                 await _context.Pictures.FirstOrDefaultAsync(p => p.PictureId == Picture.PictureId, cancellation);

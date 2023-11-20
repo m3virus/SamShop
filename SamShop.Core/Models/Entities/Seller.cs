@@ -5,6 +5,8 @@ namespace SamShop.Domain.Core.Models.Entities;
 
 public partial class Seller
 {
+    #region Entities
+
     public int SellerId { get; set; }
 
     public decimal Wallet { get; set; }
@@ -25,16 +27,24 @@ public partial class Seller
 
     public DateTime CreateTime { get; set; }
 
-    public virtual Address Address { get; set; } 
+    #endregion
 
-    public virtual ICollection<Auction> Auctions { get; set; } 
+    #region Navigations
 
-    public virtual Booth Booth { get; set; } 
+    public virtual Address Address { get; set; }
 
-    public virtual Medal Medal { get; set; } 
+    public virtual ICollection<Auction> Auctions { get; set; }
+
+    public virtual Booth Booth { get; set; }
+
+    public virtual Medal Medal { get; set; }
     public virtual Picture? Picture { get; set; }
 
     public virtual AppUser? AppUser { get; set; }
 
-    public virtual Wage Wage { get; set; } 
+    public virtual Wage Wage { get; set; }
+
+    #endregion
+
+
 }

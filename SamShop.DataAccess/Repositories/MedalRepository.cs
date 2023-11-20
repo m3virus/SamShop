@@ -40,7 +40,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<Medal?> GetMedalById(int id, CancellationToken cancellation)
         {
-            return await _context.Medals.FirstOrDefaultAsync(m => m.MedalId == id, cancellation);
+            return await _context.Medals.AsNoTracking()
+                .Include(m => m.Sellers)
+                .FirstOrDefaultAsync(m => m.MedalId == id, cancellation);
 
         }
         public async Task UpdateMedal(Medal Medal, CancellationToken cancellation)
@@ -58,7 +60,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task DeleteMedal(int id, CancellationToken cancellation)
         {
-            Medal? removingMedal = await _context.Medals.FirstOrDefaultAsync(c => c.MedalId == id, cancellation);
+            Medal? removingMedal = await _context.Medals.FirstOrDefaultAsync(c => c.MedalId == id && id != 1, cancellation);
             if (removingMedal != null)
             {
                 removingMedal.IsDeleted = true;

@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SamShop.Domain.Core.Models.DtOs.AuctionDtOs;
 
 namespace SamShop.Domain.Core.Interfaces.Services
 {
     public interface IAuctionServices
     {
-        IEnumerable<Auction> GetAllAuction();
-        Task<Auction?> GetAuctionById(int id, CancellationToken cancellation);
-        Task AddAuction(Auction Auction, CancellationToken cancellation);
-        Task UpdateAuction(Auction Auction, CancellationToken cancellation);
+        IEnumerable<AuctionDtOs> GetAllAuction();
+        Task<AuctionDtOs?> GetAuctionById(int id, CancellationToken cancellation);
+        Task<int> AddAuction(AuctionDtOs Auction, CancellationToken cancellation);
+        Task UpdateAuction(AuctionDtOs Auction, CancellationToken cancellation);
         Task DeleteAuction(int id, CancellationToken cancellation);
     }
 }

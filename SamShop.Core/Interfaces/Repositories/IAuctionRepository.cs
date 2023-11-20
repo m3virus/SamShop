@@ -1,13 +1,14 @@
-﻿using SamShop.Domain.Core.Models.Entities;
+﻿using SamShop.Domain.Core.Models.DtOs.AuctionDtOs;
+using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Core.Interfaces.Repositories
 {
     public interface IAuctionRepository
     {
-        IEnumerable<Auction> GetAllAuction();
-        Task<Auction?> GetAuctionById(int id , CancellationToken cancellation);
-        Task<int> AddAuction(Auction Auction , CancellationToken cancellation);
-        Task UpdateAuction(Auction Auction , CancellationToken cancellation);
+        IEnumerable<AuctionDtOs> GetAllAuction();
+        Task<AuctionDtOs?> GetAuctionById(int id , CancellationToken cancellation);
+        Task<int> AddAuction(AuctionDtOs Auction , CancellationToken cancellation);
+        Task UpdateAuction(AuctionDtOs Auction , CancellationToken cancellation);
         Task DeleteAuction(int id, CancellationToken cancellation);
         
     }

@@ -386,7 +386,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             AdminId = 1,
                             AddressId = 1,
                             AppUserId = 1,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 610, DateTimeKind.Local).AddTicks(1271),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 814, DateTimeKind.Local).AddTicks(5150),
                             IsDeleted = false,
                             Wallet = 100m
                         });
@@ -541,7 +541,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "773e7556-e2a3-4c22-b260-527145cf614d",
+                            ConcurrencyStamp = "d0b465bb-680b-4914-bf0d-1e1c6f46be94",
                             Email = "m3virus@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Mohammadhasan",
@@ -549,11 +549,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "Yazdani",
                             LockoutEnabled = false,
                             NormalizedUserName = "M3VIRUS",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHS+LxRw0bFq7mSclWzhwYZgzVlaPGTrPhABt/I8ANGPlOHI/7lLuqzcymCeZ7hgXA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB3b7AqrI52yT0TbIq3J3GKSr6PztDm2xaCZ1NULXFPFTyf5jjQc1dG6yg9+TaEJ5g==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9662),
-                            SecurityStamp = "108e4732-815b-44a2-8c2a-1524ead9c844",
+                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8102),
+                            SecurityStamp = "c051d023-b58c-40ba-8e8b-1b423d53ccb4",
                             TwoFactorEnabled = false,
                             UserName = "M3Virus"
                         },
@@ -561,7 +561,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8f33d5e-f8f5-48e7-a119-b897dda14fdb",
+                            ConcurrencyStamp = "cf9f90cc-7a31-4f00-8fdc-82c045d2fa2f",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -569,11 +569,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHx0b7Mr/Yco43C9NXuPDVvseFRI3BUA1FQbnZCvFsCGBAvWCcHhXnz/IYN88nZRUA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOcwyAGaDVF9YA2eY7CLM8795ATFNwlr2DzN5was1ZQ2lMAd0yEXX+6mZcbl3B90Sg==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9690),
-                            SecurityStamp = "af1bf010-1ab1-4d6a-8042-8ee4235bfb27",
+                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8174),
+                            SecurityStamp = "dcff0c91-726a-4f76-82ef-30134eff11be",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -581,7 +581,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "851f60bf-cc5b-4aeb-aa7e-f91a634681f1",
+                            ConcurrencyStamp = "a5d6ce06-be6b-484f-a9e6-66a41c15410a",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -589,11 +589,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBr+LVWh6Zs5LNZPYmw4KqyO7fbkO+2hgyfVpYpxLdVzH2z0N19bTDbbRvGhnbKtRQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEPav5ozMA5r3nTabOFIRBKazE6e2Vcd85cWM3BbvQ8WK5hONGgg01cty1FjZ8W5YQ==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9705),
-                            SecurityStamp = "7710cb9b-3d64-4bd3-91e1-eb992fe4d2da",
+                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8209),
+                            SecurityStamp = "087d5826-d563-4922-850f-3497e0e99922",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -601,7 +601,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9c5a4bb4-9a89-4dff-b693-566ad4e8963c",
+                            ConcurrencyStamp = "f5d24a63-5605-41db-9db2-a4951e127ec9",
                             Email = "Seller1@mail.com",
                             EmailConfirmed = true,
                             FirstName = "sel",
@@ -609,11 +609,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "ler",
                             LockoutEnabled = false,
                             NormalizedUserName = "Seller1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJ6qZymXhSUzQm6kWX6L44tBrPdxgQHL6QC0wfq6IefZWVBv/jRYuMwGeSc+XSJ43g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKF7eVx9QGlB2RR/ATwblpZ5GjrDCjZHCj9vBO3VW707AfnGfzmkkJnnoFIFu/6FrA==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 17, 10, 13, 23, 201, DateTimeKind.Local).AddTicks(9780),
-                            SecurityStamp = "d8afe73f-2643-407e-9538-aedb9085d212",
+                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8226),
+                            SecurityStamp = "1090e8c4-bc28-49bb-9e8b-9ba2d9decc53",
                             TwoFactorEnabled = false,
                             UserName = "Seller1"
                         });
@@ -668,12 +668,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             AuctionId = 1,
                             AuctionTitle = "AuctionSample 1",
-                            EndTime = new DateTime(2023, 11, 17, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2023, 11, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             IsAccepted = false,
                             IsCanceled = false,
                             ProductId = 1,
                             SellerId = 1,
-                            StartTime = new DateTime(2023, 11, 17, 10, 13, 23, 609, DateTimeKind.Local).AddTicks(7687),
+                            StartTime = new DateTime(2023, 11, 19, 14, 56, 42, 814, DateTimeKind.Local).AddTicks(653),
                             TheLowestOffer = 10m
                         });
                 });
@@ -775,7 +775,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             BoothId = 1,
                             AddressId = 5,
                             BoothName = "booth 1",
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 610, DateTimeKind.Local).AddTicks(9810),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(4580),
                             IsDeleted = false
                         },
                         new
@@ -783,7 +783,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             BoothId = 2,
                             AddressId = 6,
                             BoothName = "booth 2",
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 610, DateTimeKind.Local).AddTicks(9816),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(4588),
                             IsDeleted = false
                         });
                 });
@@ -824,7 +824,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             CartId = 1,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(3176),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(8918),
                             CustomerId = 1,
                             IsCanceled = false,
                             IsPayed = false,
@@ -833,7 +833,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             CartId = 2,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(3180),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(8923),
                             CustomerId = 2,
                             IsCanceled = false,
                             IsPayed = false,
@@ -874,7 +874,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CategoryId = 1,
                             CategoryName = "category 1",
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(4157),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 816, DateTimeKind.Local).AddTicks(338),
                             IsAccepted = true,
                             IsDeleted = false
                         },
@@ -882,7 +882,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CategoryId = 2,
                             CategoryName = "category 2",
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(4175),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 816, DateTimeKind.Local).AddTicks(364),
                             IsAccepted = true,
                             IsDeleted = false
                         });
@@ -992,7 +992,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CustomerId = 1,
                             AppUserId = 2,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(1922),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(7524),
                             IsDeleted = false,
                             Wallet = 10m
                         },
@@ -1000,7 +1000,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CustomerId = 2,
                             AppUserId = 3,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(1931),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(7536),
                             IsDeleted = false,
                             Wallet = 20m
                         });
@@ -1038,7 +1038,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             MedalId = 1,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 611, DateTimeKind.Local).AddTicks(7361),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 816, DateTimeKind.Local).AddTicks(4233),
                             IsDeleted = false,
                             MedalType = "Medal 1",
                             WagePercentage = 4m
@@ -1127,7 +1127,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             ProductId = 1,
-                            AddTime = new DateTime(2023, 11, 17, 10, 13, 23, 612, DateTimeKind.Local).AddTicks(4853),
+                            AddTime = new DateTime(2023, 11, 19, 14, 56, 42, 817, DateTimeKind.Local).AddTicks(1330),
                             Amount = 5,
                             BoothId = 1,
                             CategoryId = 1,
@@ -1140,7 +1140,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             ProductId = 2,
-                            AddTime = new DateTime(2023, 11, 17, 10, 13, 23, 612, DateTimeKind.Local).AddTicks(4861),
+                            AddTime = new DateTime(2023, 11, 19, 14, 56, 42, 817, DateTimeKind.Local).AddTicks(1341),
                             Amount = 5,
                             BoothId = 2,
                             CategoryId = 2,
@@ -1235,8 +1235,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("BoothId")
                         .IsUnique();
 
-                    b.HasIndex("MedalId")
-                        .IsUnique();
+                    b.HasIndex("MedalId");
 
                     b.HasIndex("PictureId")
                         .IsUnique()
@@ -1251,7 +1250,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             AddressId = 4,
                             AppUserId = 4,
                             BoothId = 1,
-                            CreateTime = new DateTime(2023, 11, 17, 10, 13, 23, 613, DateTimeKind.Local).AddTicks(592),
+                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 817, DateTimeKind.Local).AddTicks(9900),
                             IsDeleted = false,
                             MedalId = 1,
                             Wallet = 100m
@@ -1275,7 +1274,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("PayTime")
+                    b.Property<DateTime?>("PayTime")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
@@ -1305,7 +1304,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             WageId = 1,
                             AdminId = 1,
                             IsDeleted = false,
-                            PayTime = new DateTime(2023, 11, 17, 10, 13, 23, 613, DateTimeKind.Local).AddTicks(3263),
+                            PayTime = new DateTime(2023, 11, 19, 14, 56, 42, 818, DateTimeKind.Local).AddTicks(3503),
                             Price = 4m,
                             ProductId = 1,
                             SellerId = 1
@@ -1597,8 +1596,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasConstraintName("Fk_Booth_Seller");
 
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Medal", "Medal")
-                        .WithOne("Seller")
-                        .HasForeignKey("SamShop.Domain.Core.Models.Entities.Seller", "MedalId")
+                        .WithMany("Sellers")
+                        .HasForeignKey("MedalId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("Fk_Medal_Seller");
@@ -1712,8 +1711,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Medal", b =>
                 {
-                    b.Navigation("Seller")
-                        .IsRequired();
+                    b.Navigation("Sellers");
                 });
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Picture", b =>

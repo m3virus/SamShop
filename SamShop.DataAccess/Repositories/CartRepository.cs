@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.CartDtOs;
+using SamShop.Domain.Core.Models.DtOs.CartDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -14,7 +16,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> AddCart(Cart Cart, CancellationToken cancellation)
+        public async Task<int> AddCart(CartDtOs Cart, CancellationToken cancellation)
 
         {
             Cart CartAdding = new Cart()
@@ -32,19 +34,50 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             return CartAdding.CartId;
         }
 
-        public IEnumerable<Cart> GetAllCart()
+        public IEnumerable<CartDtOs> GetAllCart()
         {
-            return _context.Carts;
+            var Carts = _context.Carts.AsNoTracking();
+            var CartDtOs = new List<CartDtOs>();
+
+            foreach (var Cart in Carts)
+            {
+                var a = new CartDtOs()
+                {
+                    TotalPrice = Cart.TotalPrice,
+                    CustomerId = Cart.CustomerId,
+                    IsCanceled = Cart.IsCanceled,
+                    IsPayed = Cart.IsPayed,
+                    CancelTime = Cart.CancelTime,
+                    CreateTime = Cart.CreateTime
+
+                };
+                CartDtOs.Add(a);
+            }
+
+            return CartDtOs;
         }
 
 
 
-        public async Task<Cart?> GetCartById(int id, CancellationToken cancellation)
+        public async Task<CartDtOs?> GetCartById(int id, CancellationToken cancellation)
         {
-            return await _context.Carts.FirstOrDefaultAsync(c => c.CartId == id, cancellation);
+            var Cart = await _context.Carts.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.CartId == id, cancellation);
+
+            var CartById = new CartDtOs()
+            {
+                TotalPrice = Cart.TotalPrice,
+                CustomerId = Cart.CustomerId,
+                IsCanceled = Cart.IsCanceled,
+                IsPayed = Cart.IsPayed,
+                CancelTime = Cart.CancelTime,
+                CreateTime = Cart.CreateTime
+
+            };
+            return CartById;
 
         }
-        public async Task UpdateCart(Cart Cart, CancellationToken cancellation)
+        public async Task UpdateCart(CartDtOs Cart, CancellationToken cancellation)
         {
             Cart? changeCart = await _context.Carts.FirstOrDefaultAsync(c => c.CartId == Cart.CartId, cancellation);
             if (changeCart != null)

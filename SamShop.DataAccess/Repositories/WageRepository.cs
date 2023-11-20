@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.WageDtOs;
+using SamShop.Domain.Core.Models.DtOs.WageDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -19,27 +21,57 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public IEnumerable<Wage> GetAllWage()
+        public IEnumerable<WageDtOs> GetAllWage()
         {
-            return _context.Wages;
+            var Wages =  _context.Wages.AsNoTracking();
+            var WageDtOs = new List<WageDtOs>();
+
+            foreach (var a in Wages)
+            {
+                var Wage = new WageDtOs()
+                {
+                    ProductId = a.ProductId,
+                    SellerId = a.SellerId,
+                    Price = a.Price,
+                    AdminId = a.AdminId,
+                    IsDeleted = a.IsDeleted,
+                    DeleteTime = a.DeleteTime,
+                    PayTime = a.PayTime,
+
+                };
+                WageDtOs.Add(Wage);
+            }
+
+            return WageDtOs;
         }
 
-        public Task<Wage?> GetWageById(int id, CancellationToken cancellation)
+        public async Task<WageDtOs?> GetWageById(int id, CancellationToken cancellation)
         {
-            return _context.Wages.AsNoTracking()
-                .Include(w => w.Product)
-                .Include(w => w.Seller)
-                .FirstOrDefaultAsync(x => x.WageId == id, cancellation);
+            var Wage = await _context.Wages.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.WageId == id, cancellation);
+
+            var WageById = new WageDtOs()
+            {
+                ProductId = Wage.ProductId,
+                SellerId = Wage.SellerId,
+                Price = Wage.Price,
+                AdminId = Wage.AdminId,
+                IsDeleted = Wage.IsDeleted,
+                DeleteTime = Wage.DeleteTime,
+                PayTime = Wage.PayTime,
+            };
+            return WageById; ;
+
         }
 
-        public async Task<int> AddWage(Wage wage, CancellationToken cancellation)
+        public async Task<int> AddWage(WageDtOs wage, CancellationToken cancellation)
         {
             Wage AddingWage = new Wage()
             {
                 Price = wage.Price,
                 PayTime = null,
                 AdminId = wage.AdminId,
-                SellerId = wage.SellerId,
+                SellerId  = wage.SellerId,
                 ProductId = wage.ProductId,
                 DeleteTime = null,
                 IsDeleted = false,
@@ -50,7 +82,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             
         }
 
-        public async Task UpdateWage(Wage wage, CancellationToken cancellation)
+        public async Task UpdateWage(WageDtOs wage, CancellationToken cancellation)
         {
             Wage? UpdatingWage = await _context.Wages.FirstOrDefaultAsync(x => x.WageId == wage.WageId, cancellation);
             if (UpdatingWage != null)

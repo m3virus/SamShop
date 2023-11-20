@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Service
@@ -19,29 +20,30 @@ namespace SamShop.Domain.Service
             _sellerRepository = sellerRepository;
         }
 
-        public IEnumerable<Seller> GetAllSeller()
+        public IEnumerable<SellerDtOs> GetAllSeller()
         {
-            throw new NotImplementedException();
+            return _sellerRepository.GetAllSeller();
         }
 
-        public Task<Seller?> GetSellerById(int id, CancellationToken cancellation)
+        public async Task<SellerDtOs?> GetSellerById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _sellerRepository.GetSellerById(id, cancellation);
         }
 
-        public async Task AddSeller(Seller Seller, CancellationToken cancellation)
+        public async Task<int> AddSeller(SellerDtOs Seller, CancellationToken cancellation)
         {
-            await _sellerRepository.AddSeller(Seller, cancellation);
+            var sellerId = await _sellerRepository.AddSeller(Seller, cancellation);
+            return sellerId;
         }
 
-        public Task UpdateSeller(Seller Seller, CancellationToken cancellation)
+        public async Task UpdateSeller(SellerDtOs Seller, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _sellerRepository.UpdateSeller(Seller, cancellation);
         }
 
-        public Task DeleteSeller(int id, CancellationToken cancellation)
+        public async Task DeleteSeller(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _sellerRepository.DeleteSeller(id, cancellation);
         }
     }
 }

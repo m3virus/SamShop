@@ -33,8 +33,8 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
 
             entity.HasOne(s => s.Medal)
-                .WithOne(m => m.Seller)
-                .HasForeignKey<Seller>(s => s.MedalId)
+                .WithMany(m => m.Sellers)
+                .HasForeignKey(s => s.MedalId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Medal_Seller");
 

@@ -40,6 +40,7 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Product product, CancellationToken cancellation)
         {
             await _productServices.UpdateProduct(product, cancellation);
+            return View(product);
 
         }
         public async Task<IActionResult> Confirm(int productId, CancellationToken cancellation)

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SamShop.Domain.Core.Interfaces.Services;
 
 namespace SamShop.Domain.Service
 {
-    internal class CategoryServices
+    public class CategoryServices : ICategoryServices
     {
     }
 }
