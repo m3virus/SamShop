@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.AppServices.BoothAppServices;
 using SamShop.Domain.Core.Interfaces.Services;
 using SamShop.Domain.Core.Models.DtOs.AddressDtOs;
+using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Appservices.BoothAppServices
@@ -19,12 +20,6 @@ namespace SamShop.Domain.Appservices.BoothAppServices
         {
             _boothServices = boothServices;
             _addressServices = addressServices;
-        }
-
-        public async Task AddBooth(Booth Booth,AddressDtOs Address, CancellationToken cancellation)
-        {
-            await _boothServices.AddBooth(Booth, cancellation);
-            
         }
 
 

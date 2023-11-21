@@ -18,9 +18,10 @@ namespace SamShop.Domain.Appservices.SellerAppServices
             _sellerServices = sellerServices;
         }
 
-        public async Task AddSeller(Seller Seller, CancellationToken cancellation)
+
+        public Task AddSeller(Seller Seller, CancellationToken cancellation)
         {
-            await _sellerServices.AddSeller(Seller, cancellation);
+            throw new NotImplementedException();
         }
     }
 }

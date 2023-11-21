@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SamShop.Domain.Core.Models.DtOs.CartDtOs;
 
 namespace SamShop.Domain.Core.Interfaces.Services
 {
     public interface ICartServices
     {
-        IEnumerable<Cart> GetAllCart();
-        Task<Cart?> GetCartById(int id, CancellationToken cancellation);
-        Task AddCart(Cart Cart, CancellationToken cancellation);
-        Task UpdateCart(Cart Cart, CancellationToken cancellation);
+        IEnumerable<CartDtOs> GetAllCart();
+        Task<CartDtOs?> GetCartById(int id, CancellationToken cancellation);
+        Task<int> AddCart(CartDtOs Cart, CancellationToken cancellation);
+        Task UpdateCart(CartDtOs Cart, CancellationToken cancellation);
         Task DeleteCart(int id, CancellationToken cancellation);
     }
 }

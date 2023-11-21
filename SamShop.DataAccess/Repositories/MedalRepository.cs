@@ -50,6 +50,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 };
                 MedalDtOs.Add(a);
             }
+
+            return MedalDtOs;
         }
 
 

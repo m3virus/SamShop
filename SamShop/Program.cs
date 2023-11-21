@@ -1,6 +1,14 @@
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SamShop.Domain.AppServices.AddressAppServices;
+using SamShop.Domain.Appservices.BoothAppServices;
+using SamShop.Domain.Appservices.SellerAppServices;
+using SamShop.Domain.Appservices.UserAppServices;
+using SamShop.Domain.Core.Interfaces.AppServices.AddressAppServices;
+using SamShop.Domain.Core.Interfaces.AppServices.BoothAppServices;
+using SamShop.Domain.Core.Interfaces.AppServices.SellerAppServices;
+using SamShop.Domain.Core.Interfaces.AppServices.UserAppServices;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
 using SamShop.Domain.Core.Models.Entities;
@@ -26,33 +34,52 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 
 #region Repository DI
 
+builder.Services.AddScoped<IUserAppService, UserAppService>();
+
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IAddressServices, AddressServices>();
+builder.Services.AddScoped<IAddressAppService, AddressAppService>();
 
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IAdminServices, AdminServices>();
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<IAuctionServices, AuctionServices>();
 
 builder.Services.AddScoped<IAuctionOfferRepository, AuctionOfferRepository>();
+builder.Services.AddScoped<IAuctionOfferServices, AuctionOfferServices>();
 
 builder.Services.AddScoped<IBoothRepository, BoothRepository>();
+builder.Services.AddScoped<IBoothServices, BoothServices>();
+builder.Services.AddScoped<IBoothAppServices, BoothAppService>();
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartServices, CartServices>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentServices, CommentServices>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerServices, CustomerServices>();
 
 builder.Services.AddScoped<IMedalRepository, MedalRepository>();
+builder.Services.AddScoped<IMedalServices, MedalServices>();
 
 builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+builder.Services.AddScoped<IPictureServices, PictureServices>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductServices, ProductServices>();
 
 builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+builder.Services.AddScoped<ISellerServices, SellerServices>();
+builder.Services.AddScoped<ISellerAppServices, SellerAppService>();
+
+builder.Services.AddScoped<IWageRepository, WageRepository>();
+builder.Services.AddScoped<IWageServices, WageServices>();
 
 
 #endregion

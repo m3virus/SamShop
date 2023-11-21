@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WageDtOs>
+@{
+
+}
+
+@foreach (var item in Model)
+{
+    <div class="card m-2">
+        <h5 class="card-header">@item.WageId</h5>
+        <div class="card-body">
+            <h5 class="card-title">@item.Price</h5>
+            <p class="card-text"> @item.PayTime</p>
+            @*<p class="card-text"> @item.UserName</p>
+            <p class="card-text"> @item.Email</p>*@
+
+        </div>
+    </div>
+}

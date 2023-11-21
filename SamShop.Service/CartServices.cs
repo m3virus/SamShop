@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Interfaces.Services;
 using SamShop.Domain.Core.Models.DtOs.CartDtOs;
 
 namespace SamShop.Domain.Service
 {
-    public class CartServices : ICartRepository
+    public class CartServices : ICartServices
     {
         protected readonly ICartRepository _cartRepository;
 

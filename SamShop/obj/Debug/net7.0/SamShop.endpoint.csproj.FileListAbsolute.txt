@@ -814,3 +814,4 @@ C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop\obj\Debug\net7.0\scopedcss\proj
 C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop\obj\Debug\net7.0\SamShop.endpoint.csproj.CopyComplete
 C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop\obj\Debug\net7.0\SamShop.endpoint.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\DataBase\SamShop\SamShop\obj\Debug\net7.0\ref\SamShop.endpoint.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop\obj\Debug\net7.0\scopedcss\Areas\Identity\Views\Shared\_Layout.cshtml.rz.scp.css

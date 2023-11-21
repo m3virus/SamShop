@@ -15,9 +15,11 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
             _commentServices = commentServices;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_commentServices.GetCommentsByIsAccepted());
+            var result = _commentServices.GetCommentsByIsAccepted();
+            return View(result);
+
         }
         
         

@@ -30,6 +30,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 var Wage = new WageDtOs()
                 {
+                    WageId = a.WageId,
                     ProductId = a.ProductId,
                     SellerId = a.SellerId,
                     Price = a.Price,

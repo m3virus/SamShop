@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Domain.Service;
 
@@ -17,13 +18,13 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(_productServices.GetProductsByIsAccepted());
+            return View(_productServices.GetAllProduct().Where(x =>x.IsDeleted!= true).OrderBy(x =>x.IsAccepted));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int productId , CancellationToken cancellation)
+        public async Task<IActionResult> Edit(int productId, CancellationToken cancellation)
         {
-            var result = await _productServices.GetProductById(productId , cancellation);
+            var result = await _productServices.GetProductById(productId, cancellation);
             if (result != null)
             {
                 return View(result);
@@ -32,22 +33,21 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
         [HttpPost]
 
-        public async Task<IActionResult> Edit(Product product, CancellationToken cancellation)
+        public async Task<IActionResult> Edit(ProductDtOs product, CancellationToken cancellation)
         {
             await _productServices.UpdateProduct(product, cancellation);
-            return View(product);
+            return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Confirm(int productId, CancellationToken cancellation)
         {
             await _productServices.ConfirmProduct(productId, cancellation);
             return RedirectToAction("Index");
-            //return View();
         }
 
 

@@ -27,12 +27,13 @@ namespace SamShop.Domain.Appservices.UserAppServices
             return user;
         }
 
-        public async Task<SignInResult> SignIn(AppUser appUser, string password, CancellationToken cancellation)
+        public async Task<SignInResult> SignIn(string Email, string password, CancellationToken cancellation)
         {
-            var result = await _signInManager.CheckPasswordSignInAsync(appUser, password, true);
-            if (result.Succeeded)
+            var User = await _userManager.FindByEmailAsync(Email);
+            if (User != null)
             {
-                return result;
+                var check = await _signInManager.CheckPasswordSignInAsync(User, password, false);
+                return check;
             }
             else
             {

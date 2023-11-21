@@ -21,6 +21,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         {
             Booth BoothAdding = new Booth()
             {
+                BoothId = Booth.BoothId,
                 BoothName = Booth.BoothName,
                 AddressId = Booth.AddressId,
                 CreateTime = DateTime.Now,
@@ -42,6 +43,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 var booth = new BoothDtOs()
                 {
+                    BoothId = a.BoothId,
                     BoothName = a.BoothName,
                     AddressId = a.AddressId,
                     IsDeleted = a.IsDeleted,
@@ -64,6 +66,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
             var boothById = new BoothDtOs()
             {
+                BoothId = booth.BoothId,
                 AddressId = booth.AddressId,
                BoothName = booth.BoothName,
                 IsDeleted = booth.IsDeleted,
@@ -79,7 +82,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             if (changeBooth != null)
             {
                 changeBooth.BoothName = Booth.BoothName;
-                changeBooth.AddressId = Booth.AddressId;
+                
                 
             }
 

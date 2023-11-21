@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BoothDtOs>
+@{
+
+}
+
+@foreach (var item in Model)
+{
+    <div class="card m-2">
+        <h5 class="card-header">@item.BoothId</h5>
+        <div class="card-body">
+            <h5 class="card-title">@item.BoothName</h5>
+            @*<p class="card-text"> @item.Seller.AppUser?.FirstName</p>
+            <p class="card-text"> @item.Seller.AppUser?.LastName</p>*@
+            <p class="card-text"> @item.CreateTime</p>
+
+
+
+            @*<a class="btn btn-primary" asp-controller="AdminProduct" asp-action="Confirm" asp-route-Id="@item.Id">confirm</a>*@
+            <a class="btn btn-primary" asp-controller="AdminBooth" asp-action="Delete" asp-route-BoothId="@item.BoothId">delete</a>
+            <a class="btn btn-primary" asp-controller="AdminBooth" asp-action="Edit" asp-route-BoothId="@item.BoothId">Edit</a>
+
+
+
+        </div>
+    </div>
+}

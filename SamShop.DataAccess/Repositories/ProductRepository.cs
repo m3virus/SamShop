@@ -46,6 +46,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 var Product = new ProductDtOs()
                 {
+                    ProductId = a.ProductId,
                     IsDeleted = a.IsDeleted,
                     DeleteTime = a.DeleteTime,
                     CategoryId = a.CategoryId,
@@ -54,6 +55,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     Amount = a.Amount,
                     IsAvailable = a.IsAvailable,
                     IsAccepted = a.IsAccepted,
+                    AddTime = a.AddTime,
 
                 };
                 ProductDtOs.Add(Product);
@@ -71,6 +73,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
             var ProductById = new ProductDtOs()
             {
+                ProductId = Product.ProductId,
                 IsDeleted = Product.IsDeleted,
                 Price = Product.Price,
                 DeleteTime = Product.DeleteTime,
@@ -78,7 +81,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Amount = Product.Amount,
                 IsAvailable = Product.IsAvailable,
                 IsAccepted = Product.IsAccepted,
-                ProductName = Product.ProductName
+                ProductName = Product.ProductName,
+                AddTime = Product.AddTime
             };
             return ProductById;
         }
@@ -90,8 +94,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             if (changeProduct != null)
             {
                 changeProduct.ProductName = Product.ProductName;
-                changeProduct.CategoryId = Product.CategoryId;
-                changeProduct.BoothId = Product.BoothId;
+                //changeProduct.CategoryId = Product.CategoryId;
+                //changeProduct.BoothId = Product.BoothId;
                 changeProduct.Price = Product.Price;
                 changeProduct.IsAvailable = Product.IsAvailable;
                 changeProduct.IsAccepted = Product.IsAccepted;

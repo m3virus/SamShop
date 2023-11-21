@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using SamShop.Controllers;
 using SamShop.Domain.Core.Interfaces.AppServices.BoothAppServices;
 using SamShop.Domain.Core.Interfaces.AppServices.SellerAppServices;
 using SamShop.Domain.Core.Interfaces.AppServices.UserAppServices;
@@ -10,6 +11,7 @@ using SamShop.endpoint.Areas.Identity.Models;
 
 namespace SamShop.endpoint.Areas.Identity.Controllers
 {
+    [Area("Identity")]
     public class IdentityController : Controller
     {
 
@@ -37,39 +39,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> SellerRegister(SellerRegisterViewModel sellerRegister , CancellationToken cancellation)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var registerAppUser = new AppUser()
-            //    {
-                    
-            //    };
-
-            //    var AppUserRegisterResult = await _userAppService.Register(registerAppUser ,sellerRegister.password ,"Seller", cancellation);
-                
-            //    if (AppUserRegisterResult.Succeeded)
-            //    {
-            //        var registerBoothAddress = new AddressDtOs()
-            //        {
-
-            //        };
-            //        var registerBooth = new BoothDtOs()
-            //        {
-
-            //        };
-            //        await _boothAppService.Create(registerBooth , registerBoothAddress , cancellation);
-
-            //        var registerSeller = new SellerDtOs()
-            //        {
-
-            //        };
-            //        var registerSellerAddress = new AddressDtOs()
-            //        {
-
-            //        };
-            //        await _sellerAppService.create(registerSeller ,  registerSellerAddress , cancellation);
-
-            //    }
-            //}
+            
             return View();
         }
 
@@ -77,11 +47,6 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var result = await _userAppService.Register();
-                //if (result)
-                //{
-
-                //}
             }
             return View();
         }
@@ -89,17 +54,33 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult SignIn()
+        public IActionResult SignIn(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> SignIn(LoginViewModel login)
-        {
-            return View();
+        public async Task<IActionResult> SignIn(LoginViewModel login, CancellationToken cancellation , string returnUrl = null)
+            {
+                ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var result = await _userAppService.SignIn(login.Email , login.Password , cancellation);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index" , "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt");
+                    return View(login);
+                }
+            }
+            return View(login);
+            
         }
     }
 }

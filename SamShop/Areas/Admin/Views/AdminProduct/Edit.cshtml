@@ -1,0 +1,38 @@
+﻿@model ProductDtOs
+
+<h2>Edit Product</h2>
+
+<form asp-area="Admin" asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="ProductName">ProductName:</label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Amount">Amount:</label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Price">Price:</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddTime">AddTime:</label>
+        <input asp-for="AddTime" class="form-control" />
+        <span asp-validation-for="AddTime" class="text-danger"></span>
+    </div>
+
+
+    
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" asp-route-ProductId = "@Model.ProductId">Update Product</button>
+    </div>
+</form>
