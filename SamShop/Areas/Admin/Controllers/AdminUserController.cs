@@ -84,7 +84,7 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
                 result.DeleteTime = DateTime.Now;
                 await _userManager.UpdateAsync(result);
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
     }
 }

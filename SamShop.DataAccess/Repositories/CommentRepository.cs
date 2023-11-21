@@ -43,6 +43,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 var Comment = new CommentDtOs()
                 {
+                    CommentId = a.CommentId,
                     Message = a.Message,
                     IsDeleted = a.IsDeleted,
                     DeleteTime = a.DeleteTime,
@@ -68,6 +69,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
             var CommentById = new CommentDtOs()
             {
+                CommentId = Comment.CommentId,
                 Message = Comment.Message,
                 IsDeleted = Comment.IsDeleted,
                 CommentDate = Comment.CommentDate,
