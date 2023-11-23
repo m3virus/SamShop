@@ -25,22 +25,22 @@ namespace SamShop.Domain.Appservices
             throw new NotImplementedException();
         }
 
-        public Task<AddressDtOs?> GetAddressById(int id, CancellationToken cancellation)
+        public async Task<AddressDtOs?> GetAddressById(int id, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> AddAddress(AddressDtOs Address, CancellationToken cancellation)
+        public async Task<int> AddAddress(AddressDtOs Address, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAddress(AddressDtOs Address, CancellationToken cancellation)
+        public async Task UpdateAddress(AddressDtOs Address, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAddress(int id, CancellationToken cancellation)
+        public async Task DeleteAddress(int id, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }

@@ -23,32 +23,27 @@ namespace SamShop.Domain.Appservices
         }
 
 
-        public Task AddBooth(Booth Booth, CancellationToken cancellation)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<BoothDtOs> GetAllBooth()
         {
             throw new NotImplementedException();
         }
 
-        public Task<BoothDtOs?> GetBoothById(int id, CancellationToken cancellation)
+        public async Task<BoothDtOs?> GetBoothById(int id, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> AddBooth(BoothDtOs Booth, CancellationToken cancellation)
+        public async Task<int> AddBooth(BoothDtOs Booth, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateBooth(BoothDtOs Booth, CancellationToken cancellation)
+        public async Task UpdateBooth(BoothDtOs Booth, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteBooth(int id, CancellationToken cancellation)
+        public async Task DeleteBooth(int id, CancellationToken cancellation)
         {
             throw new NotImplementedException();
         }
