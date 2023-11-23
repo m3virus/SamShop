@@ -1,20 +1,14 @@
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SamShop.Domain.AppServices.AddressAppServices;
-using SamShop.Domain.Appservices.BoothAppServices;
-using SamShop.Domain.Appservices.SellerAppServices;
-using SamShop.Domain.Appservices.UserAppServices;
-using SamShop.Domain.Core.Interfaces.AppServices.AddressAppServices;
-using SamShop.Domain.Core.Interfaces.AppServices.BoothAppServices;
-using SamShop.Domain.Core.Interfaces.AppServices.SellerAppServices;
-using SamShop.Domain.Core.Interfaces.AppServices.UserAppServices;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Domain.Service;
 using SamShop.Infrastructure.DataAccess.Repositories;
 using SamShop.Infrastructure.EntityFramework.DBContext;
+using SamShop.Domain.Core.Interfaces.AppServices;
+using SamShop.Domain.Appservices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +32,7 @@ builder.Services.AddScoped<IUserAppService, UserAppService>();
 
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IAddressServices, AddressServices>();
-builder.Services.AddScoped<IAddressAppService, AddressAppService>();
+builder.Services.AddScoped<IAddressAppServices, AddressAppService>();
 
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAdminServices, AdminServices>();
