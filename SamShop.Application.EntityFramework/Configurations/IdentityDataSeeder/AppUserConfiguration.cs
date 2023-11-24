@@ -12,6 +12,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations.IdentityDataSeed
 {
     public class AppUserConfiguration: IEntityTypeConfiguration<AppUser>
     {
+        protected readonly UserManager<AppUser> _userManager;
         public void Configure(EntityTypeBuilder<AppUser> entity)
         {
             
@@ -77,7 +78,6 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations.IdentityDataSeed
                 SecurityStamp = Guid.NewGuid().ToString(),
                 
             };
-            
 
             PasswordHasher<AppUser> password = new PasswordHasher<AppUser>();
                 admin.PasswordHash = password.HashPassword(admin , "1234");
@@ -85,6 +85,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations.IdentityDataSeed
                 customer2.PasswordHash = password.HashPassword(customer2 , "1234");
                 seller1.PasswordHash = password.HashPassword(seller1 , "1234");
                 entity.HasData(admin, customer1, customer2, seller1);
+
         }
         
     }

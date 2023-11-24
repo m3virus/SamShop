@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using SamShop.Controllers;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Models.DtOs;
+using SamShop.Domain.Core.Models.DtOs.AddressDtOs;
+using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
+using SamShop.Domain.Core.Models.DtOs.CustomerDtOs;
+using SamShop.Domain.Core.Models.DtOs.PictureDtOs;
+using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.endpoint.Areas.Identity.Models;
 
@@ -15,23 +20,33 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
     {
         protected readonly RoleManager<AppRole> _roleManager;
         protected readonly UserManager<AppUser> _userManager;
-        protected readonly IUserAppService _userAppService;
+        protected readonly IUserAppServices _userAppService;
         protected readonly IBoothAppServices _boothAppService;
         protected readonly ISellerAppServices _sellerAppService;
-        public IdentityController(IUserAppService userAppService, IBoothAppServices boothAppService, ISellerAppServices sellerAppService, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
+        protected readonly ICustomerAppServices _customerAppService;
+        protected readonly IRoleAppServices _roleAppServices;
+        protected readonly ICloudAppServices _cloudAppService;
+        protected readonly IAddressAppServices _addressAppService;
+        protected readonly IPictureAppServices _pictureAppService;
+        public IdentityController(IUserAppServices userAppService, IBoothAppServices boothAppService, ISellerAppServices sellerAppService, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IRoleAppServices roleAppServices, ICustomerAppServices customerAppService, ICloudAppServices cloudAppService, IAddressAppServices addressAppService, IPictureAppServices pictureAppService)
         {
             _userAppService = userAppService;
             _boothAppService = boothAppService;
             _sellerAppService = sellerAppService;
             _roleManager = roleManager;
             _userManager = userManager;
+            _roleAppServices = roleAppServices;
+            _customerAppService = customerAppService;
+            _cloudAppService = cloudAppService;
+            _addressAppService = addressAppService;
+            _pictureAppService = pictureAppService;
         }
 
 
 
         [AllowAnonymous]
         [HttpGet]
-        [ValidateAntiForgeryToken]
+        
         public IActionResult Register()
         {
             return View();
@@ -39,28 +54,157 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> SellerRegister(SellerRegisterViewModel sellerRegister , CancellationToken cancellation)
         {
-            
-            return View();
+            if (ModelState.IsValid)
+            {
+                var result = await _cloudAppService.AddPhoto(sellerRegister.Image, cancellation);
+                PasswordHasher<AppUser> password = new PasswordHasher<AppUser>();
+
+                var Seller = new AppUser
+                {
+                    PhoneNumber = sellerRegister.PhoneNumber,
+                    Email = sellerRegister.Email,
+                    FirstName = sellerRegister.FirstName,
+                    LastName = sellerRegister.LastName,
+                    UserName = sellerRegister.UserName,
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true,
+                    RegisterTime = DateTime.Now,
+                    DeleteTime = null,
+                    IsDeleted = false,
+                };
+                var registerUser =
+                    await _userAppService.Register(Seller, sellerRegister.Password, "Seller", cancellation);
+                if (registerUser.Succeeded)
+                {
+                    var Address = new AddressDtOs
+                    {
+                        Alley = sellerRegister.Address.Alley,
+                        Street = sellerRegister.Address.Street,
+                        City = sellerRegister.Address.City,
+                        ExtraPart = sellerRegister.Address.ExtraPart,
+                        PostCode = sellerRegister.Address.PostCode,
+                    };
+                    var registerAddress = await _addressAppService.AddAddress(Address, cancellation);
+
+                    var photo = new PictureDtOs
+                    {
+                        Url = result.Url.ToString(),
+
+                    };
+                    var registerPhoto = await _pictureAppService.AddPicture(photo, cancellation);
+
+                    var boothAddress = new AddressDtOs
+                    {
+                        Alley = sellerRegister.BoothAddressDtOs.Alley,
+                        Street = sellerRegister.BoothAddressDtOs.Street,
+                        City = sellerRegister.BoothAddressDtOs.City,
+                        ExtraPart = sellerRegister.BoothAddressDtOs.ExtraPart,
+                        PostCode = sellerRegister.BoothAddressDtOs.PostCode,
+                    };
+
+                    var registerBoothAddress = await _addressAppService.AddAddress(boothAddress, cancellation);
+                    var booth = new BoothDtOs
+                    {
+                        BoothName = sellerRegister.Booth.BoothName,
+                        BoothId = registerBoothAddress,
+                    };
+
+                    var registerBooth = await _boothAppService.AddBooth(booth, cancellation);
+
+                    var sellerTable = new SellerDtOs
+                    {
+                        BoothId = registerBooth,
+                        AddressId = registerAddress,
+                        AppUserId = Seller.Id,
+                        PictureId = registerPhoto,
+                        Wallet = 0
+
+                    };
+                    var registerSeller = await _sellerAppService.AddSeller(sellerTable, cancellation);
+                }
+            }
+
+
+            return RedirectToAction("SignIn");
         }
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CustomerRegister(CustomerRegisterViewModel customerRegister)
+        
+        public async Task<IActionResult> CustomerRegister(CustomerRegisterViewModel customerRegister, CancellationToken cancellation)
         {
             if (ModelState.IsValid)
             {
+                var result = await _cloudAppService.AddPhoto(customerRegister.Image, cancellation);
+                PasswordHasher<AppUser> password = new PasswordHasher<AppUser>();
+
+                var Customer = new AppUser
+                {
+                    PhoneNumber = customerRegister.PhoneNumber,
+                    Email = customerRegister.Email,
+                    FirstName = customerRegister.FirstName,
+                    LastName = customerRegister.LastName,
+                    UserName = customerRegister.UserName,
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true,
+                    RegisterTime = DateTime.Now,
+                    DeleteTime = null,
+                    IsDeleted = false,
+                };
+                var registerUser =
+                    await _userAppService.Register(Customer, customerRegister.Password, "Customer", cancellation);
+                if (registerUser.Succeeded)
+                {
+                    var Address = new AddressDtOs
+                    {
+                        Alley = customerRegister.Address.Alley,
+                        Street = customerRegister.Address.Street,
+                        City = customerRegister.Address.City,
+                        ExtraPart = customerRegister.Address.ExtraPart,
+                        PostCode = customerRegister.Address.PostCode,
+                    };
+                    var registerAddress = await _addressAppService.AddAddress(Address, cancellation);
+
+                    var photo = new PictureDtOs
+                    {
+                        Url = result.Url.ToString(),
+
+                    };
+                    var registerPhoto = await _pictureAppService.AddPicture(photo, cancellation);
+
+                    var customerTable = new CustomerDtOs
+                    {
+                        AppUserId = Customer.Id,
+                        PictureId = registerPhoto,
+                        Wallet = 0,
+                        AddressCustomers = new List<AddressCustomer>
+                        {
+                            new AddressCustomer
+                            {
+                                AddressId = registerAddress
+                            }
+                        }
+                    };
+
+                    var CustomerRegisterId = await _customerAppService.AddCustomer(customerTable, cancellation);
+
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+                
             }
-            return View();
+            return RedirectToAction("SignIn");
         }
 
 
         [AllowAnonymous]
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public IActionResult SignIn()
         {
             
@@ -70,7 +214,6 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignIn(LoginViewModel login, CancellationToken cancellation)
             {
                 
@@ -79,13 +222,17 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                 var result = await _userAppService.SignIn(login.Email , login.Password , cancellation);
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByEmailAsync(login.Email);
-                    var role = await _userManager.GetRolesAsync(user);
-                    if (role != null && role = "Admin")
+                    var role = _roleAppServices.GetUserRole(login.Email);
+                    if (role.Result.Contains("Admin"))
                     {
-
+                        return RedirectToAction("Index", "AdminPanel", new { area = "Admin" });
                     }
-                    return RedirectToAction("Index" , "Home");
+                    else if(role.Result.Contains("Customer"))
+                    {
+                        return RedirectToAction("Index", "AdminPanel", new { area = "Customer"});
+                    }
+                    
+
                 }
                 else
                 {

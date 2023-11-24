@@ -27,7 +27,7 @@ namespace SamShop.Domain.Core.Models.DtOs.CustomerDtOs
 
         #endregion
 
-        #region MyRegion
+        #region Navigatons
 
         public virtual ICollection<AddressCustomer> AddressCustomers { get; set; }
 

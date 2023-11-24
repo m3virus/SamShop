@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SamShop.Domain.Core.Interfaces.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Domain.Service;
@@ -7,24 +8,26 @@ using SamShop.Domain.Service;
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+    
     public class AdminProductController : Controller
     {
-        private readonly IProductServices _productServices;
+        private readonly IProductAppServices _productAppServices;
 
-        public AdminProductController(IProductServices productServices)
+        public AdminProductController(IProductAppServices productAppServices)
         {
-            _productServices = productServices;
+            _productAppServices = productAppServices;
         }
 
         public IActionResult Index()
         {
-            return View(_productServices.GetAllProduct().Where(x =>x.IsDeleted!= true).OrderBy(x =>x.IsAccepted));
+            return View(_productAppServices.GetAllProduct().Where(x =>x.IsDeleted!= true).OrderBy(x =>x.IsAccepted));
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int productId, CancellationToken cancellation)
         {
-            var result = await _productServices.GetProductById(productId, cancellation);
+            var result = await _productAppServices.GetProductById(productId, cancellation);
             if (result != null)
             {
                 return View(result);
@@ -40,20 +43,20 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(ProductDtOs product, CancellationToken cancellation)
         {
-            await _productServices.UpdateProduct(product, cancellation);
+            await _productAppServices.UpdateProduct(product, cancellation);
             return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Confirm(int productId, CancellationToken cancellation)
         {
-            await _productServices.ConfirmProduct(productId, cancellation);
+            await _productAppServices.ConfirmProduct(productId, cancellation);
             return RedirectToAction("Index");
         }
 
 
         public async Task<IActionResult> Delete(int productId, CancellationToken cancellation)
         {
-            await _productServices.DeleteProduct(productId, cancellation);
+            await _productAppServices.DeleteProduct(productId, cancellation);
             return RedirectToAction("Index");
         }
 

@@ -29,18 +29,7 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
             
         }
 
-        //public async Task<IActionResult> Detail(int Id , CancellationToken cancellation)
-        //{
-        //    var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == Id, cancellation);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    else
-        //    {
-        //        return View(user);
-        //    }
-        //}
+        
         [HttpGet]
         public async Task<IActionResult> Edit(int Id, CancellationToken cancellation)
         {

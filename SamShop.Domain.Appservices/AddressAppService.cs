@@ -22,12 +22,12 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<AddressDtOs> GetAllAddress()
         {
-            throw new NotImplementedException();
+            return _addressServices.GetAllAddress();
         }
 
         public async Task<AddressDtOs?> GetAddressById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _addressServices.GetAddressById(id , cancellation);
         }
 
         public async Task<int> AddAddress(AddressDtOs Address, CancellationToken cancellation)

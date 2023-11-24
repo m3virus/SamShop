@@ -20,27 +20,27 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<WageDtOs> GetAllWage()
         {
-            throw new NotImplementedException();
+            return _wageServices.GetAllWage().Where(x => x.IsDeleted != true).OrderBy(x => x.PayTime);
         }
 
         public async Task<WageDtOs?> GetWageById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _wageServices.GetWageById(id ,cancellation);
         }
 
         public async Task<int> AddWage(WageDtOs Wage, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _wageServices.AddWage(Wage,cancellation);
         }
 
         public async Task UpdateWage(WageDtOs Wage, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _wageServices.UpdateWage(Wage,cancellation);
         }
 
         public async Task DeleteWage(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _wageServices.DeleteWage(id ,cancellation);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Alley = address.Alley,
                 ExtraPart = address.ExtraPart,
                 PostCode = address.PostCode,
-                IsDeleted = false
+                IsDeleted = false,
                 
             };
             await _context.Addresses.AddAsync(addressAdding, cancellation);

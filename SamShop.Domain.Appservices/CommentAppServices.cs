@@ -20,37 +20,37 @@ namespace SamShop.Domain.Appservices
 
         public async Task ConfirmComment(int commentId, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _commentServices.ConfirmComment(commentId, cancellation);
         }
 
         public async Task DeleteComment(int commentId, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _commentServices.DeleteComment(commentId, cancellation);
         }
 
         public IEnumerable<CommentDtOs> GetCommentsByIsAccepted()
         {
-            throw new NotImplementedException();
+            return _commentServices.GetCommentsByIsAccepted();
         }
 
         public IEnumerable<CommentDtOs> GetAllComment()
         {
-            throw new NotImplementedException();
+            return _commentServices.GetAllComment().Where(x => x.IsDeleted != true);
         }
 
         public async Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _commentServices.GetCommentById(id, cancellation);
         }
 
         public async Task<int> AddComment(CommentDtOs Comment, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _commentServices.AddComment(Comment, cancellation);
         }
 
         public async Task UpdateComment(CommentDtOs Comment, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _commentServices.UpdateComment(Comment, cancellation);
         }
     }
 }

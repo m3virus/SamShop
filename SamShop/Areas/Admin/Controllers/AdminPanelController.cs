@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Infrastructure.DataAccess.Repositories;
+using System.Data;
 
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AdminPanelController : Controller
     {
         private readonly IAdminRepository _adminRepository;
@@ -13,7 +16,7 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
         {
             _adminRepository = adminRepository;
         }
-        [Area("Admin")]
+        
         // GET: AdminPanelController
         public ActionResult Index()
         {

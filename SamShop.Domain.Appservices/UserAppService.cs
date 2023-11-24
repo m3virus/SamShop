@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SamShop.Domain.Core.Interfaces.AppServices;
-using SamShop.Domain.Core.Interfaces.AppServices.UserAppServices;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.Domain.Appservices

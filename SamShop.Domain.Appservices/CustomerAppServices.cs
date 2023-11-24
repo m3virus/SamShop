@@ -9,7 +9,7 @@ using SamShop.Domain.Core.Models.DtOs.CustomerDtOs;
 
 namespace SamShop.Domain.Appservices
 {
-    public class CustomerAppServices : ICustomerServices
+    public class CustomerAppServices : ICustomerAppServices
     {
         protected readonly ICustomerServices _customerServices;
 
