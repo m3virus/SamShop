@@ -8,6 +8,7 @@ using System.Data;
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller
     {
         private readonly IAdminRepository _adminRepository;

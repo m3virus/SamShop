@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Interfaces.Services;
 using SamShop.Domain.Service;
@@ -6,6 +7,7 @@ using SamShop.Domain.Service;
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminWageController : Controller
     {
         

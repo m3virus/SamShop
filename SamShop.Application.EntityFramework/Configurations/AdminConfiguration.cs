@@ -52,7 +52,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
             return Enumerable.Range(1, 1).Select(index => new Admin
             {
                 AdminId = index,
-                AddressId = 1,
+                AddressId = 3,
                 PictureId = null,
                 Wallet = index * 100,
                 IsDeleted = false,

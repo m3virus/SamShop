@@ -27,7 +27,7 @@ public partial class Cart
 
     public virtual Customer Customer { get; set; }
 
-    public virtual ICollection<ProductCart> ProductCarts { get; set; }
+    public virtual ICollection<Product>? Products { get; set; }
 
     #endregion
 

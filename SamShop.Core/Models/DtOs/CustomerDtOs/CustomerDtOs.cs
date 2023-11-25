@@ -29,7 +29,7 @@ namespace SamShop.Domain.Core.Models.DtOs.CustomerDtOs
 
         #region Navigatons
 
-        public virtual ICollection<AddressCustomer> AddressCustomers { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
 
         public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
 

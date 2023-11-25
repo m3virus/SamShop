@@ -23,9 +23,9 @@ public partial class Customer
 
     #endregion
 
-    #region MyRegion
+    #region Navigations
 
-    public virtual ICollection<AddressCustomer> AddressCustomers { get; set; }
+    public virtual ICollection<Address> Address { get; set; }
 
     public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
 

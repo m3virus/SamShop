@@ -67,7 +67,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 MedalId = 1,
                 PictureId = null,
                 AppUserId = 4,
-                AddressId = 4,
+                AddressId = 5,
                 IsDeleted = false,
                 DeleteTime = null,
                 CreateTime = DateTime.Now,

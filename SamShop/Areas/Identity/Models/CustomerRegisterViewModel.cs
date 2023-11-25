@@ -5,25 +5,30 @@ namespace SamShop.endpoint.Areas.Identity.Models
 {
     public class CustomerRegisterViewModel
     {
-        public int CustomerId { get; set; }
-        [Required]
+        
+        
         public string FirstName { get; set; }
-        [Required]
+       
         public string UserName { get; set; }
-        [Required]
+        
         public string LastName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "email is required")]
+        [EmailAddress]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "password is required")]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = "phone number is required")]
         [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [Required]
         public Address Address { get; set; }
+        
+        [DataType(DataType.ImageUrl)]
+        [Display(Name = "Image url")]
         public IFormFile Image { get; set; }
 
     }

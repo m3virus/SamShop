@@ -18,12 +18,18 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
             entity.HasKey(a => a.AddressId);
             entity.Property(a => a.AddressId).ValueGeneratedOnAdd();
             entity.Property(a => a.PostCode).HasMaxLength(10);
+            entity.HasOne(x => x.Customer)
+                .WithMany(x => x.Address)
+                .HasForeignKey(x => x.CustomerId);
             entity.HasData(GetAddresses());
             #endregion
+
+           
         }
 
         #region DataSeeder
 
+        
         private List<Address> GetAddresses()
         {
             return Enumerable.Range(1, 10).Select(index => new Address
@@ -35,6 +41,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 Alley = $"alley {index}",
                 ExtraPart = $"level 1",
                 PostCode = $"{index * 1000}",
+                
 
 
             }).ToList();

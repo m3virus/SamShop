@@ -9,6 +9,8 @@ public partial class Address
 
     public int AddressId { get; set; }
 
+    public int? CustomerId { get; set; }
+
     public string State { get; set; }
 
     public string City { get; set; }
@@ -28,7 +30,7 @@ public partial class Address
     #region Navigations
 
     public virtual Admin? Admin { get; set; }
-    public virtual ICollection<AddressCustomer>? AddressCustomers { get; set; }
+    public virtual Customer? Customer { get; set; }
     public virtual Seller? Seller { get; set; }
     public virtual Booth? Booth { get; set; }
 

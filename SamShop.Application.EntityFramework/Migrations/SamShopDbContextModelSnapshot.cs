@@ -22,6 +22,21 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.Property<int>("CartsCartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartsCartId", "ProductsProductId");
+
+                    b.HasIndex("ProductsProductId");
+
+                    b.ToTable("CartProducts", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -163,6 +178,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ExtraPart")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -184,6 +202,8 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AddressId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Addresses");
 
@@ -300,43 +320,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AddressCustomer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("AddressCustomers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AddressId = 2,
-                            CustomerId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AddressId = 3,
-                            CustomerId = 2
-                        });
-                });
-
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Admin", b =>
                 {
                     b.Property<int>("AdminId")
@@ -384,9 +367,9 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             AdminId = 1,
-                            AddressId = 1,
+                            AddressId = 3,
                             AppUserId = 1,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 814, DateTimeKind.Local).AddTicks(5150),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 521, DateTimeKind.Local).AddTicks(9727),
                             IsDeleted = false,
                             Wallet = 100m
                         });
@@ -541,7 +524,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d0b465bb-680b-4914-bf0d-1e1c6f46be94",
+                            ConcurrencyStamp = "ef76bbd1-a0a5-49b1-bdba-9ef53942b162",
                             Email = "m3virus@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Mohammadhasan",
@@ -549,11 +532,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "Yazdani",
                             LockoutEnabled = false,
                             NormalizedUserName = "M3VIRUS",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB3b7AqrI52yT0TbIq3J3GKSr6PztDm2xaCZ1NULXFPFTyf5jjQc1dG6yg9+TaEJ5g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH6O6DvTk3Pi7TQmzwkG0aZ9DI1ngdBfCy1WE6RCylOBZkaOyPBV8yaXrJZzRN5rXw==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8102),
-                            SecurityStamp = "c051d023-b58c-40ba-8e8b-1b423d53ccb4",
+                            RegisterTime = new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4350),
+                            SecurityStamp = "939ada09-2330-4cf4-84e0-a49ab6560f86",
                             TwoFactorEnabled = false,
                             UserName = "M3Virus"
                         },
@@ -561,7 +544,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf9f90cc-7a31-4f00-8fdc-82c045d2fa2f",
+                            ConcurrencyStamp = "0cf7bdf3-82d9-4c15-9ffa-1901dd756275",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -569,11 +552,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOcwyAGaDVF9YA2eY7CLM8795ATFNwlr2DzN5was1ZQ2lMAd0yEXX+6mZcbl3B90Sg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIG4PODKRPFM9471xz2kPYW3+0zAMSuSOl7gULqozOWr0RTP94nCOYaGV/Naa0TNNQ==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8174),
-                            SecurityStamp = "dcff0c91-726a-4f76-82ef-30134eff11be",
+                            RegisterTime = new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4436),
+                            SecurityStamp = "de805afd-cdd2-4ffe-bcf3-5a33412af66a",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -581,7 +564,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a5d6ce06-be6b-484f-a9e6-66a41c15410a",
+                            ConcurrencyStamp = "9019492f-0f92-496e-9804-2f3651090839",
                             Email = "Customer2@mail.com",
                             EmailConfirmed = true,
                             FirstName = "cust",
@@ -589,11 +572,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "omer",
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEPav5ozMA5r3nTabOFIRBKazE6e2Vcd85cWM3BbvQ8WK5hONGgg01cty1FjZ8W5YQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEz3uxtlLq3slKgDkfgL1KIrrCF55b83TkZu0FRyQQhq82aPNqjbeqIPQ9E2z0cccg==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8209),
-                            SecurityStamp = "087d5826-d563-4922-850f-3497e0e99922",
+                            RegisterTime = new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4535),
+                            SecurityStamp = "90b0652f-9722-4dc2-9ee3-609b57595d4c",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -601,7 +584,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f5d24a63-5605-41db-9db2-a4951e127ec9",
+                            ConcurrencyStamp = "196c0c09-579f-4a8e-8b02-d3bef4ddce8b",
                             Email = "Seller1@mail.com",
                             EmailConfirmed = true,
                             FirstName = "sel",
@@ -609,11 +592,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             LastName = "ler",
                             LockoutEnabled = false,
                             NormalizedUserName = "Seller1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKF7eVx9QGlB2RR/ATwblpZ5GjrDCjZHCj9vBO3VW707AfnGfzmkkJnnoFIFu/6FrA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBMmfq2EMLkIzXxLZDnEiyfUCI9Iet2Jwf2v8OTZ5DcTgKXE/HDTdpdH+YyYjMoSmQ==",
                             PhoneNumber = "0912345678",
                             PhoneNumberConfirmed = true,
-                            RegisterTime = new DateTime(2023, 11, 19, 14, 56, 42, 422, DateTimeKind.Local).AddTicks(8226),
-                            SecurityStamp = "1090e8c4-bc28-49bb-9e8b-9ba2d9decc53",
+                            RegisterTime = new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4729),
+                            SecurityStamp = "6fc36a9e-68ec-46b3-b6a5-9ab2ba3a3155",
                             TwoFactorEnabled = false,
                             UserName = "Seller1"
                         });
@@ -668,12 +651,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             AuctionId = 1,
                             AuctionTitle = "AuctionSample 1",
-                            EndTime = new DateTime(2023, 11, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndTime = new DateTime(2023, 11, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             IsAccepted = false,
                             IsCanceled = false,
                             ProductId = 1,
                             SellerId = 1,
-                            StartTime = new DateTime(2023, 11, 19, 14, 56, 42, 814, DateTimeKind.Local).AddTicks(653),
+                            StartTime = new DateTime(2023, 11, 25, 7, 52, 5, 521, DateTimeKind.Local).AddTicks(2336),
                             TheLowestOffer = 10m
                         });
                 });
@@ -775,7 +758,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             BoothId = 1,
                             AddressId = 5,
                             BoothName = "booth 1",
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(4580),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(4208),
                             IsDeleted = false
                         },
                         new
@@ -783,7 +766,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             BoothId = 2,
                             AddressId = 6,
                             BoothName = "booth 2",
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(4588),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(4221),
                             IsDeleted = false
                         });
                 });
@@ -824,7 +807,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             CartId = 1,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(8918),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 524, DateTimeKind.Local).AddTicks(8666),
                             CustomerId = 1,
                             IsCanceled = false,
                             IsPayed = false,
@@ -833,7 +816,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             CartId = 2,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(8923),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 524, DateTimeKind.Local).AddTicks(8679),
                             CustomerId = 2,
                             IsCanceled = false,
                             IsPayed = false,
@@ -874,7 +857,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CategoryId = 1,
                             CategoryName = "category 1",
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 816, DateTimeKind.Local).AddTicks(338),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(31),
                             IsAccepted = true,
                             IsDeleted = false
                         },
@@ -882,7 +865,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CategoryId = 2,
                             CategoryName = "category 2",
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 816, DateTimeKind.Local).AddTicks(364),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(68),
                             IsAccepted = true,
                             IsDeleted = false
                         });
@@ -992,7 +975,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CustomerId = 1,
                             AppUserId = 2,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(7524),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(9072),
                             IsDeleted = false,
                             Wallet = 10m
                         },
@@ -1000,7 +983,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         {
                             CustomerId = 2,
                             AppUserId = 3,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 815, DateTimeKind.Local).AddTicks(7536),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(9089),
                             IsDeleted = false,
                             Wallet = 20m
                         });
@@ -1038,7 +1021,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             MedalId = 1,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 816, DateTimeKind.Local).AddTicks(4233),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(4485),
                             IsDeleted = false,
                             MedalType = "Medal 1",
                             WagePercentage = 4m
@@ -1127,7 +1110,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             ProductId = 1,
-                            AddTime = new DateTime(2023, 11, 19, 14, 56, 42, 817, DateTimeKind.Local).AddTicks(1330),
+                            AddTime = new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(8035),
                             Amount = 5,
                             BoothId = 1,
                             CategoryId = 1,
@@ -1140,7 +1123,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             ProductId = 2,
-                            AddTime = new DateTime(2023, 11, 19, 14, 56, 42, 817, DateTimeKind.Local).AddTicks(1341),
+                            AddTime = new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(8044),
                             Amount = 5,
                             BoothId = 2,
                             CategoryId = 2,
@@ -1149,43 +1132,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             IsDeleted = false,
                             Price = 12m,
                             ProductName = "Product 2"
-                        });
-                });
-
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.ProductCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductCarts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CartId = 1,
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CartId = 2,
-                            ProductId = 2
                         });
                 });
 
@@ -1247,10 +1193,10 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         new
                         {
                             SellerId = 1,
-                            AddressId = 4,
+                            AddressId = 5,
                             AppUserId = 4,
                             BoothId = 1,
-                            CreateTime = new DateTime(2023, 11, 19, 14, 56, 42, 817, DateTimeKind.Local).AddTicks(9900),
+                            CreateTime = new DateTime(2023, 11, 25, 7, 52, 5, 526, DateTimeKind.Local).AddTicks(3458),
                             IsDeleted = false,
                             MedalId = 1,
                             Wallet = 100m
@@ -1304,11 +1250,26 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                             WageId = 1,
                             AdminId = 1,
                             IsDeleted = false,
-                            PayTime = new DateTime(2023, 11, 19, 14, 56, 42, 818, DateTimeKind.Local).AddTicks(3503),
+                            PayTime = new DateTime(2023, 11, 25, 7, 52, 5, 526, DateTimeKind.Local).AddTicks(6663),
                             Price = 4m,
                             ProductId = 1,
                             SellerId = 1
                         });
+                });
+
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Cart", null)
+                        .WithMany()
+                        .HasForeignKey("CartsCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SamShop.Domain.Core.Models.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -1362,23 +1323,11 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.AddressCustomer", b =>
+            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Address", b =>
                 {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
-                        .WithMany("AddressCustomers")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_Address_AddressCustomer");
-
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Customer", "Customer")
-                        .WithMany("AddressCustomers")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_Customer_AddressCustomer");
-
-                    b.Navigation("Address");
+                        .WithMany("Address")
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
                 });
@@ -1551,27 +1500,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.ProductCart", b =>
-                {
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Cart", "Cart")
-                        .WithMany("ProductCarts")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("Fk_Cart_ProductCart");
-
-                    b.HasOne("SamShop.Domain.Core.Models.Entities.Product", "Product")
-                        .WithMany("ProductCarts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("Fk_Product_ProductCart");
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Seller", b =>
                 {
                     b.HasOne("SamShop.Domain.Core.Models.Entities.Address", "Address")
@@ -1651,8 +1579,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Address", b =>
                 {
-                    b.Navigation("AddressCustomers");
-
                     b.Navigation("Admin");
 
                     b.Navigation("Booth");
@@ -1687,11 +1613,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Cart", b =>
-                {
-                    b.Navigation("ProductCarts");
-                });
-
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Category", b =>
                 {
                     b.Navigation("Products");
@@ -1699,7 +1620,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
 
             modelBuilder.Entity("SamShop.Domain.Core.Models.Entities.Customer", b =>
                 {
-                    b.Navigation("AddressCustomers");
+                    b.Navigation("Address");
 
                     b.Navigation("AuctionOffers");
 
@@ -1730,8 +1651,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Pictures");
-
-                    b.Navigation("ProductCarts");
 
                     b.Navigation("Wage")
                         .IsRequired();

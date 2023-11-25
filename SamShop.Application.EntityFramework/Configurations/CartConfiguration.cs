@@ -22,6 +22,11 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .WithMany(c => c.Carts)
                 .HasForeignKey(c => c.CustomerId)
                 .HasConstraintName("Fk_Customer_Cart");
+
+            entity.HasMany(x => x.Products)
+                .WithMany(x => x.Carts)
+                .UsingEntity(j => j.ToTable("CartProducts"));
+
             entity.HasData(GetCarts());
 
             #endregion

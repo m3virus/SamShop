@@ -22,8 +22,6 @@ public partial class SamShopDbContext : IdentityDbContext<AppUser , AppRole, int
 
     public virtual DbSet<Address> Addresses { get; set; }
 
-    public virtual DbSet<AddressCustomer> AddressCustomers { get; set; }
-
     public virtual DbSet<Admin> Admins { get; set; }
 
     public virtual DbSet<Auction> Auctions { get; set; }
@@ -46,8 +44,6 @@ public partial class SamShopDbContext : IdentityDbContext<AppUser , AppRole, int
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<ProductCart> ProductCarts { get; set; }
-
     public virtual DbSet<Seller> Sellers { get; set; }
 
     public virtual DbSet<Wage> Wages { get; set; }
@@ -68,11 +64,9 @@ public partial class SamShopDbContext : IdentityDbContext<AppUser , AppRole, int
         modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
         modelBuilder.ApplyConfiguration(new AppUserConfiguration());
         modelBuilder.ApplyConfiguration(new AppUserAppRoleConfiguration());
-        
         modelBuilder.ApplyConfiguration(new AddressConfiguration());
         modelBuilder.ApplyConfiguration(new AuctionConfiguration());
         modelBuilder.ApplyConfiguration(new AdminConfiguration());
-        modelBuilder.ApplyConfiguration(new AddressCustomerConfiguration());
         modelBuilder.ApplyConfiguration(new AuctionOfferConfiguration());
         modelBuilder.ApplyConfiguration(new BoothConfiguration());
         modelBuilder.ApplyConfiguration(new CustomerConfiguration());
@@ -81,7 +75,6 @@ public partial class SamShopDbContext : IdentityDbContext<AppUser , AppRole, int
         modelBuilder.ApplyConfiguration(new CommentConfiguration());
         modelBuilder.ApplyConfiguration(new MedalConfiguration());
         modelBuilder.ApplyConfiguration(new PictureConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductCartConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new SellerConfiguration());
         modelBuilder.ApplyConfiguration(new WageConfiguration());

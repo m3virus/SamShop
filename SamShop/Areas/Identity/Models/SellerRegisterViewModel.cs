@@ -8,7 +8,6 @@ namespace SamShop.endpoint.Areas.Identity.Models
 {
     public class SellerRegisterViewModel
     {
-        public int SellerId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]

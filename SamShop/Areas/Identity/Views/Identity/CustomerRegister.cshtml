@@ -1,0 +1,90 @@
+﻿@model CustomerRegisterViewModel
+
+<h2>Customer Registration</h2>
+
+<form asp-area="Identity" asp-controller="Identity" asp-action="CustomerRegister" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @Html.AntiForgeryToken()
+    <!-- Common registration fields -->
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div>
+        <h1>please enter your address</h1>
+    </div>
+    <!-- Customer-specific fields -->
+    <div class="form-group">
+        <label asp-for="Address.Alley" class="control-label"></label>
+        <input asp-for="Address.Alley" class="form-control" />
+        <span asp-validation-for="Address.Alley" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.Street" class="control-label"></label>
+        <input asp-for="Address.Street" class="form-control" />
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.City" class="control-label"></label>
+        <input asp-for="Address.City" class="form-control" />
+        <span asp-validation-for="Address.City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.ExtraPart" class="control-label"></label>
+        <input asp-for="Address.ExtraPart" class="form-control" />
+        <span asp-validation-for="Address.ExtraPart" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.PostCode" class="control-label"></label>
+        <input asp-for="Address.PostCode" class="form-control" />
+        <span asp-validation-for="Address.PostCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" type="file" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-outline-success float-right" type="submit" value="Sign up" />
+        <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+    </div>
+
+</form>

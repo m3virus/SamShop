@@ -32,7 +32,7 @@ namespace SamShop.Domain.Core.Models.DtOs.AddressDtOs
         #region Navigations
 
         public virtual Admin? Admin { get; set; }
-        public virtual ICollection<AddressCustomer>? AddressCustomers { get; set; }
+        public virtual Customer? Customer { get; set; }
         public virtual Seller? Seller { get; set; }
         public virtual Booth? Booth { get; set; }
 

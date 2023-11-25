@@ -32,13 +32,18 @@ namespace SamShop.Domain.Appservices
             var User = await _userManager.FindByEmailAsync(Email);
             if (User != null)
             {
-                var check = await _signInManager.CheckPasswordSignInAsync(User, password, false);
+                var check = await _signInManager.PasswordSignInAsync(User.UserName, password, false, false);
                 return check;
             }
             else
             {
                 return SignInResult.Failed;
             }
+        }
+
+        public async Task SignOut()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

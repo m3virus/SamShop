@@ -8,8 +8,8 @@ using SamShop.Domain.Service;
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
-    
+    [Authorize(Roles = "Admin")]
+
     public class AdminProductController : Controller
     {
         private readonly IProductAppServices _productAppServices;
