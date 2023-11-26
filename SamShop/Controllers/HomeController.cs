@@ -2,7 +2,11 @@
 using SamShop.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
+using SamShop.Domain.Core.Models.Entities;
+using SamShop.endpoint.Models;
 
 namespace SamShop.Controllers
 {
@@ -10,18 +14,28 @@ namespace SamShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IProductRepository _productRepository;
+        private readonly IBoothAppServices _boothAppServices;
+        private readonly IProductAppServices _productAppServices;
 
-        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository)
+        public HomeController(ILogger<HomeController> logger, IBoothAppServices boothAppServices, IProductAppServices productAppServices)
         {
             _logger = logger;
-            _productRepository = productRepository;
+            _boothAppServices = boothAppServices;
+            _productAppServices = productAppServices;
         }
 
         public IActionResult Index()
         {
             
-            return View(_productRepository.GetAllProduct());
+            return View(_boothAppServices.GetAllBooth());
+        }
+
+
+        public async Task<IActionResult> Details(int id , CancellationToken cancellation)
+        {
+            var mainBooth = await _boothAppServices.GetBoothById(id, cancellation);
+
+            return View(mainBooth);
         }
 
         public IActionResult Privacy()

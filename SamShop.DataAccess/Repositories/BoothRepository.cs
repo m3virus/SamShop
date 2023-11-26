@@ -36,7 +36,11 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public IEnumerable<BoothDtOs> GetAllBooth()
         {
-            var Booths = _context.Booths.AsNoTracking();
+            var Booths = _context.Booths.Include(booth => booth.Seller)
+                .ThenInclude(x => x.AppUser)
+                .Include(booth => booth.Products)
+                .ThenInclude(product => product.Category)
+                .AsNoTracking();
             var boothDtOs = new List<BoothDtOs>();
 
             foreach (var a in Booths)
@@ -48,8 +52,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     AddressId = a.AddressId,
                     IsDeleted = a.IsDeleted,
                     CreateTime = a.CreateTime,
-                    DeleteTime = a.DeleteTime,
+                    DeleteTime = a.DeleteTime, 
                     
+                    Products = a.Products.Select(boothProduct => new Product
+                    {
+                        ProductName = boothProduct.ProductName,
+                        Price = boothProduct.Price,
+                        Amount = boothProduct.Amount,
+                        Category = new Category
+                        {
+                            CategoryName = boothProduct.Category.CategoryName,
+                        }
+                    }).ToList()
                 };
                 boothDtOs.Add(booth);
             }
@@ -61,17 +75,29 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<BoothDtOs?> GetBoothById(int id, CancellationToken cancellation)
         {
-            var booth = await _context.Booths.AsNoTracking()
+            var booth = await _context.Booths.AsNoTracking().Include(booth => booth.Products)
+                .ThenInclude(product => product.Category)
                 .FirstOrDefaultAsync(a => a.BoothId == id, cancellation);
 
             var boothById = new BoothDtOs()
             {
                 BoothId = booth.BoothId,
+                BoothName = booth.BoothName,
                 AddressId = booth.AddressId,
-               BoothName = booth.BoothName,
                 IsDeleted = booth.IsDeleted,
                 CreateTime = booth.CreateTime,
                 DeleteTime = booth.DeleteTime,
+
+                Products = booth.Products.Select(boothProduct => new Product
+                {
+                    ProductName = boothProduct.ProductName,
+                    Price = boothProduct.Price,
+                    Amount = boothProduct.Amount,
+                    Category = new Category
+                    {
+                        CategoryName = boothProduct.Category.CategoryName,
+                    }
+                }).ToList()
             };
             return boothById;
 

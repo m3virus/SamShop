@@ -1,0 +1,45 @@
+﻿@model BoothDtOs
+
+<h2>Booth Details</h2>
+    <div>
+
+        <div>
+            <h4>Booth Name: @Model.BoothName</h4>
+        </div>
+
+        <div>
+            <h4>Products</h4>
+            <div>
+                @foreach (var product in @Model.Products)
+                {
+                    <div>
+                        <p>Product Name: @product.ProductName</p>
+                    </div>
+
+                    <div>
+                        <p>Product Name: @product.Price</p>
+                    </div>
+
+                    <div>
+                        <p>Product Name: @product.Amount</p>
+                    </div>
+
+                   @* @foreach (var comment in @product.Comments)
+                    {
+                        <div>
+                            <p>Product comments: @comment.Message</p>
+                        </div>
+
+                        <div>
+                            <p>Comment Writer: @comment.Customer.AppUser?.UserName</p>
+                        </div>
+                    }*@
+                    <div>
+                        <p>Category: @product.Category.CategoryName</p>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>

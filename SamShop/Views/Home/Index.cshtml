@@ -1,4 +1,6 @@
-﻿@model IEnumerable<SamShop.Domain.Core.Models.DtOs.ProductDtOs.ProductDtOs>
+﻿@model IEnumerable<BoothDtOs>
+
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -8,12 +10,8 @@
     <div class="card m-2">
         @*<h5 class="card-header">@item.ProductId</h5>*@
         <div class="card-body">
-            <h5 class="card-title">@item.ProductName</h5>
-            @*<p class="card-text">@item.Category.CategoryName</p>*@
-            <p class="card-text">@item.Price</p>
-            @*<p class="card-text">@item.Booth.BoothName</p>*@
-            <p class="card-text">@item.Amount</p>
-            
+            <h5 class="card-title">@item.BoothName</h5>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="Details" asp-route-id="@item.BoothId">View Booth</a>
         </div>
     </div>
 }
