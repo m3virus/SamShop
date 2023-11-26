@@ -81,6 +81,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                         {
                             Alley = sellerRegister.Address.Alley,
                             Street = sellerRegister.Address.Street,
+                            State = sellerRegister.Address.State,
                             City = sellerRegister.Address.City,
                             ExtraPart = sellerRegister.Address.ExtraPart,
                             PostCode = sellerRegister.Address.PostCode,
@@ -95,6 +96,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                             {
                                 Alley = sellerRegister.BoothAddressDtOs.Alley,
                                 Street = sellerRegister.BoothAddressDtOs.Street,
+                                State = sellerRegister.BoothAddressDtOs.State,
                                 City = sellerRegister.BoothAddressDtOs.City,
                                 ExtraPart = sellerRegister.BoothAddressDtOs.ExtraPart,
                                 PostCode = sellerRegister.BoothAddressDtOs.PostCode,
@@ -106,56 +108,6 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                          
 
                 };
-                //var registerUser =
-                //    await _userAppService.Register(Seller, sellerRegister.Password, "Seller", cancellation);
-                //if (registerUser.Succeeded)
-                //{
-                //    var Address = new AddressDtOs
-                //    {
-                //        Alley = sellerRegister.Address.Alley,
-                //        Street = sellerRegister.Address.Street,
-                //        City = sellerRegister.Address.City,
-                //        ExtraPart = sellerRegister.Address.ExtraPart,
-                //        PostCode = sellerRegister.Address.PostCode,
-                //    };
-                //    var registerAddress = await _addressAppService.AddAddress(Address, cancellation);
-
-                //    var photo = new PictureDtOs
-                //    {
-                //        Url = result.Url.ToString(),
-
-                //    };
-                //    var registerPhoto = await _pictureAppService.AddPicture(photo, cancellation);
-
-                //    var boothAddress = new AddressDtOs
-                //    {
-                //        Alley = sellerRegister.BoothAddressDtOs.Alley,
-                //        Street = sellerRegister.BoothAddressDtOs.Street,
-                //        City = sellerRegister.BoothAddressDtOs.City,
-                //        ExtraPart = sellerRegister.BoothAddressDtOs.ExtraPart,
-                //        PostCode = sellerRegister.BoothAddressDtOs.PostCode,
-                //    };
-
-                //    var registerBoothAddress = await _addressAppService.AddAddress(boothAddress, cancellation);
-                //    var booth = new BoothDtOs
-                //    {
-                //        BoothName = sellerRegister.Booth.BoothName,
-                //        BoothId = registerBoothAddress,
-                //    };
-
-                //    var registerBooth = await _boothAppService.AddBooth(booth, cancellation);
-
-                //    var sellerTable = new SellerDtOs
-                //    {
-                //        BoothId = registerBooth,
-                //        AddressId = registerAddress,
-                //        AppUserId = Seller.Id,
-                //        PictureId = registerPhoto,
-                //        Wallet = 0
-
-                //    };
-                //    var registerSeller = await _sellerAppService.AddSeller(sellerTable, cancellation);
-                //}
                 var register = await _userAppService.Register(sellerUser, sellerRegister.Password, "Seller", cancellation);
                 if (register.Succeeded)
                 {
@@ -203,6 +155,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                     RegisterTime = DateTime.Now,
                     DeleteTime = null,
                     IsDeleted = false,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                     Customer = new Domain.Core.Models.Entities.Customer
                     {
                         Address = new List<Address>
@@ -211,6 +164,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                             {
                                 Alley = customerRegister.Address.Alley,
                                 Street = customerRegister.Address.Street,
+                                State = customerRegister.Address.State,
                                 City = customerRegister.Address.City,
                                 ExtraPart = customerRegister.Address.ExtraPart,
                                 PostCode = customerRegister.Address.PostCode,
@@ -257,7 +211,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginViewModel login, CancellationToken cancellation)
-        {
+            {
 
             if (ModelState.IsValid)
             {
@@ -296,45 +250,5 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
             
             return RedirectToAction("Index", "Home");
         }
-        //if (registerUser.Succeeded)
-        //{
-        //    var Address = new AddressDtOs
-        //    {
-        //        Alley = customerRegister.Address.Alley,
-        //        Street = customerRegister.Address.Street,
-        //        City = customerRegister.Address.City,
-        //        ExtraPart = customerRegister.Address.ExtraPart,
-        //        PostCode = customerRegister.Address.PostCode,
-        //    };
-        //    var registerAddress = await _addressAppService.AddAddress(Address, cancellation);
-
-        //    var photo = new PictureDtOs
-        //    {
-        //        Url = result.Url.ToString(),
-
-        //    };
-        //    var registerPhoto = await _pictureAppService.AddPicture(photo, cancellation);
-
-        //    var customerTable = new CustomerDtOs
-        //    {
-        //        AppUserId = Customer.Id,
-        //        PictureId = registerPhoto,
-        //        Wallet = 0,
-        //        AddressCustomers = new List<AddressCustomer>
-        //        {
-        //            new AddressCustomer
-        //            {
-        //                AddressId = registerAddress
-        //            }
-        //        }
-        //    };
-
-        //    var CustomerRegisterId = await _customerAppService.AddCustomer(customerTable, cancellation);
-
-        //}
-        //else
-        //{
-        //    return BadRequest();
-        //}
     }
 }

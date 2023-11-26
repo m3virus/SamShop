@@ -22,9 +22,11 @@ namespace SamShop.Domain.Appservices
 
         public async Task<IdentityResult> Register(AppUser appUser, string password, string appRole, CancellationToken cancellation)
         {
-            var user = await _userManager.CreateAsync(appUser, password);
-            await _userManager.AddToRoleAsync(appUser, appRole);
-            return user;
+            
+            var userResult = await _userManager.CreateAsync(appUser, password);
+            var user = await _userManager.FindByEmailAsync(appUser.Email);
+            await _userManager.AddToRoleAsync(user, appRole);
+            return userResult;
         }
 
         public async Task<SignInResult> SignIn(string Email, string password, CancellationToken cancellation)
