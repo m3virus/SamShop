@@ -13,7 +13,7 @@ namespace SamShop.Domain.Core.Models.DtOs.PictureDtOs
 
         public int PictureId { get; set; }
 
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         public int? ProductId { get; set; }
 

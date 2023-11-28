@@ -31,6 +31,11 @@ namespace SamShop.Domain.Service
             return _commentRepository.GetAllComment();
         }
 
+        public IEnumerable<CommentDtOs> GetCommentByProduct(int productid)
+        {
+            return _commentRepository.GetAllComment().Where(x => x.ProductId == productid && x.IsAccepted == true);
+        }
+
         public async Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation)
         {
             return await _commentRepository.GetCommentById(id, cancellation);

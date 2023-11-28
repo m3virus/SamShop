@@ -9,35 +9,19 @@
 
         <div>
             <h4>Products</h4>
+            
             <div>
                 @foreach (var product in @Model.Products)
                 {
-                    <div>
-                        <p>Product Name: @product.ProductName</p>
-                    </div>
-
-                    <div>
-                        <p>Product Name: @product.Price</p>
-                    </div>
-
-                    <div>
-                        <p>Product Name: @product.Amount</p>
-                    </div>
-
-                   @* @foreach (var comment in @product.Comments)
-                    {
-                        <div>
-                            <p>Product comments: @comment.Message</p>
+                    <div class="card m-2">
+                        <div class="card-body">
+                        <h5 class="card-title">Product Name: @product.ProductName</h5>
+                        <h5 class="card-title">Product Name: @product.Price</h5>
+                        <h5 class="card-title">Product Name: @product.Amount</h5>
+                        <h5 class="card-title">Category: @product.Category.CategoryName</h5>
+                            
                         </div>
-
-                        <div>
-                            <p>Comment Writer: @comment.Customer.AppUser?.UserName</p>
-                        </div>
-                    }*@
-                    <div>
-                        <p>Category: @product.Category.CategoryName</p>
                     </div>
-
                 }
 
             </div>

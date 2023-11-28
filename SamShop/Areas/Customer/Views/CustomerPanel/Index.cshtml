@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model CustomerDashbordViewModel
+
+<h2>Welcome, @Model.UserName!</h2>
+
+<p>Name: @Model.FirstName @Model.LastName</p>
+<p>Wallet: $@Model.WalletAmount</p>
+
+<h3>Addresses:</h3>
+@foreach (var address in Model.PrimaryAddresses)
+{
+    <div>
+        <p>Alley: @address.Alley</p>
+        <p>Street: @address.Street</p>
+        <p>City: @address.City</p>
+        <p>Extra Part: @address.ExtraPart</p>
+        <p>Post Code: @address.PostCode</p>
+    </div>
 }
+
+<h3>Profile Picture:</h3>
+@if (Model.ProfilePicture.Url != null)
+{
+    <img src="@Model.ProfilePicture.Url" alt="Profile Picture" />
+
+}
+else
+{
+    <h1>adding picture</h1>
+}
+
+<h3>Carts:</h3>
+@if (Model.Carts != null)
+{
+    @foreach (var cart in Model.Carts)
+    {
+        <div>
+            <p>Cart ID: @cart.CartId</p>
+            <h4>Products:</h4>
+            @foreach (var product in cart.Products)
+            {
+                <div>
+                    <p>Product Name: @product.ProductName</p>
+                    <p>Price: $@product.Price</p>
+                    <p>Quantity: @product.Amount</p>
+                </div>
+            }
+        </div>
+    }
+}
+else
+{
+    <h1>adding cart</h1>
+}
+<a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="EditProfile">Edit Profile</a>
+
+<div>
+    <a asp-action="EditProfile">Update Profile</a>
+</div>

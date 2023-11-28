@@ -20,27 +20,32 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<CustomerDtOs> GetAllCustomer()
         {
-            throw new NotImplementedException();
+            return _customerServices.GetAllCustomer();
         }
 
         public async Task<CustomerDtOs?> GetCustomerById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _customerServices.GetCustomerById(id, cancellation);
         }
 
         public async Task<int> AddCustomer(CustomerDtOs Customer, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _customerServices.AddCustomer(Customer, cancellation);
         }
 
         public async Task UpdateCustomer(CustomerDtOs Customer, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+             await _customerServices.UpdateCustomer(Customer, cancellation);
         }
 
         public async Task DeleteCustomer(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _customerServices.DeleteCustomer(id, cancellation);
+        }
+
+        public async Task<CustomerDtOs> GetCustomerByAppUserId(int appId, CancellationToken cancellation)
+        {
+            return await _customerServices.GetCustomerByAppUserId(appId, cancellation);
         }
     }
 }

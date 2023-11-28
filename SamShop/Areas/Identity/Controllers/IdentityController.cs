@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,7 @@ using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 using SamShop.endpoint.Areas.Identity.Models;
+using System.Security.Claims;
 
 namespace SamShop.endpoint.Areas.Identity.Controllers
 {
@@ -29,7 +32,8 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         protected readonly ICloudAppServices _cloudAppService;
         protected readonly IAddressAppServices _addressAppService;
         protected readonly IPictureAppServices _pictureAppService;
-        public IdentityController(IUserAppServices userAppService, IBoothAppServices boothAppService, ISellerAppServices sellerAppService, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IRoleAppServices roleAppServices, ICustomerAppServices customerAppService, ICloudAppServices cloudAppService, IAddressAppServices addressAppService, IPictureAppServices pictureAppService)
+        protected readonly IHttpContextAccessor _httpContext;
+        public IdentityController(IUserAppServices userAppService, IBoothAppServices boothAppService, ISellerAppServices sellerAppService, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IRoleAppServices roleAppServices, ICustomerAppServices customerAppService, ICloudAppServices cloudAppService, IAddressAppServices addressAppService, IPictureAppServices pictureAppService, IHttpContextAccessor httpContext)
         {
             _userAppService = userAppService;
             _boothAppService = boothAppService;
@@ -41,6 +45,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
             _cloudAppService = cloudAppService;
             _addressAppService = addressAppService;
             _pictureAppService = pictureAppService;
+            _httpContext = httpContext;
         }
 
 
@@ -216,8 +221,31 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _userAppService.SignIn(login.Email, login.Password, cancellation);
+               
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(login.Email);
+                    var userRole = await _userManager.GetRolesAsync(user);
+                    if (user.UserName != null)
+                    {
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                            new Claim(ClaimTypes.Name, user.UserName),
+                        };
+                        if (userRole.Any())
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, userRole.First()));
+                        }
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var authProperties = new AuthenticationProperties
+                        {
+                            IsPersistent = false,
+                            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(20) // Set your desired expiration time
+                        };
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity) , authProperties);
+                    }
+
                     var role = await _roleAppServices.GetUserRole(login.Email);
                     if (role.Contains("Admin"))
                     {

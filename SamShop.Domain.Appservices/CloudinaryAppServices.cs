@@ -40,9 +40,9 @@ namespace SamShop.Domain.Appservices
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeletePhoto(string photoId, CancellationToken cancellation)
+        public async Task<DeletionResult> DeletePhoto(int photoId, CancellationToken cancellation)
         {
-            var deleteParams = new DeletionParams(photoId);
+            var deleteParams = new DeletionParams(Convert.ToString(photoId));
             var result = await _cloudinary.DestroyAsync(deleteParams);
 
             return result;

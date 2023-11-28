@@ -17,7 +17,10 @@ namespace SamShop.Domain.Appservices
         {
             _commentServices = commentServices;
         }
-
+        public IEnumerable<CommentDtOs> GetCommentByProduct(int productid)
+        {
+            return _commentServices.GetCommentByProduct(productid);
+        }
         public async Task ConfirmComment(int commentId, CancellationToken cancellation)
         {
             await _commentServices.ConfirmComment(commentId, cancellation);

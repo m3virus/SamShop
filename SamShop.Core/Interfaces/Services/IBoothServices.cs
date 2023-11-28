@@ -15,5 +15,6 @@ namespace SamShop.Domain.Core.Interfaces.Services
         Task<int> AddBooth(BoothDtOs Booth, CancellationToken cancellation);
         Task UpdateBooth(BoothDtOs Booth, CancellationToken cancellation);
         Task DeleteBooth(int id, CancellationToken cancellation);
+
     }
 }

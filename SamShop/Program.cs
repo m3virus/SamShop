@@ -24,6 +24,8 @@ builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<SamShopDbContext>()
     .AddDefaultTokenProviders().AddRoles<AppRole>();
 
+builder.Services.AddHttpContextAccessor();
+
 #endregion
 
 #region Cloud Settings
@@ -98,7 +100,15 @@ builder.Services.AddScoped<IWageAppServices, WageAppServices>();
 
 #endregion
 
-
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.Cookie.Name = "AuthenticateCookie"; // Set your desired cookie name
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20); // Set your desired expiration time
+        //options.LoginPath = "/Identity/Identity/Login"; // Set the login path
+        //options.AccessDeniedPath = "/Identity/Identity/AccessDenied"; // Set the access denied path
+        // Configure other options as needed...
+    });
 
 
 // Add services to the container.

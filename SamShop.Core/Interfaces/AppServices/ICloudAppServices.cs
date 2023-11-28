@@ -11,6 +11,6 @@ namespace SamShop.Domain.Core.Interfaces.AppServices
     public interface ICloudAppServices
     {
         Task<ImageUploadResult> AddPhoto(IFormFile photo, CancellationToken cancellation);
-        Task<DeletionResult> DeletePhoto(string PhotoId, CancellationToken cancellation);
+        Task<DeletionResult> DeletePhoto(int PhotoId, CancellationToken cancellation);
     }
 }

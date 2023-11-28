@@ -1,4 +1,5 @@
-﻿using SamShop.Domain.Core.Models.DtOs.CommentDtOs;
+﻿using SamShop.Domain.Core.Interfaces.Services;
+using SamShop.Domain.Core.Models.DtOs.CommentDtOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace SamShop.Domain.Core.Interfaces.AppServices
         Task ConfirmComment(int commentId, CancellationToken cancellation);
         Task DeleteComment(int commentId, CancellationToken cancellation);
         IEnumerable<CommentDtOs> GetCommentsByIsAccepted();
+        IEnumerable<CommentDtOs> GetCommentByProduct(int productid);
         IEnumerable<CommentDtOs> GetAllComment();
         Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation);
         Task<int> AddComment(CommentDtOs Comment, CancellationToken cancellation);

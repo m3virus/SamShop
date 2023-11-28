@@ -83,11 +83,42 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task UpdateCustomer(CustomerDtOs Customer, CancellationToken cancellation)
         {
             Customer? changeCustomer =
-                await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == Customer.CustomerId, cancellation);
+                await _context.Customers
+                    .Include(c => c.Address)
+                    .Include(c => c.Picture)
+                    .FirstOrDefaultAsync(c => c.CustomerId == Customer.CustomerId, cancellation);
             if (changeCustomer != null)
             {
-               changeCustomer.PictureId = Customer.PictureId;
-               changeCustomer.Wallet = Customer.Wallet;
+                changeCustomer.PictureId = Customer.PictureId;
+                changeCustomer.Wallet = Customer.Wallet;
+                changeCustomer.Address.Clear();
+                foreach (var address in Customer.Addresses)
+                {
+                    changeCustomer.Address.Add(new Address
+                    {
+                        Alley = address.Alley,
+                        Street = address.Street,
+                        City = address.City,
+                        State = address.State,
+                        ExtraPart = address.ExtraPart,
+                        PostCode = address.PostCode,
+                    });
+
+                }
+
+                if (changeCustomer.Picture != null)
+                {
+
+                    changeCustomer.Picture.Url = Customer.Picture.Url;
+                }
+                else
+                {
+
+                    changeCustomer.Picture = new Picture
+                    {
+                        Url = Customer.Picture.Url
+                    };
+                }
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -105,6 +136,50 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
             await _context.SaveChangesAsync(cancellation);
         }
-        
+
+        public async Task<CustomerDtOs> GetCustomerByAppUserId(int appId, CancellationToken cancellation)
+        {
+            var Customer = await _context.Customers.AsNoTracking()
+                .Include(customer => customer.Picture)
+                .Include(customer => customer.Carts)
+                .ThenInclude(cart => cart.Products)
+                .Include(customer => customer.Address)
+                .FirstOrDefaultAsync(a => a.AppUserId == appId, cancellation);
+
+            var CustomerByAppUserId = new CustomerDtOs()
+            {
+                CreateTime = Customer.CreateTime,
+                IsDeleted = Customer.IsDeleted,
+                AppUserId = Customer.AppUserId,
+                DeleteTime = Customer.DeleteTime,
+                CustomerId = Customer.CustomerId,
+                Wallet = Customer.Wallet,
+                PictureId = Customer.PictureId,
+                Addresses = Customer.Address.Select(address => new Address
+                {
+                    Alley = address.Alley,
+                    Street = address.Street,
+                    City = address.City,
+                    State = address.State,
+                    ExtraPart = address.ExtraPart,
+                    PostCode = address.PostCode
+                }).ToList(),
+                Picture = new Picture
+                {
+                    Url = Customer.Picture?.Url
+                },
+                Carts = Customer.Carts.Select(cart => new Cart
+                {
+                    CreateTime = cart.CreateTime,
+                    Products = cart.Products.Select(product => new Product
+                    {
+                        ProductName = product.ProductName,
+                        Price = product.Price,
+
+                    }).ToList()
+                }).ToList()
+            };
+            return CustomerByAppUserId;
+        }
     }
 }

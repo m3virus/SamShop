@@ -14,6 +14,7 @@ namespace SamShop.Domain.Core.Interfaces.Services
         Task DeleteComment(int commentId , CancellationToken cancellation);
         IEnumerable<CommentDtOs> GetCommentsByIsAccepted();
         IEnumerable<CommentDtOs> GetAllComment();
+        IEnumerable<CommentDtOs> GetCommentByProduct(int productid);
         Task<CommentDtOs?> GetCommentById(int id, CancellationToken cancellation);
         Task<int> AddComment(CommentDtOs Comment, CancellationToken cancellation);
         Task UpdateComment(CommentDtOs Comment, CancellationToken cancellation);
