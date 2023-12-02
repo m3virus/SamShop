@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.DtOs.AdminDtOs;
+using SamShop.Domain.Core.Models.DtOs.CustomerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -81,11 +82,26 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         }
         public async Task UpdateAdmin(AdminDtOs Admin, CancellationToken cancellation)
         {
-            Admin? changeAdmin = await _context.Admins.FirstOrDefaultAsync(p => p.AdminId == Admin.AdminId, cancellation);
+            Admin? changeAdmin = await _context.Admins
+                .Include(a => a.Address)
+                .Include(a => a.Picture)
+                .FirstOrDefaultAsync(p => p.AdminId == Admin.AdminId, cancellation);
             if (changeAdmin != null)
             {
                 changeAdmin.Wallet = Admin.Wallet;
-                changeAdmin.PictureId = Admin.PictureId;
+                changeAdmin.Address = new Address
+                {
+                    Alley = Admin.Address.Alley,
+                    Street = Admin.Address.Street,
+                    City = Admin.Address.City,
+                    State = Admin.Address.State,
+                    ExtraPart = Admin.Address.ExtraPart,
+                    PostCode = Admin.Address.PostCode,
+                };
+                changeAdmin.Picture = new Picture
+                {
+                    Url = Admin.Picture.Url
+                };
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -102,6 +118,34 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             }
             await _context.SaveChangesAsync(cancellation);
         }
-        
+        public async Task<AdminDtOs> GetAdminByAppUserId(int appId, CancellationToken cancellation)
+        {
+            var Admin = await _context.Admins.AsNoTracking()
+                .Include(customer => customer.Picture)
+                .Include(a => a.Address)
+                .Include(a => a.Wages)
+                .FirstOrDefaultAsync(a => a.AppUserId == appId, cancellation);
+
+            var AdminByAppUserId = new AdminDtOs
+            {
+                AdminId = Admin.AdminId,
+                
+                Address = new Address()
+                {
+                    Alley = Admin.Address.Alley,
+                    Street = Admin.Address.Street,
+                    City = Admin.Address.City,
+                    State = Admin.Address.State,
+                    ExtraPart = Admin.Address.ExtraPart,
+                    PostCode = Admin.Address.PostCode,
+                },
+                Picture = new Picture
+                {
+                    Url = Admin.Picture?.Url
+                },
+            };
+            return AdminByAppUserId;
+        }
     }
+
 }

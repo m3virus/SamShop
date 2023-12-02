@@ -27,9 +27,9 @@ else
 {
     <h1>adding picture</h1>
 }
-
+<a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="EditProfile">Edit Profile</a>
 <h3>Carts:</h3>
-@if (Model.Carts != null)
+@*@if (Model.Carts != null)
 {
     @foreach (var cart in Model.Carts)
     {
@@ -50,8 +50,9 @@ else
 else
 {
     <h1>adding cart</h1>
-}
-<a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="EditProfile">Edit Profile</a>
+}*@
+<a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="ViewCart">Cart view</a>
+
 
 <div>
     <a asp-action="EditProfile">Update Profile</a>

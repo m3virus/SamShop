@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.AdminDtOs;
 using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
@@ -91,15 +92,29 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task UpdateSeller(SellerDtOs Seller, CancellationToken cancellation)
         {
             Seller? changeSeller =
-                await _context.Sellers.FirstOrDefaultAsync(s => s.SellerId == Seller.SellerId, cancellation);
+                await _context.Sellers
+                    .Include(s => s.Picture)
+                    .Include(a => a.Address)
+                    .FirstOrDefaultAsync(s => s.SellerId == Seller.SellerId, cancellation);
             if (changeSeller != null)
             {
                 
                 changeSeller.Wallet = Seller.Wallet;
-                changeSeller.BoothId = Seller.BoothId;
-                changeSeller.MedalId = Seller.MedalId;
-                changeSeller.PictureId = Seller.PictureId;
-                changeSeller.AddressId = Seller.AddressId;
+                changeSeller.Address = new Address
+                {
+                    Alley = Seller.Address.Alley,
+                    Street = Seller.Address.Street,
+                    State = Seller.Address.State,
+                    City = Seller.Address.City,
+                    ExtraPart = Seller.Address.ExtraPart,
+                    PostCode = Seller.Address.PostCode,
+                };
+                changeSeller.Picture = new Picture
+                {
+                    Url = Seller.Picture.Url,
+                };
+
+
             }
 
             await _context.SaveChangesAsync(cancellation);
@@ -116,6 +131,71 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             }
 
             await _context.SaveChangesAsync(cancellation);
+        }
+        public async Task<SellerDtOs> GetSellerByAppUserId(int appId, CancellationToken cancellation)
+        {
+            var Seller = await _context.Sellers.AsNoTracking()
+                .Include(s => s.Picture)
+                .Include(a => a.Address)
+                .Include(s => s.Booth)
+                    .ThenInclude(b =>b.Address)
+                .Include(s => s.Booth)
+                    .ThenInclude(b => b.Products)
+                        .ThenInclude(p => p.Pictures)
+                .Include(s => s.Booth)
+                    .ThenInclude(b => b.Products)
+                        .ThenInclude(p => p.Category)
+                .Include(s => s.Auctions)
+                .FirstOrDefaultAsync(a => a.AppUserId == appId, cancellation);
+
+            var SellerByAppUserId = new SellerDtOs
+            {
+                SellerId = Seller.SellerId,
+
+                Address = new Address()
+                {
+                    Alley = Seller.Address.Alley,
+                    Street = Seller.Address.Street,
+                    City = Seller.Address.City,
+                    State = Seller.Address.State,
+                    ExtraPart = Seller.Address.ExtraPart,
+                    PostCode = Seller.Address.PostCode,
+                },
+                Picture = new Picture
+                {
+                    Url = Seller.Picture?.Url
+                },
+                Booth = new Booth
+                {
+                    BoothId = Seller.BoothId,
+                    BoothName = Seller.Booth.BoothName,
+                    Address = new Address
+                    {
+                        Alley = Seller.Booth.Address.Alley,
+                        State = Seller.Booth.Address.State,
+                        Street = Seller.Booth.Address.Street,
+                        City = Seller.Booth.Address.City,
+                        ExtraPart = Seller.Booth.Address.ExtraPart,
+                        PostCode = Seller.Booth.Address.PostCode,
+                    },
+                    Products = Seller.Booth.Products.Select(boothProduct => new Product
+                    {
+                        ProductName = boothProduct.ProductName,
+                        Price = boothProduct.Price,
+                        Amount = boothProduct.Amount,
+                        Pictures = boothProduct.Pictures.Select(productPicture => new Picture
+                        {
+                            Url = productPicture.Url,
+                        }).ToList(),
+                        Category = new Category
+                        {
+                            CategoryName = boothProduct.Category.CategoryName,
+                        }
+                    }).ToList()
+
+                }
+            };
+            return SellerByAppUserId;
         }
     }
 }

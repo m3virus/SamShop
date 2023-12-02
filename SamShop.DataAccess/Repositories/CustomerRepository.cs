@@ -166,16 +166,18 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 }).ToList(),
                 Picture = new Picture
                 {
+                    PictureId = Customer.Picture.PictureId,
                     Url = Customer.Picture?.Url
                 },
                 Carts = Customer.Carts.Select(cart => new Cart
                 {
+                    CartId = cart.CartId,
                     CreateTime = cart.CreateTime,
                     Products = cart.Products.Select(product => new Product
                     {
+                        ProductId = product.ProductId,
                         ProductName = product.ProductName,
                         Price = product.Price,
-
                     }).ToList()
                 }).ToList()
             };

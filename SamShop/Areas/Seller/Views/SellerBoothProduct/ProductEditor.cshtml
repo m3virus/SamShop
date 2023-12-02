@@ -1,0 +1,60 @@
+﻿@model SellerBoothProductEditViewModel
+<h2>Edit Product</h2>
+
+<form asp-action="ProductEditor" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ProductId" />
+    <div>
+        <label asp-for="ProductName">ProductName:</label>
+        <input asp-for="ProductName" />
+        <span asp-validation-for="ProductName"></span>
+    </div>
+    
+    <div>
+        <label asp-for="Amount">Amount:</label>
+        <input asp-for="Amount" />
+        <span asp-validation-for="Amount"></span>
+    </div>
+    
+    <div>
+        <label asp-for="Price">Price:</label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="SelectedCategoryId">Category:</label>
+        <select asp-for="SelectedCategoryId" asp-items="Model.AvailableCategories" class="form-control">
+        </select>
+        <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p>
+            Editing Pictures
+        </p>
+    </div>
+    <div>
+        <h4>Existing Pictures</h4>
+        @for (int i = 0; i < Model.ProductPictures.Count; i++)
+        {
+            <div>
+                <img src="@Model.ProductPictures[i].Url" alt="Existing Picture" />
+                @*@Html.HiddenFor(m => m.ProductPictures[i].PictureId)
+                @Html.CheckBoxFor(m => m.ProductPictures[i].IsChecked)
+                @Html.LabelFor(m => m.ProductPictures[i].IsChecked, Model.SelectedPictureIds[i])*@
+            </div>
+        }
+    </div>
+
+    <!-- Upload New Pictures -->
+    <div class="form-group">
+        <label asp-for="NewPictures">Upload New Pictures:</label>
+        <input asp-for="NewPictures" type="file" multiple />
+        <span asp-validation-for="NewPictures" class="text-danger"></span>
+    </div>
+
+    
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
+</form>

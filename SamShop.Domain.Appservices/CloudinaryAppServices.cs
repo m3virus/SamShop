@@ -44,8 +44,28 @@ namespace SamShop.Domain.Appservices
         {
             var deleteParams = new DeletionParams(Convert.ToString(photoId));
             var result = await _cloudinary.DestroyAsync(deleteParams);
-
             return result;
+        }
+
+        public async Task<List<ImageUploadResult>> AddPhotos(List<IFormFile> photo, CancellationToken cancellation)
+        {
+            var uploadResults = new List<ImageUploadResult>();
+            foreach (IFormFile photoItem in photo)
+            {
+                if (photoItem.Length > 0)
+                {
+                    using var stream = photoItem.OpenReadStream();
+                    var uploadParams = new ImageUploadParams
+                    {
+                        File = new FileDescription(photoItem.FileName, stream),
+                        Transformation = new Transformation().Height(200).Width(200).Crop("fill").Gravity("face")
+                    };
+                    var uploadResult = await _cloudinary.UploadAsync(uploadParams, cancellation);
+                    uploadResults.Add(uploadResult);
+                }
+            }
+            
+            return uploadResults;
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿@model CustomerDashbordViewModel
+
+<h3>Carts:</h3>
+@if (Model.Carts != null)
+{
+    @foreach (var cart in Model.Carts)
+    {
+        <div>
+            <p>Cart ID: @cart.CartId</p>
+            <h4>Products:</h4>
+            @foreach (var product in cart.Products)
+            {
+                <div>
+                    <p>Product Name: @product.ProductName</p>
+                    <p>Price: $@product.Price</p>
+                    <p>Amount: @product.Amount</p>
+                </div>
+                <a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="LeaveComment" asp-route-ProductId="@product.ProductId">Leaving Comment</a>
+            }
+            
+        </div>
+    }
+}
+else
+{
+    <h1>adding cart</h1>
+}

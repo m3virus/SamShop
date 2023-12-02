@@ -10,5 +10,6 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
         Task<int> AddSeller(SellerDtOs Seller , CancellationToken cancellation);
         Task UpdateSeller(SellerDtOs Seller , CancellationToken cancellation);
         Task DeleteSeller(int id, CancellationToken cancellation);
+        Task<SellerDtOs> GetSellerByAppUserId(int appId, CancellationToken cancellation);
     }
 }

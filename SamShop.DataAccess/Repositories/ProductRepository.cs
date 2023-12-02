@@ -17,10 +17,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         }
 
         public async Task<int> AddProduct(ProductDtOs Product, CancellationToken cancellation)
-
         {
             Product ProductAdding = new Product()
             {
+                BoothId = Product.BoothId,
                 CategoryId = Product.CategoryId,
                 ProductName = Product.ProductName,
                 Price = Product.Price,
@@ -30,6 +30,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 AddTime = DateTime.Now,
                 DeleteTime = null,
                 IsAccepted = false,
+                Pictures = Product.Pictures.Select(pictures => new Picture
+                {
+                    Url = pictures.Url
+                }).ToList(),
 
             };
             await _context.Products.AddAsync(ProductAdding, cancellation);
@@ -68,7 +72,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<ProductDtOs?> GetProductById(int id, CancellationToken cancellation)
         {
-            var Product = await _context.Products.AsNoTracking()
+            var Product = await _context.Products
+                .Include(product => product.Category)
+                .Include(product => product.Pictures)
                 .FirstOrDefaultAsync(a => a.ProductId == id, cancellation);
 
             var ProductById = new ProductDtOs()
@@ -82,7 +88,15 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsAvailable = Product.IsAvailable,
                 IsAccepted = Product.IsAccepted,
                 ProductName = Product.ProductName,
-                AddTime = Product.AddTime
+                AddTime = Product.AddTime,
+                Category = new Category
+                {
+                    CategoryName = Product.Category.CategoryName
+                },
+                Pictures = Product.Pictures.Select(p => new Picture
+                {
+                    Url = p.Url,
+                }).ToList(),
             };
             return ProductById;
         }
@@ -90,15 +104,23 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task UpdateProduct(ProductDtOs Product, CancellationToken cancellation)
         {
             Product? changeProduct =
-                await _context.Products.FirstOrDefaultAsync(p => p.ProductId == Product.ProductId, cancellation);
+                await _context.Products
+                    .Include(product => product.Category)
+                    .Include(product => product.Pictures)
+                    .FirstOrDefaultAsync(p => p.ProductId == Product.ProductId, cancellation);
             if (changeProduct != null)
             {
                 changeProduct.ProductName = Product.ProductName;
-                //changeProduct.CategoryId = Product.CategoryId;
+                changeProduct.CategoryId = Product.Category.CategoryId;
                 //changeProduct.BoothId = Product.BoothId;
                 changeProduct.Price = Product.Price;
                 changeProduct.IsAvailable = Product.IsAvailable;
                 changeProduct.IsAccepted = Product.IsAccepted;
+                changeProduct.Pictures = Product.Pictures.Select(picture => new Picture
+                {
+                    PictureId = picture.PictureId,
+                    Url = picture.Url
+                }).ToList();
 
             }
 

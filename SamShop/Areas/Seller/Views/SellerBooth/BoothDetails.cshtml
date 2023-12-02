@@ -1,0 +1,48 @@
+﻿@model SellerBoothViewModel
+<h2>Your Booth is @Model.BoothName</h2>
+
+<h3>Address:</h3>
+<div>
+    <p>Alley: @Model.BoothAddress.Alley</p>
+    <p>Street: @Model.BoothAddress.Street</p>
+    <p>City: @Model.BoothAddress.City</p>
+    <p>State: @Model.BoothAddress.state</p>
+    <p>Extra Part: @Model.BoothAddress.ExtraPart</p>
+    <p>Post Code: @Model.BoothAddress.PostCode</p>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-controller="SellerBooth" asp-action="BoothEdit" asp-route-BoothId="@Model.BoothId">Edit Booth</a>
+</div>
+
+<h3>The Product That You Have:</h3>
+@foreach (var product in @Model.BoothProducts)
+{
+    <div>
+        <p>@product.ProductName</p>
+        <p>@product.Price</p>
+        <p>@product.Amount</p>
+        <p>@product.ProductCategory.category</p>
+    </div>
+    if (@product.ProductPictures != null)
+    {
+        foreach (var picture in @product.ProductPictures)
+        {
+            <div>
+                <img src="@picture.Url" alt="Profile Picture" />
+            </div> 
+        }
+
+    }
+    else
+    {
+        <h1>adding picture</h1>
+    }
+    <div>
+        <a class="btn btn-primary" asp-controller="SellerBoothProduct" asp-action="ProductView" asp-route-ProductId="@product.ProductId">Product Information</a>
+    </div>
+    
+}
+<div>
+    <a class="btn btn-primary" asp-controller="SellerBoothProduct" asp-action="AddingProduct" asp-route-BoothId="@Model.BoothId">Adding Product</a>
+</div>

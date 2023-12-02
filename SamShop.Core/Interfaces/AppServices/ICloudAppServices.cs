@@ -12,5 +12,6 @@ namespace SamShop.Domain.Core.Interfaces.AppServices
     {
         Task<ImageUploadResult> AddPhoto(IFormFile photo, CancellationToken cancellation);
         Task<DeletionResult> DeletePhoto(int PhotoId, CancellationToken cancellation);
+        Task<List<ImageUploadResult>> AddPhotos(List<IFormFile> photo, CancellationToken cancellation);
     }
 }

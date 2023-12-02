@@ -20,27 +20,27 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<CategoryDtOs> GetAllCategory()
         {
-            throw new NotImplementedException();
+            return _categoryServices.GetAllCategory();
         }
 
         public async Task<CategoryDtOs?> GetCategoryById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _categoryServices.GetCategoryById(id, cancellation);
         }
 
         public async Task<int> AddCategory(CategoryDtOs Category, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _categoryServices.AddCategory(Category, cancellation);
         }
 
         public async Task UpdateCategory(CategoryDtOs Category, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _categoryServices.UpdateCategory(Category, cancellation);
         }
 
         public async Task DeleteCategory(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _categoryServices.DeleteCategory(id, cancellation);
         }
     }
 }

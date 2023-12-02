@@ -1,0 +1,55 @@
+﻿@model SellerBoothViewModel
+<h2>Edit Booth</h2>
+
+<form asp-action="BoothEdit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="BoothId" />
+    <div>
+        <label asp-for="BoothName">BoothName:</label>
+        <input asp-for="BoothName"/>
+        <span asp-validation-for="BoothName"></span>
+    </div>
+    <div>
+        <p>
+            Editing Address
+        </p>
+    </div>
+    <div>
+        <label asp-for="BoothAddress.Alley">Alley:</label>
+        <input asp-for="BoothAddress.Alley"/>
+        <span asp-validation-for="BoothAddress.Alley"></span>
+    </div>
+
+    <div>
+        <label asp-for="BoothAddress.Street">Street:</label>
+        <input asp-for="BoothAddress.Street"/>
+        <span asp-validation-for="BoothAddress.Street"></span>
+    </div>
+
+    <div>
+        <label asp-for="BoothAddress.City">City:</label>
+        <input asp-for="BoothAddress.City"/>
+        <span asp-validation-for="BoothAddress.City"></span>
+    </div>
+
+    <div>
+        <label asp-for="BoothAddress.state">State:</label>
+        <input asp-for="BoothAddress.state"/>
+        <span asp-validation-for="BoothAddress.state"></span>
+    </div>
+
+    <div>
+        <label asp-for="BoothAddress.ExtraPart">ExtraPart:</label>
+        <input asp-for="BoothAddress.ExtraPart"/>
+        <span asp-validation-for="BoothAddress.ExtraPart"></span>
+    </div>
+
+    <div>
+        <label asp-for="BoothAddress.PostCode">PostCode:</label>
+        <input asp-for="BoothAddress.PostCode"/>
+        <span asp-validation-for="BoothAddress.PostCode"></span>
+    </div>
+
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
+</form>

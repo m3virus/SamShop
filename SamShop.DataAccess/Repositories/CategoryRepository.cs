@@ -65,17 +65,20 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public IEnumerable<CategoryDtOs> GetAllCategory()
         {
-            var Categories = _context.Categories.AsNoTracking();
+            var Categories = _context.Categories;
             var CategoryDtOs = new List<CategoryDtOs>();
 
             foreach (var Category in Categories)
             {
                 var a = new CategoryDtOs()
                 {
+                    CategoryId = Category.CategoryId,
                     CategoryName = Category.CategoryName,
                     IsDeleted = Category.IsDeleted,
                     CreateTime = Category.CreateTime,
-                    DeleteTime = Category.DeleteTime
+                    DeleteTime = Category.DeleteTime,
+                    IsAccepted = Category.IsAccepted,
+
 
                 };
                 CategoryDtOs.Add(a);

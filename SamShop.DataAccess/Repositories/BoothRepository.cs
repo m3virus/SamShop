@@ -75,8 +75,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<BoothDtOs?> GetBoothById(int id, CancellationToken cancellation)
         {
-            var booth = await _context.Booths.AsNoTracking().Include(booth => booth.Products)
-                .ThenInclude(product => product.Category)
+            var booth = await _context.Booths.AsNoTracking()
+                .Include(b => b.Address)
+                .Include(booth => booth.Products)
+                    .ThenInclude(product => product.Category)
+                .Include(booth => booth.Products)
+                    .ThenInclude(product => product.Pictures)
                 .FirstOrDefaultAsync(a => a.BoothId == id, cancellation);
 
             var boothById = new BoothDtOs()
@@ -88,28 +92,58 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 CreateTime = booth.CreateTime,
                 DeleteTime = booth.DeleteTime,
 
+                Address = new Address
+                {
+                    Alley = booth.Address.Alley,
+                    Street = booth.Address.Street,
+                    City = booth.Address.City,
+                    State = booth.Address.State,
+                    ExtraPart = booth.Address.ExtraPart,
+                    PostCode = booth.Address.PostCode,
+                },
                 Products = booth.Products.Select(boothProduct => new Product
                 {
+                    ProductId = boothProduct.ProductId,
                     ProductName = boothProduct.ProductName,
                     Price = boothProduct.Price,
                     Amount = boothProduct.Amount,
                     Category = new Category
                     {
                         CategoryName = boothProduct.Category.CategoryName,
-                    }
-                }).ToList()
+                    },
+                    Pictures = boothProduct.Pictures.Select(productPictures => new Picture
+                    {
+                        Url = productPictures.Url,
+                    }).ToList(),
+                }).ToList(),
+
             };
             return boothById;
 
         }
         public async Task UpdateBooth(BoothDtOs Booth, CancellationToken cancellation)
         {
-            Booth? changeBooth = await _context.Booths.FirstOrDefaultAsync(b => b.BoothId == Booth.BoothId, cancellation);
+            Booth? changeBooth = await _context.Booths
+                .Include(Booth => Booth.Address)
+                .Include(booth => booth.Products)
+                    .ThenInclude(product => product.Category)
+                .Include(booth => booth.Products)
+                    .ThenInclude(product => product.Pictures)
+                .FirstOrDefaultAsync(b => b.BoothId == Booth.BoothId, cancellation);
             if (changeBooth != null)
             {
                 changeBooth.BoothName = Booth.BoothName;
-                
-                
+                changeBooth.Address = new Address
+                {
+                    Alley = Booth.Address.Alley,
+                    Street = Booth.Address.Street,
+                    City = Booth.Address.City,
+                    State = Booth.Address.State,
+                    ExtraPart = Booth.Address.ExtraPart,
+                    PostCode = Booth.Address.PostCode,
+                };
+
+
             }
 
             await _context.SaveChangesAsync(cancellation);

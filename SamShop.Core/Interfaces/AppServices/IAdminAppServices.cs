@@ -14,5 +14,6 @@ namespace SamShop.Domain.Core.Interfaces.AppServices
         Task<int> AddAdmin(AdminDtOs Admin, CancellationToken cancellation);
         Task UpdateAdmin(AdminDtOs Admin, CancellationToken cancellation);
         Task DeleteAdmin(int id, CancellationToken cancellation);
+        Task<AdminDtOs> GetAdminByAppUserId(int appId, CancellationToken cancellation);
     }
 }

@@ -1,0 +1,50 @@
+﻿@model SellerDashboardViewModel
+
+<h2>Welcome, @Model.UserName!</h2>
+
+<h3>Profile Picture:</h3>
+@if (Model.ProfilePicture.Url != null)
+{
+    <img src="@Model.ProfilePicture.Url" alt="Profile Picture" />
+
+}
+else
+{
+    <h1>adding picture</h1>
+}
+<p>Name: @Model.FirstName @Model.LastName</p>
+<p>Wallet: $@Model.WalletAmount</p>
+
+<h3>Addresses:</h3>
+<div>
+    <p>Alley: @Model.PrimaryAddresses.Alley</p>
+    <p>Street: @Model.PrimaryAddresses.Street</p>
+    <p>City: @Model.PrimaryAddresses.City</p>
+    <p>State: @Model.PrimaryAddresses.state</p>
+    <p>Extra Part: @Model.PrimaryAddresses.ExtraPart</p>
+    <p>Post Code: @Model.PrimaryAddresses.PostCode</p>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-controller="SellerPanel" asp-action="Edit">Edit Profile</a>
+</div>
+
+<h3>Booth:</h3>
+<div>
+    <p>
+        BoothName: @Model.Booth.BoothName
+    </p>
+</div>
+<div>
+    <p>Alley: @Model.Booth.BoothAddress.Alley</p>
+    <p>Street: @Model.Booth.BoothAddress.Street</p>
+    <p>City: @Model.Booth.BoothAddress.City</p>
+    <p>State: @Model.Booth.BoothAddress.state</p>
+    <p>Extra Part: @Model.Booth.BoothAddress.ExtraPart</p>
+    <p>Post Code: @Model.Booth.BoothAddress.PostCode</p>
+</div>
+<div>
+    <a class="btn btn-primary" asp-controller="SellerBooth" asp-action="BoothDetails" asp-route-BoothId="@Model.Booth.BoothId">Booth Information</a>
+</div>
+
+

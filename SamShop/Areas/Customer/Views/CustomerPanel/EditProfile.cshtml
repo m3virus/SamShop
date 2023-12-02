@@ -5,7 +5,7 @@
 <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
     <div>
         <label asp-for="UserName">Username:</label>
-        <input asp-for="UserName" />
+        <input asp-for="UserName" value="@Model.UserName" />
         <span asp-validation-for="UserName"></span>
     </div>
 
@@ -27,8 +27,8 @@
         <span asp-validation-for="Wallet"></span>
     </div>
 
-    <div>
-        <label asp-for="Address.Alley">Alley:</label>
+    @*<div>
+        <label asp-for="Address.">Alley:</label>
         <input asp-for="Address.Alley" />
         <span asp-validation-for="Address.Alley"></span>
     </div>
@@ -62,7 +62,7 @@
         <input asp-for="Address.PostCode" />
         <span asp-validation-for="Address.PostCode"></span>
     </div>
-
+*@
     <!-- Add other address fields as needed -->
 
     <div>

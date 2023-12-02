@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SamShop.Domain.Core.Interfaces.Repositories;
-using SamShop.Infrastructure.DataAccess.Repositories;
-using System.Data;
+using System.Security.Claims;
+using SamShop.Domain.Core.Interfaces.AppServices;
+using SamShop.Domain.Core.Models.Entities;
+using SamShop.endpoint.Areas.Admin.Models;
+using SamShop.endpoint.Areas.Customer.Models;
+using SamShop.Domain.Appservices;
 
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
@@ -11,86 +15,124 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller
     {
-        private readonly IAdminRepository _adminRepository;
+        private readonly IAdminAppServices _adminAppServices;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ICloudAppServices _cloudAppServices;
 
-        public AdminPanelController(IAdminRepository adminRepository)
-        {
-            _adminRepository = adminRepository;
-        }
-        
-        // GET: AdminPanelController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        // GET: AdminPanelController/Details/5
-        public ActionResult Details(int id)
+        public AdminPanelController(IAdminAppServices adminAppServices, UserManager<AppUser> userManager, ICloudAppServices cloudAppServices)
         {
-            return View();
+            _adminAppServices = adminAppServices;
+            _userManager = userManager;
+            _cloudAppServices = cloudAppServices;
         }
 
-        // GET: AdminPanelController/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Index(CancellationToken cancellation)
         {
-            return View();
-        }
 
-        // POST: AdminPanelController/Create
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByIdAsync(userId).Result;
+
+            int appUserId = Convert.ToInt32(userId);
+            var admin = await _adminAppServices.GetAdminByAppUserId(appUserId, cancellation);
+
+            var viewModel = new AdminDashboardViewModel
+            {
+                ProfilePicture = new AdminPictureViewModel
+                {
+                    Url = admin.Picture?.Url
+                },
+
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                
+                PrimaryAddresses = new AdminAddressViewModel
+                {
+                    Alley = admin.Address.Alley,
+                    state = admin.Address.State,
+                    City = admin.Address.City,
+                    Street = admin.Address.Street,
+                    ExtraPart = admin.Address.ExtraPart,
+                    PostCode = admin.Address.PostCode,
+                }
+                
+            };
+            return View(viewModel);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(CancellationToken cancellation)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByIdAsync(userId).Result;
+
+            int appUserId = Convert.ToInt32(userId);
+            var admin = await _adminAppServices.GetAdminByAppUserId(appUserId, cancellation);
+
+            var defaultValue = new AdminProfileEditViewModel();
+            if (user != null && admin != null)
+            {
+                defaultValue.UserName = user.UserName;
+                defaultValue.FirstName = user.FirstName;
+                defaultValue.LastName = user.LastName;
+
+                defaultValue.Address = new AdminAddressViewModel
+                {
+                    Alley = admin.Address.Alley,
+                    state = admin.Address.State,
+                    City = admin.Address.City,
+                    Street = admin.Address.Street,
+                    ExtraPart = admin.Address.ExtraPart,
+                    PostCode = admin.Address.PostCode,
+                };
+            }
+            return View(defaultValue);
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Edit(AdminProfileEditViewModel adminProfileEdit, CancellationToken cancellation)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: AdminPanelController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByIdAsync(userId).Result;
+            int appUserId = Convert.ToInt32(userId);
+            var admin = await _adminAppServices.GetAdminByAppUserId(appUserId, cancellation);
 
-        // POST: AdminPanelController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: AdminPanelController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: AdminPanelController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            if (user != null && admin != null)
             {
-                return RedirectToAction(nameof(Index));
+                if (adminProfileEdit.Picture != null)
+                {
+                    await _cloudAppServices.DeletePhoto(admin.Picture.PictureId, cancellation);
+                }
+
+                user.UserName = adminProfileEdit.UserName;
+                user.FirstName = adminProfileEdit.FirstName;
+                user.LastName = adminProfileEdit.LastName;
+
+                admin.Address = new Address
+                {
+                    Alley = adminProfileEdit.Address.Alley,
+                    State = adminProfileEdit.Address.state,
+                    City = adminProfileEdit.Address.City,
+                    Street = adminProfileEdit.Address.Street,
+                    ExtraPart = adminProfileEdit.Address.ExtraPart,
+                    PostCode = adminProfileEdit.Address.PostCode,
+                };
+                if (adminProfileEdit.Picture != null)
+                {
+                    var pictureUrl = await _cloudAppServices.AddPhoto(adminProfileEdit.Picture, cancellation);
+
+                    admin.Picture = new Picture
+                    {
+                        Url = pictureUrl.Url.ToString(),
+                    };
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            await _adminAppServices.UpdateAdmin(admin, cancellation);
+            await _userManager.UpdateAsync(user);
+            return RedirectToAction("Index");
         }
     }
 }

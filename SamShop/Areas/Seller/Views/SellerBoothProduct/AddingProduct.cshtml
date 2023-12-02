@@ -1,0 +1,45 @@
+﻿@model SellerBoothProductAdderViewModel
+
+@{
+    ViewData["Title"] = "Adding Product";
+}
+
+<h2>Adding Product</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="AddingProduct" asp-controller="SellerBoothProduct" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="BoothId" />
+    
+    <div>
+        <label asp-for="ProductName">ProductName:</label>
+        <input asp-for="ProductName" />
+        <span asp-validation-for="ProductName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Amount">Amount:</label>
+        <input asp-for="Amount" />
+        <span asp-validation-for="Amount"></span>
+    </div>
+
+    <div>
+        <label asp-for="Price">Price:</label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedCategoryId">Category:</label>
+        <select asp-for="SelectedCategoryId" asp-items="Model.AvailableCategories" class="form-control"></select>
+        <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="NewPictures">Upload New Pictures:</label>
+        <input asp-for="NewPictures" type="file" multiple />
+        <span asp-validation-for="NewPictures" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Add Product</button>
+</form>

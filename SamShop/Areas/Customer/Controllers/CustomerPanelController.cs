@@ -4,7 +4,7 @@ using SamShop.endpoint.Areas.Customer.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using SamShop.Domain.Core.Interfaces.AppServices;
-using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.CommentDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 namespace SamShop.endpoint.Areas.Customer.Controllers
@@ -16,12 +16,14 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
         protected readonly UserManager<AppUser> _userManager;
         protected readonly ICustomerAppServices _customerAppServices;
         protected readonly ICloudAppServices _cloudAppServices;
+        protected readonly ICommentAppServices _commentAppServices;
 
-        public CustomerPanelController(UserManager<AppUser> userManager, ICustomerAppServices customerAppServices, ICloudAppServices cloudAppServices)
+        public CustomerPanelController(UserManager<AppUser> userManager, ICustomerAppServices customerAppServices, ICloudAppServices cloudAppServices, ICommentAppServices commentAppServices)
         {
             _userManager = userManager;
             _customerAppServices = customerAppServices;
             _cloudAppServices = cloudAppServices;
+            _commentAppServices = commentAppServices;
         }
 
         
@@ -67,10 +69,49 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EditProfile()
+        public async Task<IActionResult> ViewCart(CancellationToken cancellation)
         {
-            return View();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            int appUserId = Convert.ToInt32(userId);
+            var customer = await _customerAppServices.GetCustomerByAppUserId(appUserId, cancellation);
+            var viewModel = new CustomerDashbordViewModel
+            {
+                Carts = customer.Carts.Select(cart => new CartViewModel
+                {
+                    CartId = cart.CartId,
+                    Price = cart.TotalPrice,
+                    Products = cart.Products.Select(product => new ProductViewModel
+                    {
+                        ProductId = product.ProductId,
+                        ProductName = product.ProductName,
+                        Price = product.Price,
+                        Amount = product.Amount
+                    }).ToList()
+                }).ToList()
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditProfile(CancellationToken cancellation)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByIdAsync(userId).Result;
+
+            int appUserId = Convert.ToInt32(userId);
+            var customer = await _customerAppServices.GetCustomerByAppUserId(appUserId, cancellation);
+
+            var defaultValue = new CustomerProfileEditViewModel();
+            if (user != null && customer != null)
+            {
+                defaultValue.UserName = user.UserName;
+                defaultValue.FirstName = user.FirstName;
+                defaultValue.LastName = user.LastName;
+
+                defaultValue.Wallet = customer.Wallet;
+            }
+            return View(defaultValue);
         }
 
         [HttpPost]
@@ -86,7 +127,7 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
 
             if (user != null && customer != null)
             {
-                if (customer.PictureId != null)
+                if (profileEditView.picture != null)
                 {
                     await _cloudAppServices.DeletePhoto(customer.Picture.PictureId, cancellation);
                 }
@@ -97,20 +138,7 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
 
                 customer.Wallet = profileEditView.Wallet;
 
-                customer.Addresses = new List<Address>
-                {
-                    new Address
-                    {
-                        Alley = profileEditView.Address.Alley,
-                        Street = profileEditView.Address.Street,
-                        City = profileEditView.Address.City,
-                        State = profileEditView.Address.State,
-                        ExtraPart = profileEditView.Address.ExtraPart,
-                        PostCode = profileEditView.Address.PostCode
-                    }
-
-                };
-                if(profileEditView.picture != null) {
+                if (profileEditView.picture != null) {
                     var pictureUrl = await _cloudAppServices.AddPhoto(profileEditView.picture, cancellation);
 
                     customer.Picture = new Picture
@@ -124,5 +152,40 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> LeaveComment(int ProductId, CancellationToken cancellation)
+        {
+            var defaultProduct = new CustomerCartProductCommentViewModel
+            {
+                ProductId = ProductId,
+                Message = "please leave us your Comments"
+            };
+            return View(defaultProduct);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LeaveComment(CustomerCartProductCommentViewModel commentViewModel, CancellationToken cancellation)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                int appUserId = Convert.ToInt32(userId);
+                var customer = await _customerAppServices.GetCustomerByAppUserId(appUserId, cancellation);
+
+                var comment = new CommentDtOs
+                {
+                    ProductId = commentViewModel.ProductId,
+                    Message = commentViewModel.Message,
+                    CustomerId = customer.CustomerId,
+                };
+                await _commentAppServices.AddComment(comment, cancellation);
+                return RedirectToAction("ViewCart");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

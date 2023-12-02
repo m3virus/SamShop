@@ -1,0 +1,76 @@
+﻿@model SellerProfileEditViewModel
+
+<h2>Edit Profile</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div>
+        <label asp-for="UserName">Username:</label>
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+
+    <div>
+        <label asp-for="FirstName">First Name:</label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+
+    <div>
+        <label asp-for="LastName">Last Name:</label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+
+
+    <div>
+        <label asp-for="Address.Alley">Alley:</label>
+        <input asp-for="Address.Alley" />
+        <span asp-validation-for="Address.Alley"></span>
+    </div>
+
+    <div>
+        <label asp-for="Address.Street">Street:</label>
+        <input asp-for="Address.Street" />
+        <span asp-validation-for="Address.Street"></span>
+    </div>
+
+    <div>
+        <label asp-for="Address.City">City:</label>
+        <input asp-for="Address.City" />
+        <span asp-validation-for="Address.City"></span>
+    </div>
+
+    <div>
+        <label asp-for="Address.state">State:</label>
+        <input asp-for="Address.state" />
+        <span asp-validation-for="Address.state"></span>
+    </div>
+
+    <div>
+        <label asp-for="Address.ExtraPart">ExtraPart:</label>
+        <input asp-for="Address.ExtraPart" />
+        <span asp-validation-for="Address.ExtraPart"></span>
+    </div>
+
+    <div>
+        <label asp-for="Address.PostCode">PostCode:</label>
+        <input asp-for="Address.PostCode" />
+        <span asp-validation-for="Address.PostCode"></span>
+    </div>
+
+    <!-- Add other address fields as needed -->
+
+    <div>
+        <label asp-for="Picture">Profile Picture:</label>
+        <input asp-for="Picture" type="file" accept="image/*" />
+        <span asp-validation-for="Picture"></span>
+    </div>
+
+    @*<div>
+    <img src="@Model" alt="Profile Picture" />
+    </div>*@
+
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
+</form>

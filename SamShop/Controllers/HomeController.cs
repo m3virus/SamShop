@@ -17,13 +17,15 @@ namespace SamShop.Controllers
         private readonly IBoothAppServices _boothAppServices;
         private readonly IProductAppServices _productAppServices;
         private readonly ICommentAppServices _commentAppServices;
+        private readonly ICategoryAppServices _categoryAppServices;
 
-        public HomeController(ILogger<HomeController> logger, IBoothAppServices boothAppServices, IProductAppServices productAppServices, ICommentAppServices commentAppServices)
+        public HomeController(ILogger<HomeController> logger, IBoothAppServices boothAppServices, IProductAppServices productAppServices, ICommentAppServices commentAppServices, ICategoryAppServices categoryAppServices)
         {
             _logger = logger;
             _boothAppServices = boothAppServices;
             _productAppServices = productAppServices;
             _commentAppServices = commentAppServices;
+            _categoryAppServices = categoryAppServices;
         }
 
         public IActionResult Index()

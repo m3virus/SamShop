@@ -22,27 +22,32 @@ namespace SamShop.Domain.Service
 
         public IEnumerable<AdminDtOs> GetAllAdmin()
         {
-            throw new NotImplementedException();
+            return _adminRepository.GetAllAdmin();
         }
 
-        public Task<AdminDtOs?> GetAdminById(int id, CancellationToken cancellation)
+        public async  Task<AdminDtOs?> GetAdminById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _adminRepository.GetAdminById(id, cancellation);
         }
 
-        public Task<int> AddAdmin(AdminDtOs Admin, CancellationToken cancellation)
+        public async Task<int> AddAdmin(AdminDtOs Admin, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _adminRepository.AddAdmin(Admin, cancellation);
         }
 
-        public Task UpdateAdmin(AdminDtOs Admin, CancellationToken cancellation)
+        public async Task UpdateAdmin(AdminDtOs Admin, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _adminRepository.UpdateAdmin(Admin, cancellation);
         }
 
-        public Task DeleteAdmin(int id, CancellationToken cancellation)
+        public async Task DeleteAdmin(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _adminRepository.DeleteAdmin(id, cancellation);
+        }
+
+        public async Task<AdminDtOs> GetAdminByAppUserId(int appId, CancellationToken cancellation)
+        {
+            return await _adminRepository.GetAdminByAppUserId(appId, cancellation);
         }
     }
 }

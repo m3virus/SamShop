@@ -45,5 +45,10 @@ namespace SamShop.Domain.Service
         {
             await _sellerRepository.DeleteSeller(id, cancellation);
         }
+
+        public async Task<SellerDtOs> GetSellerByAppUserId(int appId, CancellationToken cancellation)
+        {
+            return await _sellerRepository.GetSellerByAppUserId(appId, cancellation);
+        }
     }
 }

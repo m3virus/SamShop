@@ -1,7 +1,32 @@
 ﻿
-@{
+@model AdminDashboardViewModel
+
+<h2>Welcome, @Model.UserName!</h2>
+<h3>Profile Picture:</h3>
+@if (Model.ProfilePicture.Url != null)
+{
+    <img src="@Model.ProfilePicture.Url" alt="Profile Picture" />
 
 }
+else
+{
+    <h1>adding picture</h1>
+}
+<p>Name: @Model.FirstName @Model.LastName</p>
+<p>Wallet: $@Model.WalletAmount</p>
+
+<h3>Addresses:</h3>
+<div>
+    <p>Alley: @Model.PrimaryAddresses.Alley</p>
+    <p>Street: @Model.PrimaryAddresses.Street</p>
+    <p>City: @Model.PrimaryAddresses.City</p>
+    <p>State: @Model.PrimaryAddresses.state</p>
+    <p>Extra Part: @Model.PrimaryAddresses.ExtraPart</p>
+    <p>Post Code: @Model.PrimaryAddresses.PostCode</p>
+</div>
+<div>
+    <a class="btn btn-primary" asp-controller="AdminPanel" asp-action="Edit">Edit Profile</a>
+</div>
 
 <a class="btn btn-primary" asp-controller="AdminProduct" asp-action="Index">Products</a>
 <a class="btn btn-primary" asp-controller="AdminBooth" asp-action="Index">Booth</a>

@@ -22,27 +22,32 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<SellerDtOs> GetAllSeller()
         {
-            throw new NotImplementedException();
+            return _sellerServices.GetAllSeller();
         }
 
         public async Task<SellerDtOs?> GetSellerById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _sellerServices.GetSellerById(id, cancellation);
         }
 
         public async Task<int> AddSeller(SellerDtOs Seller, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _sellerServices.AddSeller(Seller, cancellation);
         }
 
         public async Task UpdateSeller(SellerDtOs Seller, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _sellerServices.UpdateSeller(Seller, cancellation);
         }
 
         public async Task DeleteSeller(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _sellerServices.DeleteSeller(id, cancellation);
+        }
+
+        public async Task<SellerDtOs> GetSellerByAppUserId(int appId, CancellationToken cancellation)
+        {
+            return await _sellerServices.GetSellerByAppUserId(appId, cancellation);
         }
     }
 }

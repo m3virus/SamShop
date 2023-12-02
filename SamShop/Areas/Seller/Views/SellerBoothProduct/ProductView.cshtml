@@ -1,0 +1,26 @@
+﻿@model SellerBoothProductViewModel
+<h2>Your Product is @Model.ProductName</h2>
+
+<h3>Pictures:</h3>
+<div>
+    @foreach (var picture in @Model.ProductPictures)
+    {
+        <img src="@picture.Url" alt="Profile Picture" />
+    }
+</div>
+
+@*<div>
+    <a class="btn btn-primary" asp-controller="SellerBooth" asp-action="BoothEdit" asp-route-BoothId="@Model.BoothId">Edit Booth</a>
+</div>*@
+
+<div>
+    <p>@Model.ProductCategory.category</p>
+    <p>@Model.ProductName</p>
+    <p>@Model.Price</p>
+    <p>@Model.Amount</p>
+    
+    <div>
+        <a class="btn btn-primary" asp-controller="SellerBoothProduct" asp-action="ProductEditor" asp-route-ProductId="@Model.ProductId">Product Editor</a>
+    </div>
+</div>
+

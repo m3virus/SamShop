@@ -8,7 +8,7 @@ namespace SamShop.endpoint.Areas.Customer.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal Wallet { get; set; }
-        public AddressDtOs? Address { get; set; }
+        public List<AddressDtOs> Address { get; set; }
         public IFormFile picture { get; set; }
 
     }
