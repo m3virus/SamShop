@@ -10,6 +10,8 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
         Task<int> AddProduct(ProductDtOs Product, CancellationToken cancellation);
         Task UpdateProduct(ProductDtOs Product , CancellationToken cancellation);
         Task DeleteProduct(int id , CancellationToken cancellation);
-        
+        Task ConfirmProduct(int productId, CancellationToken cancellation);
+
+
     }
 }

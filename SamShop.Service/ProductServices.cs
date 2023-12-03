@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Identity.Client;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Interfaces.Services;
 using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
@@ -49,10 +50,7 @@ namespace SamShop.Domain.Service
 
         public async Task ConfirmProduct(int productId, CancellationToken cancellation)
         {
-            var result = await _ProductRepository.GetProductById(productId, cancellation);
-            result.IsAccepted = true;
-
-            await _ProductRepository.UpdateProduct(result, cancellation);
+            await _ProductRepository.ConfirmProduct(productId, cancellation);
 
         }
 

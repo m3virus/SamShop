@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.DtOs.CategoryDtOs;
+using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.Infrastructure.EntityFramework.DBContext;
 
@@ -65,7 +66,11 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public IEnumerable<CategoryDtOs> GetAllCategory()
         {
-            var Categories = _context.Categories;
+            var Categories = _context.Categories
+                .Include(c => c.Products)
+                .ThenInclude(p => p.Pictures)
+                .Include(c => c.Products)
+                .ThenInclude(c => c.Booth);
             var CategoryDtOs = new List<CategoryDtOs>();
 
             foreach (var Category in Categories)
@@ -78,7 +83,25 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     CreateTime = Category.CreateTime,
                     DeleteTime = Category.DeleteTime,
                     IsAccepted = Category.IsAccepted,
-
+                    Products = Category.Products.Select(product => new Product
+                    {
+                        IsAccepted = product.IsAccepted,
+                        IsDeleted = product.IsDeleted,
+                        IsAvailable = product.IsAvailable,
+                        ProductId = product.ProductId,
+                        ProductName = product.ProductName,
+                        Amount = product.Amount,
+                        Price = product.Price,
+                        Pictures = product.Pictures.Select(picture => new Picture
+                        {
+                            Url = picture.Url
+                        }).ToList(),
+                        Booth = new Booth
+                        {
+                            BoothId = product.BoothId,
+                            BoothName = product.Booth.BoothName
+                        }
+                    }).ToList(),
 
                 };
                 CategoryDtOs.Add(a);

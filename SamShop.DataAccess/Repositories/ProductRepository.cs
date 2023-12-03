@@ -93,8 +93,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 {
                     CategoryName = Product.Category.CategoryName
                 },
-                Pictures = Product.Pictures.Select(p => new Picture
+                Pictures = Product.Pictures.Where(picture => picture.IsDeleted == false).Select(p => new Picture
                 {
+                    PictureId = p.PictureId,
                     Url = p.Url,
                 }).ToList(),
             };
@@ -116,6 +117,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeProduct.Price = Product.Price;
                 changeProduct.IsAvailable = Product.IsAvailable;
                 changeProduct.IsAccepted = Product.IsAccepted;
+                changeProduct.Amount = Product.Amount;
                 changeProduct.Pictures = Product.Pictures.Select(picture => new Picture
                 {
                     PictureId = picture.PictureId,
@@ -140,6 +142,17 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             await _context.SaveChangesAsync(cancellation);
         }
 
-        
+        public async Task ConfirmProduct(int productId, CancellationToken cancellation)
+        {
+            Product? confirmingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == productId, cancellation);
+            if (confirmingProduct != null)
+            {
+                confirmingProduct.IsAccepted = true;
+            }
+
+            await _context.SaveChangesAsync(cancellation);
+
+        }
+
     }
 }

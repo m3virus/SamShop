@@ -40,6 +40,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 .ThenInclude(x => x.AppUser)
                 .Include(booth => booth.Products)
                 .ThenInclude(product => product.Category)
+                .Include(booth => booth.Products)
+                .ThenInclude(product => product.Pictures)
                 .AsNoTracking();
             var boothDtOs = new List<BoothDtOs>();
 
@@ -56,9 +58,16 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     
                     Products = a.Products.Select(boothProduct => new Product
                     {
+                        IsAccepted = boothProduct.IsAccepted,
+                        IsDeleted = boothProduct.IsDeleted,
+                        IsAvailable = boothProduct.IsAvailable,
                         ProductName = boothProduct.ProductName,
                         Price = boothProduct.Price,
                         Amount = boothProduct.Amount,
+                        Pictures = boothProduct.Pictures.Select(picture => new Picture
+                        {
+                            Url = picture.Url
+                        }).ToList(),
                         Category = new Category
                         {
                             CategoryName = boothProduct.Category.CategoryName,
@@ -107,11 +116,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     ProductName = boothProduct.ProductName,
                     Price = boothProduct.Price,
                     Amount = boothProduct.Amount,
+                    IsAccepted = boothProduct.IsAccepted,
+                    IsDeleted = boothProduct.IsDeleted,
                     Category = new Category
                     {
                         CategoryName = boothProduct.Category.CategoryName,
                     },
-                    Pictures = boothProduct.Pictures.Select(productPictures => new Picture
+                    Pictures = boothProduct.Pictures.Where(picture => picture.IsDeleted == false).Select(productPictures => new Picture
                     {
                         Url = productPictures.Url,
                     }).ToList(),

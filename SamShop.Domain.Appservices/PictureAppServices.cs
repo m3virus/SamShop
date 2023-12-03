@@ -41,7 +41,7 @@ namespace SamShop.Domain.Appservices
 
         public async Task DeletePicture(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _pictureServices.DeletePicture(id, cancellation);
         }
     }
 }

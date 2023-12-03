@@ -1,0 +1,17 @@
+﻿@model BoothViewModel
+
+<h2>Welcome to Booth @Model.BoothName</h2>
+
+@if (Model.Products != null && Model.Products.Any())
+{
+    <h3>Products:</h3>
+    @foreach (var product in Model.Products)
+    {
+        <p>@product.ProductName</p>
+        <!-- Add other product information as needed -->
+    }
+}
+else
+{
+    <p>No products available in this booth.</p>
+}

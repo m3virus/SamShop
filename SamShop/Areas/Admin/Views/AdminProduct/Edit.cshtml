@@ -1,38 +1,60 @@
-﻿@model ProductDtOs
+﻿@model AdminProductViewModel
 
 <h2>Edit Product</h2>
 
-<form asp-area="Admin" asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="form-group">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ProductId" />
+    <div>
         <label asp-for="ProductName">ProductName:</label>
-        <input asp-for="ProductName" class="form-control" />
-        <span asp-validation-for="ProductName" class="text-danger"></span>
+        <input asp-for="ProductName" />
+        <span asp-validation-for="ProductName"></span>
     </div>
 
-    <div class="form-group">
+    <div>
         <label asp-for="Amount">Amount:</label>
-        <input asp-for="Amount" class="form-control" />
-        <span asp-validation-for="ProductName" class="text-danger"></span>
+        <input asp-for="Amount" />
+        <span asp-validation-for="Amount"></span>
     </div>
-    
-    <div class="form-group">
+
+    <div>
         <label asp-for="Price">Price:</label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="ProductName" class="text-danger"></span>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="AddTime">AddTime:</label>
-        <input asp-for="AddTime" class="form-control" />
-        <span asp-validation-for="AddTime" class="text-danger"></span>
+        <label asp-for="SelectedCategoryId">Category:</label>
+        <select asp-for="SelectedCategoryId" asp-items="Model.AvailableCategories" class="form-control">
+        </select>
+        <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p>
+            Editing Pictures
+        </p>
+    </div>
+    <div>
+        <h4>Existing Pictures</h4>
+        @foreach (var picture in @Model.ProductPictures)
+        {
+            <div>
+
+                <img src="@picture.Url" alt="Existing Picture" />
+                <a class="btn btn-primary" asp-controller="AdminProduct" asp-action="PictureDeleter" asp-route-PictureId="@picture.PictureId" asp-route-ProductId="@Model.ProductId">Delete Picture</a>
+            </div>
+        }
+    </div>
+
+    <!-- Upload New Pictures -->
+    <div class="form-group">
+        <label asp-for="NewPictures">Upload New Pictures:</label>
+        <input asp-for="NewPictures" type="file" multiple />
+        <span asp-validation-for="NewPictures" class="text-danger"></span>
     </div>
 
 
-    
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary" asp-route-ProductId = "@Model.ProductId">Update Product</button>
+    <div>
+        <button type="submit">Save Changes</button>
     </div>
 </form>

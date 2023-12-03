@@ -5,21 +5,44 @@
 
 @foreach (var item in Model)
 {
-    <div class="card m-2">
-        <h5 class="card-header">@item.Id</h5>
-        <div class="card-body">
-            <h5 class="card-title">@item.FirstName</h5>
-            <p class="card-text"> @item.LastName</p>
-            <p class="card-text"> @item.UserName</p>
-            <p class="card-text"> @item.Email</p>
-            <p class="card-text"> @item.Birthday</p>
+    if (item.IsDeleted != true)
+    {
+        <h1>Active User</h1>
+        <div class="card m-2">
+            <h5 class="card-header">@item.Id</h5>
+            <div class="card-body">
+                <h5 class="card-title">@item.FirstName</h5>
+                <p class="card-text"> @item.LastName</p>
+                <p class="card-text"> @item.UserName</p>
+                <p class="card-text"> @item.Email</p>
+                <p class="card-text"> @item.Birthday</p>
 
 
-            <a class="btn btn-primary" asp-controller="AdminUser" asp-action="Delete" asp-route-Id="@item.Id">delete</a>
-            <a class="btn btn-primary" asp-controller="AdminUser" asp-action="Edit" asp-route-Id="@item.Id">Edit</a>
+                <a class="btn btn-primary" asp-controller="AdminUser" asp-action="Delete" asp-route-Id="@item.Id">delete</a>
+                <a class="btn btn-primary" asp-controller="AdminUser" asp-action="Edit" asp-route-Id="@item.Id">Edit</a>
 
 
 
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <h1>Deleted User</h1>
+        <div class="card m-2">
+            <h5 class="card-header">@item.Id</h5>
+            <div class="card-body">
+                <h5 class="card-title">@item.FirstName</h5>
+                <p class="card-text"> @item.LastName</p>
+                <p class="card-text"> @item.UserName</p>
+                <p class="card-text"> @item.Email</p>
+                <p class="card-text"> @item.Birthday</p>
+
+                <a class="btn btn-primary" asp-controller="AdminUser" asp-action="Edit" asp-route-Id="@item.Id">Edit</a>
+
+            </div>
+        </div>
+    }
+    
 }
+

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,20 +23,39 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="SignIn">SignIn</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="SellerRegister">Seller Register</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="CustomerRegister">Customer Register</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Customer"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Customer" asp-controller="CustomerPanel" asp-action="Index">Dashboard</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">Dashboard</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("Seller"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="SellerPanel" asp-action="Index">Dashboard</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="SignIn">SignIn</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="SellerRegister">Seller Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="CustomerRegister">Customer Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

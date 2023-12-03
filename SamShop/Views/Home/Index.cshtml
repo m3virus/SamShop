@@ -1,17 +1,23 @@
-﻿@model IEnumerable<BoothDtOs>
+﻿@model ShopHomeViewModel
+
+<h2>Categories</h2>
+
+<div>
+    @foreach (var category in Model.Categories)
+    {
+        <h3>@category.CategoryName</h3>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="CategoryDetails">Category Information</a>
+    }
+</div>
 
 
-@{
-    ViewData["Title"] = "Home Page";
-}
+<h2>Booths</h2>
 
-@foreach (var item in Model)
-{
-    <div class="card m-2">
-        @*<h5 class="card-header">@item.ProductId</h5>*@
-        <div class="card-body">
-            <h5 class="card-title">@item.BoothName</h5>
-            <a class="btn btn-primary" asp-controller="Home" asp-action="Details" asp-route-id="@item.BoothId">View Booth</a>
-        </div>
-    </div>
-}
+<div>
+    @foreach (var booth in Model.Booths)
+    {
+        <h3>@booth.BoothName</h3>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="BoothDetails" asp-route-id="@booth.BoothId">Booth Information</a>
+    }
+</div>
+

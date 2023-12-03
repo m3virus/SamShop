@@ -2,6 +2,7 @@
 using SamShop.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Identity.Client;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
@@ -28,29 +29,73 @@ namespace SamShop.Controllers
             _categoryAppServices = categoryAppServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellation)
         {
-            
-            return View(_boothAppServices.GetAllBooth());
+            var categories = _categoryAppServices.GetAllCategory().Where(x => x.IsDeleted != true);
+            var booths = _boothAppServices.GetAllBooth().Where(x =>x.IsDeleted != true);
+
+            var viewModel = new ShopHomeViewModel
+            {
+                Categories = categories.Select(category => new CategoryViewModel
+                {
+                    CategoryId = category.CategoryId,
+                    CategoryName = category.CategoryName,
+                    Products = category.Products.Where(x => x.IsDeleted != true && x.IsAccepted == true).Select(product => new ProductViewModel
+                    {
+                        ProductId = product.ProductId,
+                        ProductName = product.ProductName,
+                        Amount = product.Amount,
+                        Price = product.Price,
+                        Booth = new BoothViewModel
+                        {
+                            BoothName = product.Booth.BoothName,
+                        }
+
+                    }).ToList()
+                }).ToList(),
+
+                Booths = booths.Select(booth => new BoothViewModel
+                {
+                    BoothId = booth.BoothId,
+                    BoothName = booth.BoothName,
+                    Products = booth.Products.Where(x =>x.IsDeleted != true && x.IsAccepted == true).Select(product => new ProductViewModel
+                    {
+                        ProductId = product.ProductId,
+                        ProductName = product.ProductName,
+                        Amount = product.Amount,
+                        Price = product.Price,
+                        Category = new CategoryViewModel
+                        {
+                            CategoryName = product.Category.CategoryName,
+                        }
+                    }).ToList()
+                }).ToList()
+            };
+
+            return View(viewModel);
         }
 
 
-        public async Task<IActionResult> Details(int id , CancellationToken cancellation)
+        public async Task<IActionResult> BoothDetails(int id , CancellationToken cancellation)
         {
             var mainBooth = await _boothAppServices.GetBoothById(id, cancellation);
-
-            return View(mainBooth);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var boothView = new BoothViewModel
+            {
+                BoothId = id,
+                BoothName = mainBooth.BoothName,
+                Products = mainBooth.Products.Where(product => product.IsAccepted == true && product.IsDeleted != true).Select(product => new ProductViewModel
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    Price = product.Price,
+                    Amount = product.Amount,
+                    pictures = product.Pictures.Select(picture => new HomePictureViewModel
+                    {
+                        Url = picture.Url,
+                    }).ToList()
+                }).ToList(),
+            };
+            return View(boothView);
         }
 
     }

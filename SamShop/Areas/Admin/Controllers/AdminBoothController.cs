@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
 using SamShop.Domain.Service;
+using SamShop.endpoint.Areas.Admin.Models;
 
 namespace SamShop.endpoint.Areas.Admin.Controllers
 {
@@ -26,9 +27,15 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int BoothId , CancellationToken cancellation)
         {
             var booth = await _boothAppServices.GetBoothById(BoothId, cancellation);
+            var mainBooth = new AdminBoothViewModel
+            {
+                BoothId = booth.BoothId,
+                BoothName = booth.BoothName,
+                BoothCreateAt = booth.CreateTime
+            };
             if (booth != null)
             {
-                return View(booth);
+                return View(mainBooth);
             }
             else
             {
@@ -37,11 +44,23 @@ namespace SamShop.endpoint.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(BoothDtOs boothDtOs, CancellationToken cancellation)
+        public async Task<IActionResult> Edit(AdminBoothViewModel boothDtOs, CancellationToken cancellation)
         {
-            await _boothAppServices.UpdateBooth(boothDtOs, cancellation);
+            var editedBooth = await _boothAppServices.GetBoothById(boothDtOs.BoothId, cancellation);
+            if (editedBooth != null)
+            {
+                editedBooth.BoothName = boothDtOs.BoothName;
+                editedBooth.CreateTime = boothDtOs.BoothCreateAt;
 
-            return RedirectToAction("Index");
+                await _boothAppServices.UpdateBooth(editedBooth, cancellation);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            
         }
 
         public async Task<IActionResult> Delete(int boothId, CancellationToken cancellation)

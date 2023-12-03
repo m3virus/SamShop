@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Identity.Client;
 using SamShop.Domain.Appservices;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.endpoint.Areas.Seller.Models;
+using System.Linq;
 
 namespace SamShop.endpoint.Areas.Seller.Controllers
 {
@@ -15,18 +17,20 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
     public class SellerBoothProductController : Controller
     {
         protected readonly ISellerAppServices _sellerAppServices;
+        protected readonly IPictureAppServices _pictureAppServices;
         protected readonly ICloudAppServices _cloudAppServices;
         protected readonly IBoothAppServices _boothAppServices;
         protected readonly IProductAppServices _productAppServices;
         protected readonly ICategoryAppServices _categoryAppServices;
 
-        public SellerBoothProductController(ISellerAppServices sellerAppServices, ICloudAppServices cloudAppServices, IBoothAppServices boothAppServices, IProductAppServices productAppServices, ICategoryAppServices categoryAppServices)
+        public SellerBoothProductController(ISellerAppServices sellerAppServices, ICloudAppServices cloudAppServices, IBoothAppServices boothAppServices, IProductAppServices productAppServices, ICategoryAppServices categoryAppServices, IPictureAppServices pictureAppServices)
         {
             _sellerAppServices = sellerAppServices;
             _cloudAppServices = cloudAppServices;
             _boothAppServices = boothAppServices;
             _productAppServices = productAppServices;
             _categoryAppServices = categoryAppServices;
+            _pictureAppServices = pictureAppServices;
         }
 
         public async Task<IActionResult> ProductView(int ProductId, CancellationToken cancellation)
@@ -116,21 +120,6 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                         productById.Pictures.Add(newPicture);
                     }
                 }
-
-                foreach (var pictureId in productEditView.SelectedPictureIds)
-                {
-                    // Find the picture in the product's pictures
-                    var pictureToRemove = productEditView.ProductPictures.FirstOrDefault(p => p.PictureId == pictureId);
-
-                    if (pictureToRemove != null)
-                    {
-                        // Remove the picture from the product's pictures
-                        productEditView.ProductPictures.Remove(pictureToRemove);
-
-                        // Perform any necessary cleanup or deletion of the actual picture (e.g., from storage)
-                        await _cloudAppServices.DeletePhoto(pictureToRemove.PictureId, cancellation);
-                    }
-                }
                 productById.ProductName = productEditView.ProductName;
                 productById.Amount = productEditView.Amount;
                 productById.Price = productEditView.Price;
@@ -208,6 +197,13 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                 return NotFound();
             }
 
+            
+        }
+
+        public async Task<IActionResult> PictureDeleter(int PictureId, int ProductId, CancellationToken cancellation)
+        {
+            await _pictureAppServices.DeletePicture(PictureId, cancellation);
+            return RedirectToAction("ProductEditor", "SellerBoothProduct", new{Areas="Seller", ProductId});
         }
 
     }
