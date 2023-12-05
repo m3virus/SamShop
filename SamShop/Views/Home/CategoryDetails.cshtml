@@ -1,0 +1,24 @@
+﻿@model CategoryViewModel
+
+<h2> @Model.CategoryName</h2>
+
+@foreach (var product in Model.Products)
+{
+    <h4>Product Pictures:</h4>
+    @foreach (var picture in product.pictures)
+    {
+        <img src="@picture.Url" alt="Product Picture" />
+    }
+    <div>
+        <h4>Booth Details:</h4>
+        <p>Booth Name: @product.Booth.BoothName</p>
+        <h3>@product.ProductName</h3>
+        <p>Price: $@product.Price</p>
+        <p>Amount: @product.Amount</p>
+        <a class="btn btn-primary" asp-area="Customer" asp-controller="CustomerPanel" asp-action="AddProduct" asp-route-ProductId="@product.ProductId">Buy</a>
+
+
+
+
+    </div>
+}

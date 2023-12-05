@@ -12,36 +12,41 @@ namespace SamShop.Domain.Appservices
     public class AuctionAppServices: IAuctionAppServices
     {
         protected readonly IAuctionServices _auctionServices;
+        protected readonly IJobServices _jobServices;
 
-        public AuctionAppServices(IAuctionServices auctionServices)
+        public AuctionAppServices(IAuctionServices auctionServices, IJobServices jobServices)
         {
             _auctionServices = auctionServices;
+            _jobServices = jobServices;
         }
 
 
         public IEnumerable<AuctionDtOs> GetAllAuction()
         {
-            throw new NotImplementedException();
+            return _auctionServices.GetAllAuction();
         }
 
         public async Task<AuctionDtOs?> GetAuctionById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _auctionServices.GetAuctionById(id, cancellation);
         }
 
         public async Task<int> AddAuction(AuctionDtOs Auction, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var auctionId = await _auctionServices.AddAuction(Auction, cancellation);
+            _jobServices.AddNewJub<IAuctionServices>(a => a.StartAuction(auctionId, cancellation), Auction.StartTime);
+            _jobServices.AddNewJub<IAuctionServices>(a => a.EndAuction(auctionId, cancellation), Auction.EndTime);
+            return auctionId;
         }
 
         public async Task UpdateAuction(AuctionDtOs Auction, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _auctionServices.UpdateAuction(Auction, cancellation);
         }
 
         public async Task DeleteAuction(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _auctionServices.DeleteAuction(id, cancellation);
         }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model AuctionAdderViewModel
+
+@{
+    ViewData["Title"] = "Add Auction";
+}
+
+<h2>Add Auction</h2>
+
+<form asp-controller="SellerAuction" asp-action="AddAuction" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.Product.BoothId" />
+    <div>
+        <label asp-for="Title">Auction Title:</label>
+        <input asp-for="Title"/>
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div>
+        <label asp-for="TheLowestPrice">The Lowest Offer:</label>
+        <input asp-for="TheLowestPrice"/>
+        <span asp-validation-for="TheLowestPrice"></span>
+    </div>
+
+    <div>
+        <label asp-for="StartTime">Start Time:</label>
+        <input asp-for="StartTime" type="datetime-local"/>
+        <span asp-validation-for="StartTime"></span>
+    </div>
+
+    <div>
+        <label asp-for="EndTime">End Time:</label>
+        <input asp-for="EndTime" type="datetime-local"/>
+        <span asp-validation-for="EndTime"></span>
+    </div>
+
+    <div>
+        <label asp-for="Product.ProductName">Product Name:</label>
+        <input asp-for="Product.ProductName"/>
+        <span asp-validation-for="Product.ProductName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Product.SelectedCategoryId">Category:</label>
+        <select asp-for="Product.SelectedCategoryId" asp-items="Model.Product.AvailableCategories" class="form-control">
+            <option value="">Select Category</option>
+        </select>
+        <span asp-validation-for="Product.SelectedCategoryId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Product.NewPictures">Upload New Pictures:</label>
+        <input asp-for="Product.NewPictures" type="file" multiple/>
+        <span asp-validation-for="Product.NewPictures" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Add Auction</button>
+</form>

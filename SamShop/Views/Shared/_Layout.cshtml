@@ -25,17 +25,22 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Identity" asp-action="Logout">LogOut</a>
+                            </li>
                             if (User.IsInRole("Customer"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Customer" asp-controller="CustomerPanel" asp-action="Index">Dashboard</a>
                                 </li>
+                                
                             }
                             else if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">Dashboard</a>
                                 </li>
+                               
                             }
                             else if (User.IsInRole("Seller"))
                             {
@@ -43,6 +48,7 @@
                                     <a class="nav-link text-dark" asp-area="Seller" asp-controller="SellerPanel" asp-action="Index">Dashboard</a>
                                 </li>
                             }
+                           
                         }
                         else
                         {

@@ -15,5 +15,6 @@ namespace SamShop.Domain.Core.Interfaces.Services
         Task<int> AddCart(CartDtOs Cart, CancellationToken cancellation);
         Task UpdateCart(CartDtOs Cart, CancellationToken cancellation);
         Task DeleteCart(int id, CancellationToken cancellation);
+        Task<CartDtOs> GetCartByIsPayed(int customerId, CancellationToken cancellation);
     }
 }

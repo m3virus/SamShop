@@ -15,5 +15,7 @@ namespace SamShop.Domain.Core.Interfaces.Services
         Task<int> AddAuction(AuctionDtOs Auction, CancellationToken cancellation);
         Task UpdateAuction(AuctionDtOs Auction, CancellationToken cancellation);
         Task DeleteAuction(int id, CancellationToken cancellation);
+        Task StartAuction(int id, CancellationToken cancellation);
+        Task EndAuction (int id, CancellationToken cancellation);
     }
 }

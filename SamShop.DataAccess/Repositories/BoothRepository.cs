@@ -110,7 +110,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     ExtraPart = booth.Address.ExtraPart,
                     PostCode = booth.Address.PostCode,
                 },
-                Products = booth.Products.Select(boothProduct => new Product
+                Products = booth.Products.Where(product => product.IsDeleted != true).Select(boothProduct => new Product
                 {
                     ProductId = boothProduct.ProductId,
                     ProductName = boothProduct.ProductName,

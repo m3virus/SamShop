@@ -26,9 +26,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 SellerId = Auction.SellerId,
                 StartTime = Auction.StartTime,
                 EndTime = Auction.EndTime,
-                IsAccepted = false,
-                IsCanceled = false,
+                IsAccepted = true,
+                IsActive = false,
                 CancelTime = null
+                
                 
 
             };
@@ -39,13 +40,25 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public IEnumerable<AuctionDtOs> GetAllAuction()
         {
-            var Auctions = _context.Auctions.AsNoTracking();
+            var Auctions = _context.Auctions
+                .Include(Auction => Auction.Product)
+                .ThenInclude(product => product.Pictures)
+                .Include(Auction => Auction.Product)
+                .ThenInclude(product => product.Booth)
+                .Include(Auction => Auction.Product)
+                .ThenInclude(product => product.Booth)
+                .Include(auction => auction.Seller)
+                .ThenInclude(seller => seller.Medal)
+                .Include(auction => auction.AuctionOffers)
+                .ThenInclude(auctionOffer => auctionOffer.Customer)
+                .ThenInclude(customer => customer.AppUser);
             var AuctionDtOs = new List<AuctionDtOs>();
 
             foreach (var Auction in Auctions)
             {
                 var a = new AuctionDtOs()
                 {
+                    AuctionId = Auction.AuctionId,
                     AuctionTitle = Auction.AuctionTitle,
                     TheLowestOffer = Auction.TheLowestOffer,
                     ProductId = Auction.ProductId,
@@ -53,8 +66,36 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     StartTime = Auction.StartTime,
                     EndTime = Auction.EndTime,
                     IsAccepted = Auction.IsAccepted,
-                    IsCanceled = Auction.IsCanceled,
-                    CancelTime = Auction.CancelTime
+                    IsActive = Auction.IsActive,
+                    CancelTime = Auction.CancelTime,
+                    Product = new Product
+                    {
+                        ProductId = Auction.ProductId,
+                        ProductName = Auction.Product.ProductName,
+                        Booth = new Booth
+                        {
+                            BoothName = Auction.Product.Booth.BoothName,
+                        },
+                        Pictures = Auction.Product.Pictures.Where(picture => picture.IsDeleted != true).Select(picture => new Picture
+                        {
+                            Url = picture.Url
+                        }).ToList(),
+                    },
+                    AuctionOffers = Auction.AuctionOffers.Select(auctionOffer => new AuctionOffer
+                    {
+                        OfferId = auctionOffer.OfferId,
+                        OfferValue = auctionOffer.OfferValue,
+                        OfferTime = auctionOffer.OfferTime,
+                        IsAccept = auctionOffer.IsAccept,
+                        Customer = new Customer
+                        {
+                            CustomerId = auctionOffer.CustomerId,
+                            AppUser = new AppUser
+                            {
+                                UserName = auctionOffer.Customer.AppUser.UserName,
+                            }
+                        }
+                    }).ToList(),
                 };
                 AuctionDtOs.Add(a);
             }
@@ -67,10 +108,17 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task<AuctionDtOs?> GetAuctionById(int id, CancellationToken cancellation)
         {
             var Auction = await _context.Auctions.AsNoTracking()
+                .Include(Auction => Auction.Product)
+                .ThenInclude(product => product.Pictures)
+                .Include(Auction => Auction.Product)
+                .ThenInclude(product => product.Booth)
+                .Include(auction => auction.Seller)
+                .ThenInclude(seller => seller.Medal)
                 .FirstOrDefaultAsync(a => a.AuctionId == id, cancellation);
 
             var AuctionById = new AuctionDtOs()
             {
+                AuctionId = Auction.AuctionId,
                 AuctionTitle = Auction.AuctionTitle,
                 TheLowestOffer = Auction.TheLowestOffer,
                 ProductId = Auction.ProductId,
@@ -78,8 +126,34 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 StartTime = Auction.StartTime,
                 EndTime = Auction.EndTime,
                 IsAccepted = Auction.IsAccepted,
-                IsCanceled = Auction.IsCanceled,
-                CancelTime = Auction.CancelTime
+                IsActive = Auction.IsActive,
+                CancelTime = Auction.CancelTime,
+                Seller = new Seller
+                {
+                    SellerId = Auction.Seller.SellerId,
+                    Wallet = Auction.Seller.Wallet,
+                    Medal = new Medal
+                    {
+                        MedalId = Auction.Seller.MedalId,
+                        MedalType = Auction.Seller.Medal.MedalType,
+                        WagePercentage = Auction.Seller.Medal.WagePercentage,
+                    }
+                },
+                Product = new Product
+                {
+                    ProductId = Auction.Product.ProductId,
+                    BoothId = Auction.Product.BoothId,
+                    ProductName = Auction.Product.ProductName,
+                    Pictures = Auction.Product.Pictures.Select(picture => new Picture
+                    {
+                        Url = picture.Url
+                    }).ToList(),
+                    Booth = new Booth
+                    {
+                        BoothId = Auction.Product.Booth.BoothId,
+                        BoothName = Auction.Product.Booth.BoothName,
+                    }
+                }
             };
             return AuctionById;
 
@@ -105,7 +179,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             Auction? removingAuction = await _context.Auctions.FirstOrDefaultAsync(p => p.AuctionId == id, cancellation);
             if (removingAuction != null)
             {
-                removingAuction.IsCanceled = true;
+                removingAuction.IsActive = false;
             }
             await _context.SaveChangesAsync(cancellation);
         }

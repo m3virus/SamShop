@@ -69,7 +69,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
 
         public async Task<SellerDtOs?> GetSellerById(int id, CancellationToken cancellation)
         {
-            var Seller = await _context.Sellers.AsNoTracking()
+            var Seller = await _context.Sellers
+                .Include(seller => seller.Medal)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.SellerId == id, cancellation);
 
             var SellerById = new SellerDtOs()
@@ -84,6 +86,12 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsDeleted = Seller.IsDeleted,
                 DeleteTime = Seller.DeleteTime,
                 CreateTime = Seller.CreateTime,
+                Medal = new Medal
+                {
+                    MedalId = Seller.MedalId,
+                    MedalType = Seller.Medal.MedalType,
+                    WagePercentage = Seller.Medal.WagePercentage,
+                }
             };
             return SellerById; ;
 

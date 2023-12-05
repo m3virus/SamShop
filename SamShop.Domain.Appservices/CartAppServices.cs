@@ -21,27 +21,32 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<CartDtOs> GetAllCart()
         {
-            throw new NotImplementedException();
+            return _cartServices.GetAllCart();
         }
 
         public async Task<CartDtOs?> GetCartById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _cartServices.GetCartById(id, cancellation);
         }
 
         public async Task<int> AddCart(CartDtOs Cart, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _cartServices.AddCart(Cart, cancellation);
         }
 
         public async Task UpdateCart(CartDtOs Cart, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _cartServices.UpdateCart(Cart, cancellation);
         }
 
         public async Task DeleteCart(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _cartServices.DeleteCart(id, cancellation);
+        }
+
+        public async Task<CartDtOs> GetCartByIsPayed(int customerId, CancellationToken cancellation)
+        {
+            return await _cartServices.GetCartByIsPayed(customerId, cancellation);
         }
     }
 }

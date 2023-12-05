@@ -45,7 +45,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 TheLowestOffer = index * 10,
                 SellerId = index,
                 IsAccepted = false,
-                IsCanceled = false,
+                IsActive = false,
                 StartTime = DateTime.Now,
                 EndTime = DateTime.Today,
 

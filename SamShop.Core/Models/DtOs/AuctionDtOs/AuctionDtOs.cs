@@ -21,7 +21,7 @@ namespace SamShop.Domain.Core.Models.DtOs.AuctionDtOs
 
         public decimal TheLowestOffer { get; set; }
 
-        public bool IsCanceled { get; set; }
+        public bool IsActive { get; set; }
 
         public bool IsAccepted { get; set; }
 

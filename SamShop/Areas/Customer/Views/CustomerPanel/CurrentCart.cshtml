@@ -1,0 +1,34 @@
+﻿@model CartViewModel
+
+<h2>Your Current Cart</h2>
+
+<p>Cart ID: @Model.CartId</p>
+<p>Total Price: $@Model.Price</p>
+<p>Is Payed: @Model.IsPayed</p>
+@if (@Model.Products != null)
+{
+    <h3>Products in Cart:</h3>
+
+    @foreach (var product in Model.Products)
+    {
+        <div>
+            <h4>@product.ProductName</h4>
+            <p>Price: $@product.Price</p>
+            <p>Category: @product.ProductCategory.CategoryName</p>
+            <p>Booth: @product.ProductBooth.BoothName</p>
+
+            <h5>Product Pictures:</h5>
+            @foreach (var picture in product.ProductPictures)
+            {
+                <img src="@picture.Url" alt="Product Picture" />
+            }
+        </div>
+    }
+    <a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="Pay" asp-route-CartId="@Model.CartId">Pay</a>
+}
+else
+{
+    <h3>please buy something from us</h3>
+}
+
+

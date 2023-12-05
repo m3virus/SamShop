@@ -32,7 +32,7 @@ namespace SamShop.Controllers
         public async Task<IActionResult> Index(CancellationToken cancellation)
         {
             var categories = _categoryAppServices.GetAllCategory().Where(x => x.IsDeleted != true);
-            var booths = _boothAppServices.GetAllBooth().Where(x =>x.IsDeleted != true);
+            var booths = _boothAppServices.GetAllBooth().Where(x => x.IsDeleted != true);
 
             var viewModel = new ShopHomeViewModel
             {
@@ -58,7 +58,7 @@ namespace SamShop.Controllers
                 {
                     BoothId = booth.BoothId,
                     BoothName = booth.BoothName,
-                    Products = booth.Products.Where(x =>x.IsDeleted != true && x.IsAccepted == true).Select(product => new ProductViewModel
+                    Products = booth.Products.Where(x => x.IsDeleted != true && x.IsAccepted == true).Select(product => new ProductViewModel
                     {
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
@@ -76,7 +76,7 @@ namespace SamShop.Controllers
         }
 
 
-        public async Task<IActionResult> BoothDetails(int id , CancellationToken cancellation)
+        public async Task<IActionResult> BoothDetails(int id, CancellationToken cancellation)
         {
             var mainBooth = await _boothAppServices.GetBoothById(id, cancellation);
             var boothView = new BoothViewModel
@@ -89,13 +89,45 @@ namespace SamShop.Controllers
                     ProductName = product.ProductName,
                     Price = product.Price,
                     Amount = product.Amount,
-                    pictures = product.Pictures.Select(picture => new HomePictureViewModel
+                    pictures = product.Pictures.Where(picture => picture.IsDeleted != true).Select(picture => new HomePictureViewModel
                     {
                         Url = picture.Url,
-                    }).ToList()
+                    }).ToList(),
+                    Category = new CategoryViewModel
+                    {
+                        CategoryName = product.Category.CategoryName,
+                        CategoryId = product.CategoryId,
+                    }
                 }).ToList(),
             };
             return View(boothView);
+        }
+
+        public async Task<IActionResult> CategoryDetails(int id, CancellationToken cancellation)
+        {
+            var mainCategory = await _categoryAppServices.GetCategoryById(id, cancellation);
+            var categoryView = new CategoryViewModel
+            {
+                CategoryId = id,
+                CategoryName = mainCategory.CategoryName,
+                Products = mainCategory.Products.Where(product => product.IsAccepted == true && product.IsDeleted != true).Select(product => new ProductViewModel
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    Price = product.Price,
+                    Amount = product.Amount,
+                    pictures = product.Pictures.Where(picture => picture.IsDeleted != true).Select(picture => new HomePictureViewModel
+                    {
+                        Url = picture.Url,
+                    }).ToList(),
+                    Booth = new BoothViewModel
+                    {
+                        BoothId = product.Booth.BoothId,
+                        BoothName = product.Booth.BoothName,
+                    }
+                }).ToList(),
+            };
+            return View(categoryView);
         }
 
     }

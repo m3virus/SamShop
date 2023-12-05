@@ -27,6 +27,7 @@
     <ProjectReference Include="..\SamShop.Application.EntityFramework\SamShop.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\SamShop.DataAccess\SamShop.Infrastructure.DataAccess.csproj" />
     <ProjectReference Include="..\SamShop.Domain.Appservices\SamShop.Domain.Appservices.csproj" />
+    <ProjectReference Include="..\SamShop.Infrastructure.Hangfire\SamShop.Infrastructure.Hangfire.csproj" />
   </ItemGroup>
 
   <ItemGroup>

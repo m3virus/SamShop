@@ -29,7 +29,7 @@ namespace SamShop.Domain.Core.Models.DtOs.BoothDtOs
 
         public virtual Address Address { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
 
         public virtual Seller Seller { get; set; }
 

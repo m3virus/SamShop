@@ -25,7 +25,7 @@ public partial class Booth
 
     public virtual Address Address { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; }
+    public virtual ICollection<Product>? Products { get; set; }
 
     public virtual Seller Seller { get; set; }
 

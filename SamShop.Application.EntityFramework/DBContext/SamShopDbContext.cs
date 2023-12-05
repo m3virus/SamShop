@@ -28,6 +28,8 @@ public partial class SamShopDbContext : IdentityDbContext<AppUser , AppRole, int
 
     public virtual DbSet<AuctionOffer> AuctionOffers { get; set; }
 
+    public virtual DbSet<CartProducts> CartProducts { get; set; }
+
     public virtual DbSet<Booth> Booths { get; set; }
 
     public virtual DbSet<Cart> Carts { get; set; }

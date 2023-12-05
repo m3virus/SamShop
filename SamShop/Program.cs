@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,20 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Appservices;
 using SamShop.Domain.Core.Helper;
+using SamShop.Infrastructure.Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region Hangfire Settings
 
+builder.Services.AddHangfire(x =>
+{
+    x.UseSqlServerStorage(builder.Configuration.GetConnectionString("SamShopConnection"));
+});
+builder.Services.AddHangfireServer();
+builder.Services.AddScoped<IJobServices, HangfireServices>();
+
+#endregion
 
 #region Identity settings
 
@@ -105,8 +116,9 @@ builder.Services.AddAuthentication("Cookies")
     {
         options.Cookie.Name = "AuthenticateCookie"; // Set your desired cookie name
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20); // Set your desired expiration time
-        //options.LoginPath = "/Identity/Identity/Login"; // Set the login path
-        //options.AccessDeniedPath = "/Identity/Identity/AccessDenied"; // Set the access denied path
+        options.LoginPath = "/Identity/Identity/SignIn";  // Replace with your login path
+        options.LogoutPath = "/Identity/Identity/Logout";  // Replace with your logout path
+        // ... other configurations
         // Configure other options as needed...
     });
 

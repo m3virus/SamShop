@@ -13,5 +13,6 @@ namespace SamShop.endpoint.Areas.Customer.Models
         public List<AddressViewModel>? PrimaryAddresses { get; set; }
         public PictureViewModel? ProfilePicture { get; set; }
         public List<CartViewModel>? Carts { get; set; }
+        public CartViewModel? CurrentCart { get; set; }
     }
 }

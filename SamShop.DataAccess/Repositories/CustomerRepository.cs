@@ -173,6 +173,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 {
                     CartId = cart.CartId,
                     CreateTime = cart.CreateTime,
+                    TotalPrice = cart.TotalPrice,
+                    IsPayed = cart.IsPayed,
                     Products = cart.Products.Select(product => new Product
                     {
                         ProductId = product.ProductId,

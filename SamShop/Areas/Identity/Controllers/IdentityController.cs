@@ -2,20 +2,13 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
-using SamShop.Controllers;
 using SamShop.Domain.Core.Interfaces.AppServices;
-using SamShop.Domain.Core.Models.DtOs;
-using SamShop.Domain.Core.Models.DtOs.AddressDtOs;
-using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
-using SamShop.Domain.Core.Models.DtOs.CustomerDtOs;
-using SamShop.Domain.Core.Models.DtOs.PictureDtOs;
-using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 using SamShop.Domain.Core.Models.Entities;
 
 using SamShop.endpoint.Areas.Identity.Models;
 using System.Security.Claims;
+using SamShop.Domain.Core.Models.DtOs.SellerDtOs;
 
 namespace SamShop.endpoint.Areas.Identity.Controllers
 {
@@ -80,7 +73,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                     RegisterTime = DateTime.Now,
                     DeleteTime = null,
                     IsDeleted = false,
-                    Seller = new Domain.Core.Models.Entities.Seller
+                    Seller = new Domain.Core.Models.Entities.Seller()
                     {
                         Address = new Address
                         {
@@ -273,10 +266,11 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         }
         public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await _userAppService.SignOut();
 
-            
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("SignIn", "Identity");
         }
     }
 }

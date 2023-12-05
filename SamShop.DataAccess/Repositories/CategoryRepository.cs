@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamShop.Domain.Core.Interfaces.Repositories;
+using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
 using SamShop.Domain.Core.Models.DtOs.CategoryDtOs;
 using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
@@ -16,9 +17,46 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             _context = context;
         }
 
-        public Task<CategoryDtOs?> GetCategoryById(int id, CancellationToken cancellation)
+        public async Task<CategoryDtOs?> GetCategoryById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var category = await _context.Categories.AsNoTracking()
+                .Include(booth => booth.Products)
+                    .ThenInclude(product => product.Booth)
+                .Include(booth => booth.Products)
+                    .ThenInclude(product => product.Pictures)
+                .FirstOrDefaultAsync(a => a.CategoryId == id, cancellation);
+
+            var categoryById = new CategoryDtOs()
+            {
+                CategoryId = category.CategoryId,
+                CategoryName = category.CategoryName,
+                
+                IsDeleted = category.IsDeleted,
+                CreateTime = category.CreateTime,
+                DeleteTime = category.DeleteTime,
+
+                Products = category.Products.Where(product => product.IsDeleted !=true).Select(categoryProduct => new Product
+                {
+                    ProductId = categoryProduct.ProductId,
+                    ProductName = categoryProduct.ProductName,
+                    Price = categoryProduct.Price,
+                    Amount = categoryProduct.Amount,
+                    IsAccepted = categoryProduct.IsAccepted,
+                    IsDeleted = categoryProduct.IsDeleted,
+                    
+                    Pictures = categoryProduct.Pictures.Where(picture => picture.IsDeleted == false).Select(productPictures => new Picture
+                    {
+                        Url = productPictures.Url,
+                    }).ToList(),
+                    Booth = new Booth
+                    {
+                        BoothId = categoryProduct.Booth.BoothId,
+                        BoothName = categoryProduct.Booth.BoothName,
+                    }
+                }).ToList(),
+
+            };
+            return categoryById;
         }
 
         public async Task<int> AddCategory(CategoryDtOs Category, CancellationToken cancellation)

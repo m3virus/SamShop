@@ -1,0 +1,15 @@
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\bin\Debug\net7.0\SamShop.Infrastructure.Hangfire.deps.json
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\bin\Debug\net7.0\SamShop.Infrastructure.Hangfire.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\bin\Debug\net7.0\SamShop.Infrastructure.Hangfire.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\bin\Debug\net7.0\SamShop.Domain.Core.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\bin\Debug\net7.0\SamShop.Domain.Core.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\refint\SamShop.Infrastructure.Hangfire.dll
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\SamShop.Infrastructure.Hangfire.pdb
+C:\Users\Lenovo\Desktop\BootcampProject\SamShop\SamShop.Infrastructure.Hangfire\obj\Debug\net7.0\ref\SamShop.Infrastructure.Hangfire.dll

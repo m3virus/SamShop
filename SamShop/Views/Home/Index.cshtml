@@ -6,7 +6,7 @@
     @foreach (var category in Model.Categories)
     {
         <h3>@category.CategoryName</h3>
-        <a class="btn btn-primary" asp-controller="Home" asp-action="CategoryDetails">Category Information</a>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="CategoryDetails" asp-route-id="@category.CategoryId">Category Information</a>
     }
 </div>
 

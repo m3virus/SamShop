@@ -25,7 +25,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
             entity.HasMany(x => x.Products)
                 .WithMany(x => x.Carts)
-                .UsingEntity(j => j.ToTable("CartProducts"));
+                .UsingEntity<CartProducts>(j => j.ToTable("CartProducts"));
 
             entity.HasData(GetCarts());
 

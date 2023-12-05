@@ -42,5 +42,27 @@ namespace SamShop.Domain.Service
         {
             await _cartRepository.DeleteCart(id, cancellation);
         }
+
+        public async Task<CartDtOs> GetCartByIsPayed(int customerId, CancellationToken cancellation)
+        {
+            var carts = _cartRepository.GetAllCart();
+            var currentCart = carts.FirstOrDefault(cart => cart.CustomerId == customerId && cart.IsPayed != true);
+            if (currentCart != null)
+            {
+                return currentCart;
+            }
+            else
+            {
+                var newCart = new CartDtOs
+                {
+                    CustomerId = customerId,
+                    TotalPrice = 0,
+                };
+                var currentId = await _cartRepository.AddCart(newCart, cancellation);
+                var newCurrentCart = await _cartRepository.GetCartById(currentId, cancellation);
+                return newCurrentCart;
+            }
+            
+        }
     }
 }

@@ -46,5 +46,11 @@ else
 <div>
     <a class="btn btn-primary" asp-controller="SellerBooth" asp-action="BoothDetails" asp-route-BoothId="@Model.Booth.BoothId">Booth Information</a>
 </div>
+<div>
+    <a class="btn btn-primary" asp-controller="SellerAuction" asp-action="AuctionHistory">Auction History</a>
+    <div>
+        <a class="btn btn-primary" asp-controller="SellerAuction" asp-action="AddAuction" asp-route-BoothId="@Model.Booth.BoothId">Adding Auction</a>
+    </div>
 
+</div>
 

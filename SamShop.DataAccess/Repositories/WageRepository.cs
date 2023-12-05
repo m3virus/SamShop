@@ -70,7 +70,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             Wage AddingWage = new Wage()
             {
                 Price = wage.Price,
-                PayTime = null,
+                PayTime = DateTime.Now,
                 AdminId = wage.AdminId,
                 SellerId  = wage.SellerId,
                 ProductId = wage.ProductId,

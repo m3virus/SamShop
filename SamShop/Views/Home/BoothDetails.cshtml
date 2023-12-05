@@ -2,16 +2,21 @@
 
 <h2>Welcome to Booth @Model.BoothName</h2>
 
-@if (Model.Products != null && Model.Products.Any())
+@foreach (var product in Model.Products)
 {
-    <h3>Products:</h3>
-    @foreach (var product in Model.Products)
-    {
-        <p>@product.ProductName</p>
-        <!-- Add other product information as needed -->
-    }
-}
-else
-{
-    <p>No products available in this booth.</p>
+    <div>
+        <h3>@product.ProductName</h3>
+        <p>Price: $@product.Price</p>
+        <p>Amount: @product.Amount</p>
+        <p>@product.Category.CategoryName</p>
+        <h4>Product Pictures:</h4>
+        @foreach (var picture in product.pictures)
+        {
+            <img src="@picture.Url" alt="Product Picture" />
+        }
+
+        <h4>Category:</h4>
+        
+        <a class="btn btn-primary" asp-area="Customer" asp-controller="CustomerPanel" asp-action="AddProduct" asp-route-ProductId="@product.ProductId">Buy</a>
+    </div>
 }
