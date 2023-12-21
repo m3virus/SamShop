@@ -214,7 +214,8 @@ namespace SamShop.Controllers
                     await _auctionOfferAppServices.AddAuctionOffer(submitedOffer, cancellation);
                 }
             }
-            return View();
+
+            return RedirectToAction("Index");
         }
 
     }

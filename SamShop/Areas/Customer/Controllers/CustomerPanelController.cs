@@ -337,7 +337,7 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
 
         public async Task<IActionResult> DeleteFromCart(int CartId, int ProductId, CancellationToken cancellation)
         {
-            await _cartAppServices.DeleteProductFromCart(CartId, ProductId, cancellation);
+            
             var cart = await _cartAppServices.GetCartById(CartId, cancellation);
             var productById = await _productAppServices.GetProductById(ProductId, cancellation);
             if (cart != null)
@@ -347,7 +347,7 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
                 await _cartAppServices.UpdateCart(cart, cancellation);
                 
             }
-            
+            await _cartAppServices.DeleteProductFromCart(CartId, ProductId, cancellation);
 
             return RedirectToAction("CurrentCart");
         }

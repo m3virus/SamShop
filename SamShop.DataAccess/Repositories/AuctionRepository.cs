@@ -72,6 +72,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     {
                         ProductId = Auction.ProductId,
                         ProductName = Auction.Product.ProductName,
+                        IsAccepted = Auction.Product.IsAccepted,
                         Booth = new Booth
                         {
                             BoothName = Auction.Product.Booth.BoothName,

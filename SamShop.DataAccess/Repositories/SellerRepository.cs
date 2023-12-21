@@ -134,7 +134,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     .FirstOrDefaultAsync(s => s.SellerId == Seller.SellerId, cancellation);
             if (changeSeller != null)
             {
-                
                 changeSeller.Wallet = Seller.Wallet;
                 changeSeller.MedalId = Seller.MedalId;
                 changeSeller.Address = new Address
@@ -189,6 +188,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             var SellerByAppUserId = new SellerDtOs
             {
                 SellerId = Seller.SellerId,
+                MedalId = Seller.MedalId,
                 Wallet = Seller.Wallet,
                 Address = new Address()
                 {

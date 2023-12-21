@@ -34,9 +34,12 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
             _productAppServices = productAppServices;
         }
 
-        public async Task<IActionResult> AuctionHistory()
+        public async Task<IActionResult> AuctionHistory(CancellationToken cancellation)
         {
-            var auctions = _auctionAppServices.GetAllAuction();
+            var sellerById =
+                await _sellerAppServices.GetSellerByAppUserId(
+                    Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier)?.Value), cancellation);
+            var auctions = _auctionAppServices.GetAllAuction().Where(x => x.SellerId == sellerById.SellerId);
             if (auctions!=null)
             {
                 var auctionView = auctions.Select(auction => new AuctionViewModel

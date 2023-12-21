@@ -125,7 +125,6 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                 user.UserName = sellerProfileEdit.UserName;
                 user.FirstName = sellerProfileEdit.FirstName;
                 user.LastName = sellerProfileEdit.LastName;
-
                 seller.Address = new Address
                 {
                     Alley = sellerProfileEdit.Address.Alley,
