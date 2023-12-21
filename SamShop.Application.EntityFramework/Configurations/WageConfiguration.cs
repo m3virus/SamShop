@@ -21,14 +21,14 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
 
             entity.HasOne(w => w.Product)
-                .WithOne(p => p.Wage)
-                .HasForeignKey<Wage>(w => w.ProductId)
+                .WithMany(p => p.Wage)
+                .HasForeignKey(w => w.ProductId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Product_Wage");
 
             entity.HasOne(w => w.Seller)
-                .WithOne(s => s.Wage)
-                .HasForeignKey<Wage>(w => w.SellerId)
+                .WithMany(s => s.Wage)
+                .HasForeignKey(w => w.SellerId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Seller_Wage");
 

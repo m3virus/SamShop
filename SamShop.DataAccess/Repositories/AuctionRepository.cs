@@ -95,7 +95,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                                 UserName = auctionOffer.Customer.AppUser.UserName,
                             }
                         }
-                    }).ToList(),
+                    }).OrderByDescending(x => x.OfferValue).ToList(),
                 };
                 AuctionDtOs.Add(a);
             }
@@ -132,6 +132,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 {
                     SellerId = Auction.Seller.SellerId,
                     Wallet = Auction.Seller.Wallet,
+                    MedalId = Auction.Seller.MedalId,
                     Medal = new Medal
                     {
                         MedalId = Auction.Seller.MedalId,

@@ -25,7 +25,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 Wallet = Seller.Wallet,
                 PictureId = Seller.PictureId,
                 MedalId = 1,
-                BoothId = Seller.BoothId,
                 AddressId = Seller.AddressId,
                 AppUserId = Seller.AppUserId,
                 IsDeleted = false,
@@ -51,7 +50,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     Wallet = a.Wallet,
                     PictureId = a.PictureId,
                     MedalId = a.MedalId,
-                    BoothId = a.BoothId,
                     AddressId = a.AddressId,
                     AppUserId = a.AppUserId,
                     IsDeleted = a.IsDeleted,
@@ -70,22 +68,52 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task<SellerDtOs?> GetSellerById(int id, CancellationToken cancellation)
         {
             var Seller = await _context.Sellers
+                .Include(seller => seller.Address)
                 .Include(seller => seller.Medal)
+                .Include(seller => seller.Picture)
+                .Include(seller => seller.Booth)
+                .ThenInclude(booth => booth.Address)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.SellerId == id, cancellation);
 
             var SellerById = new SellerDtOs()
             {
-
+                SellerId = Seller.SellerId,
                 Wallet = Seller.Wallet,
                 PictureId = Seller.PictureId,
                 MedalId = Seller.MedalId,
-                BoothId = Seller.BoothId,
                 AddressId = Seller.AddressId,
                 AppUserId = Seller.AppUserId,
                 IsDeleted = Seller.IsDeleted,
                 DeleteTime = Seller.DeleteTime,
-                CreateTime = Seller.CreateTime,
+                Booth = new Booth
+                {
+                    BoothId = Seller.Booth.BoothId,
+                    BoothName = Seller.Booth.BoothName,
+                    Address = new Address
+                    {
+                        Alley = Seller.Booth.Address.Alley,
+                        Street = Seller.Booth.Address.Street,
+                        State = Seller.Booth.Address.State,
+                        City = Seller.Booth.Address.City,
+                        ExtraPart = Seller.Booth.Address.ExtraPart,
+                        PostCode = Seller.Booth.Address.PostCode,
+                    }
+                },
+                Address = new Address
+                {
+                    Alley = Seller.Address.Alley,
+                    Street = Seller.Address.Street,
+                    State = Seller.Address.State,
+                    City = Seller.Address.City,
+                    ExtraPart = Seller.Address.ExtraPart,
+                    PostCode = Seller.Address.PostCode,
+                },
+                Picture = new Picture
+                {
+                    Url = Seller.Picture.Url,
+                },
+            CreateTime = Seller.CreateTime,
                 Medal = new Medal
                 {
                     MedalId = Seller.MedalId,
@@ -108,6 +136,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 
                 changeSeller.Wallet = Seller.Wallet;
+                changeSeller.MedalId = Seller.MedalId;
                 changeSeller.Address = new Address
                 {
                     Alley = Seller.Address.Alley,
@@ -154,12 +183,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     .ThenInclude(b => b.Products)
                         .ThenInclude(p => p.Category)
                 .Include(s => s.Auctions)
+                .Include(s => s.Medal)
                 .FirstOrDefaultAsync(a => a.AppUserId == appId, cancellation);
 
             var SellerByAppUserId = new SellerDtOs
             {
                 SellerId = Seller.SellerId,
-
+                Wallet = Seller.Wallet,
                 Address = new Address()
                 {
                     Alley = Seller.Address.Alley,
@@ -175,7 +205,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 },
                 Booth = new Booth
                 {
-                    BoothId = Seller.BoothId,
+                    BoothId = Seller.Booth.BoothId,
                     BoothName = Seller.Booth.BoothName,
                     Address = new Address
                     {
@@ -199,8 +229,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                         {
                             CategoryName = boothProduct.Category.CategoryName,
                         }
-                    }).ToList()
-
+                    }).ToList(),
+                    
+                },
+                Medal = new Medal
+                {
+                    MedalType = Seller.Medal.MedalType,
+                    MedalId = Seller.Medal.MedalId
                 }
             };
             return SellerByAppUserId;

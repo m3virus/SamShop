@@ -115,6 +115,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     ProductId = product.ProductId,
                     ProductName = product.ProductName,
                     Price = product.Price,
+                    Amount = product.Amount,
                     Pictures = product.Pictures.Where(picture => picture.IsDeleted != true).Select(picture => new Picture
                     {
                         Url = picture.Url
@@ -125,7 +126,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                         BoothName = product.Booth.BoothName,
                         Seller = new Seller
                         {
-                            BoothId = product.BoothId,
                             SellerId = product.Booth.Seller.SellerId,
                             Wallet = product.Booth.Seller.Wallet,
                             Medal = new Medal
@@ -201,6 +201,21 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 removingCart.CancelTime = DateTime.Now;
             }
             await _context.SaveChangesAsync(cancellation);
+        }
+
+        public async Task DeleteProductFromCart(int cartId, int productId, CancellationToken cancellation)
+        {
+            var productCart = _context.CartProducts;
+            var removeProduct = new CartProducts
+            {
+                ProductsProductId = productId,
+                CartsCartId = cartId
+            };
+            if (productCart.Contains(removeProduct))
+            {
+                productCart.Remove(removeProduct);
+                await _context.SaveChangesAsync(cancellation);
+            }
         }
 
         public async Task AddCartForAuction(CartDtOs Cart, CancellationToken cancellation)

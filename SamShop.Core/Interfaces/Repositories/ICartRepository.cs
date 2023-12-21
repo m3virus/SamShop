@@ -11,5 +11,6 @@ namespace SamShop.Domain.Core.Interfaces.Repositories
         Task UpdateCart(CartDtOs Cart , CancellationToken cancellation);
         Task DeleteCart(int id , CancellationToken cancellation);
         Task AddCartForAuction(CartDtOs Cart, CancellationToken cancellation);
+        Task DeleteProductFromCart(int cartId, int productId, CancellationToken cancellation);
     }
 }

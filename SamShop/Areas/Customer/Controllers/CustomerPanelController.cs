@@ -272,50 +272,84 @@ namespace SamShop.endpoint.Areas.Customer.Controllers
             var customer = await _customerAppServices.GetCustomerByAppUserId(appUserId, cancellation);
             if (cart != null)
             {
-                cart.IsPayed = true;
-                await _cartAppServices.UpdateCart(cart, cancellation);
-
-                if (customer.Wallet > cart.TotalPrice)
+                if (cart.Products.Count != 0)
                 {
-                    customer.Wallet -= cart.TotalPrice;
+                    if (customer.Wallet > cart.TotalPrice)
+                    {
+                        customer.Wallet -= cart.TotalPrice;
+                        cart.IsPayed = true;
+                        await _cartAppServices.UpdateCart(cart, cancellation);
+                    }
+                    else
+                    {
+                        return Content("please charge your wallet");
+                    }
+
+                    foreach (var product in cart.Products)
+                    {
+                        var productById = await _productAppServices.GetProductById(product.ProductId, cancellation);
+                        var booth = product.Booth;
+                        var sellerId = booth.Seller.SellerId;
+                        var seller = await _sellerAppServices.GetSellerById(sellerId, cancellation);
+                        var medal = seller.Medal;
+                        var Wage = product.Price * medal.WagePercentage / 100;
+                        productById.Amount = product.Amount - 1;
+                        if (productById.Amount == 0)
+                        {
+                            productById.IsAvailable = false;
+                        }
+                        seller.Wallet += product.Price - Wage;
+                        if (seller.Wallet > 100)
+                        {
+                            seller.MedalId = 4;
+                        }
+                        else if (seller.Wallet > 1000)
+                        {
+                            seller.MedalId = 5;
+                        }
+                        await _sellerAppServices.UpdateSeller(seller, cancellation);
+                        var wage = new WageDtOs
+                        {
+                            AdminId = 1,
+                            Price = Wage,
+                            SellerId = seller.SellerId,
+                            ProductId = product.ProductId,
+                        };
+
+
+                        await _wageAppServices.AddWage(wage, cancellation);
+                        await _productAppServices.UpdateProduct(productById, cancellation);
+                    }
+
+
+                    await _customerAppServices.UpdateCustomer(customer, cancellation);
+                    await _cartAppServices.UpdateCart(cart, cancellation);
+                    
                 }
                 else
                 {
-                    return Content("please charge your wallet");
+                    return Content("please buy something");
                 }
-
-                foreach (var product in cart.Products)
-                {
-                    var booth = product.Booth;
-                    var sellerId = booth.Seller.SellerId;
-                    var seller = await _sellerAppServices.GetSellerById(sellerId, cancellation);
-                    var medal = seller.Medal;
-                    var Wage = product.Price * medal.WagePercentage / 100;
-                    product.Amount -= 1;
-                    if (product.Amount == 0)
-                    {
-                        await _productAppServices.DeleteProduct(product.ProductId, cancellation);
-                    }
-                    seller.Wallet += product.Price - Wage;
-
-                    var wage = new WageDtOs
-                    {
-                        AdminId = 1,
-                        Price = Wage,
-                        SellerId = seller.SellerId,
-                        ProductId = product.ProductId,
-                    };
-
-                    await _sellerAppServices.UpdateSeller(seller, cancellation);
-                }
-
-                
-                await _customerAppServices.UpdateCustomer(customer, cancellation);
-                await _cartAppServices.UpdateCart(cart, cancellation);
-
             }
-
             return RedirectToAction("CurrentCart", "CustomerPanel");
+
+        }
+
+        public async Task<IActionResult> DeleteFromCart(int CartId, int ProductId, CancellationToken cancellation)
+        {
+            await _cartAppServices.DeleteProductFromCart(CartId, ProductId, cancellation);
+            var cart = await _cartAppServices.GetCartById(CartId, cancellation);
+            var productById = await _productAppServices.GetProductById(ProductId, cancellation);
+            if (cart != null)
+            {
+                
+                cart.TotalPrice -= productById.Price;
+                await _cartAppServices.UpdateCart(cart, cancellation);
+                
+            }
+            
+
+            return RedirectToAction("CurrentCart");
         }
 
 

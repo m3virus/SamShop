@@ -55,11 +55,10 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         [AllowAnonymous]
         [HttpPost]
 
-        public async Task<IActionResult> SellerRegister(SellerRegisterViewModel sellerRegister, CancellationToken cancellation)
+        public async Task<IActionResult> SellerRegister(UserSellerRegisterViewModel sellerRegister, CancellationToken cancellation)
         {
             if (ModelState.IsValid)
             {
-                var result = await _cloudAppService.AddPhoto(sellerRegister.Image, cancellation);
 
                 var sellerUser = new AppUser
                 {
@@ -73,33 +72,34 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                     RegisterTime = DateTime.Now,
                     DeleteTime = null,
                     IsDeleted = false,
-                    Seller = new Domain.Core.Models.Entities.Seller()
+                    Seller = new Domain.Core.Models.Entities.Seller
                     {
+                        MedalId = 1,
                         Address = new Address
                         {
-                            Alley = sellerRegister.Address.Alley,
-                            Street = sellerRegister.Address.Street,
-                            State = sellerRegister.Address.State,
-                            City = sellerRegister.Address.City,
-                            ExtraPart = sellerRegister.Address.ExtraPart,
-                            PostCode = sellerRegister.Address.PostCode,
+                            Alley = sellerRegister.Seller.Address.Alley,
+                            Street = sellerRegister.Seller.Address.Street,
+                            State = sellerRegister.Seller.Address.State,
+                            City = sellerRegister.Seller.Address.City,
+                            ExtraPart = sellerRegister.Seller.Address.ExtraPart,
+                            PostCode = sellerRegister.Seller.Address.PostCode,
                         },
-                        Picture = new Picture
+                        Picture = sellerRegister.Seller.Image != null
+                            ? new Picture { Url = (await _cloudAppService.AddPhoto(sellerRegister.Seller.Image, cancellation)).Url.ToString() }
+                            : null,
+                        Booth = new Booth()
                         {
-                            Url = result.Url.ToString()
-                        },
-                        Booth = new Booth
-                        {
+                            BoothName = sellerRegister.Seller.Booth.BoothName,
                             Address = new Address
                             {
-                                Alley = sellerRegister.BoothAddressDtOs.Alley,
-                                Street = sellerRegister.BoothAddressDtOs.Street,
-                                State = sellerRegister.BoothAddressDtOs.State,
-                                City = sellerRegister.BoothAddressDtOs.City,
-                                ExtraPart = sellerRegister.BoothAddressDtOs.ExtraPart,
-                                PostCode = sellerRegister.BoothAddressDtOs.PostCode,
+                                Alley = sellerRegister.Seller.Booth.BoothAddress.Alley,
+                                Street = sellerRegister.Seller.Booth.BoothAddress.Street,
+                                State = sellerRegister.Seller.Booth.BoothAddress.State,
+                                City = sellerRegister.Seller.Booth.BoothAddress.City,
+                                ExtraPart = sellerRegister.Seller.Booth.BoothAddress.ExtraPart,
+                                PostCode = sellerRegister.Seller.Booth.BoothAddress.PostCode,
                             },
-                            BoothName = sellerRegister.Booth.BoothName
+                            
                         }
 
                     }
@@ -109,7 +109,7 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                 var register = await _userAppService.Register(sellerUser, sellerRegister.Password, "Seller", cancellation);
                 if (register.Succeeded)
                 {
-                    return RedirectToAction("SignIn");
+                    return RedirectToAction("SignIn", "Identity");
                 }
                 else
                 {
@@ -139,7 +139,6 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _cloudAppService.AddPhoto(customerRegister.Image, cancellation);
 
                 var customerUser = new AppUser
                 {
@@ -169,10 +168,9 @@ namespace SamShop.endpoint.Areas.Identity.Controllers
                             }
                             
                         },
-                        Picture = new Picture
-                        {
-                            Url = result.Url.ToString(),
-                        },
+                        Picture = customerRegister.Image != null
+                            ? new Picture { Url = (await _cloudAppService.AddPhoto(customerRegister.Image, cancellation)).Url.ToString() }
+                            : null,
 
                     }
                     

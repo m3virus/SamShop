@@ -60,13 +60,13 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
             {
                 return NotFound();
             }
-            
+
         }
         [HttpGet]
         public async Task<IActionResult> ProductEditor(int ProductId, CancellationToken cancellation)
         {
             var productDefault = await _productAppServices.GetProductById(ProductId, cancellation);
-            
+
             if (productDefault != null)
             {
                 var allCategories = _categoryAppServices.GetAllCategory();
@@ -127,6 +127,20 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                 {
                     CategoryId = productEditView.SelectedCategoryId,
                 };
+                if (productById.Amount == 0)
+                {
+                    productById.IsAvailable = false;
+                }
+                else
+                if (productById.Amount >= 0)
+                {
+                    productById.IsAvailable = true;
+                }
+                else
+                if (productById.Amount <= 0)
+                {
+                    return Content("you cant do that pls enter the correct value");
+                }
 
                 await _productAppServices.UpdateProduct(productById, cancellation);
 
@@ -197,13 +211,13 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                 return NotFound();
             }
 
-            
+
         }
 
         public async Task<IActionResult> PictureDeleter(int PictureId, int ProductId, CancellationToken cancellation)
         {
             await _pictureAppServices.DeletePicture(PictureId, cancellation);
-            return RedirectToAction("ProductEditor", "SellerBoothProduct", new{Areas="Seller", ProductId});
+            return RedirectToAction("ProductEditor", "SellerBoothProduct", new { Areas = "Seller", ProductId });
         }
 
     }

@@ -2,21 +2,54 @@
 
 <h2>Welcome to Booth @Model.BoothName</h2>
 
-@foreach (var product in Model.Products)
+@if (Model.Products != null && Model.Products.Any())
 {
-    <div>
-        <h3>@product.ProductName</h3>
-        <p>Price: $@product.Price</p>
-        <p>Amount: @product.Amount</p>
-        <p>@product.Category.CategoryName</p>
-        <h4>Product Pictures:</h4>
-        @foreach (var picture in product.pictures)
+    <h3>Products</h3>
+    <ul>
+        @foreach (var product in Model.Products)
         {
-            <img src="@picture.Url" alt="Product Picture" />
-        }
+            <li>
+                <h4>@product.ProductName</h4>
+                <p>Price: $@product.Price</p>
+                <p>Amount: @product.Amount</p>
+                <h5>Category Information</h5>
+                <p>Category Name: @product.Category.CategoryName</p>
+                @if (product.pictures != null && product.pictures.Any())
+                {
+                    <h5>Pictures</h5>
+                    <ul>
+                        @foreach (var picture in product.pictures)
+                        {
+                            <li>
+                                <img src="@picture.Url" alt="Product Picture" />
+                            </li>
+                        }
+                    </ul>
+                }
+                <a class="btn btn-primary" asp-area="Customer" asp-controller="CustomerPanel" asp-action="AddProduct" asp-route-ProductId="@product.ProductId">Buy</a>
 
-        <h4>Category:</h4>
-        
-        <a class="btn btn-primary" asp-area="Customer" asp-controller="CustomerPanel" asp-action="AddProduct" asp-route-ProductId="@product.ProductId">Buy</a>
-    </div>
+                @if (product.Comments != null && product.Comments.Any())
+                {
+                    <h5>Comments</h5>
+                    <ul>
+                        @foreach (var comment in product.Comments)
+                        {
+                            if (comment.IsDeleted != true && comment.IsAccepted == true)
+                            {
+                                <li>
+                                    <p>Comment: @comment.Message</p>
+                                    <p>Customer: @comment.Customer.User.UserName</p>
+                                </li>  
+                            }
+                            
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No products available in this booth.</p>
 }

@@ -40,7 +40,7 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
         private List<Product> GetProducts()
         {
-            return Enumerable.Range(1, 2).Select(index => new Product
+            return Enumerable.Range(1, 1).Select(index => new Product
             {
                 ProductId = index,
                 ProductName = $"Product {index}",

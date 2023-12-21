@@ -21,9 +21,11 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         {
             var category = await _context.Categories.AsNoTracking()
                 .Include(booth => booth.Products)
-                    .ThenInclude(product => product.Booth)
+                .ThenInclude(product => product.Booth)
                 .Include(booth => booth.Products)
-                    .ThenInclude(product => product.Pictures)
+                .ThenInclude(product => product.Pictures).Include(category => category.Products)
+                .ThenInclude(product => product.Comments).ThenInclude(comment => comment.Customer)
+                .ThenInclude(customer => customer.AppUser)
                 .FirstOrDefaultAsync(a => a.CategoryId == id, cancellation);
 
             var categoryById = new CategoryDtOs()
@@ -43,7 +45,23 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     Amount = categoryProduct.Amount,
                     IsAccepted = categoryProduct.IsAccepted,
                     IsDeleted = categoryProduct.IsDeleted,
-                    
+                    IsAvailable = categoryProduct.IsAvailable,
+                    Comments = categoryProduct.Comments.Select(comment => new Comment
+                    {
+                        CommentId = comment.CommentId,
+                        CommentDate = comment.CommentDate,
+                        Message = comment.Message,
+                        IsAccepted = comment.IsAccepted,
+                        IsDeleted = comment.IsDeleted,
+                        Customer = new Customer
+                        {
+                            CustomerId = comment.Customer.CustomerId,
+                            AppUser = new AppUser
+                            {
+                                UserName = comment.Customer.AppUser.UserName
+                            }
+                        }
+                    }).ToList(),
                     Pictures = categoryProduct.Pictures.Where(picture => picture.IsDeleted == false).Select(productPictures => new Picture
                     {
                         Url = productPictures.Url,
@@ -106,6 +124,10 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         {
             var Categories = _context.Categories
                 .Include(c => c.Products)
+                .ThenInclude(p => p.Comments)
+                .ThenInclude(c => c.Customer)
+                .ThenInclude(c => c.AppUser)
+                .Include(c => c.Products)
                 .ThenInclude(p => p.Pictures)
                 .Include(c => c.Products)
                 .ThenInclude(c => c.Booth);
@@ -134,6 +156,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                         {
                             Url = picture.Url
                         }).ToList(),
+                        
                         Booth = new Booth
                         {
                             BoothId = product.BoothId,

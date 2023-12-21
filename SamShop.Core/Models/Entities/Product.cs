@@ -33,19 +33,19 @@ public partial class Product
 
     #region Navigation
 
-    public virtual ICollection<Auction> Auctions { get; set; }
+    public virtual ICollection<Auction>? Auctions { get; set; }
 
     public virtual Booth Booth { get; set; }
 
     public virtual Category Category { get; set; }
 
-    public virtual ICollection<Comment> Comments { get; set; }
+    public virtual ICollection<Comment>? Comments { get; set; }
 
     public virtual ICollection<Picture> Pictures { get; set; }
 
     public virtual ICollection<Cart>? Carts { get; set; }
 
-    public virtual Wage Wage { get; set; }
+    public virtual ICollection<Wage>? Wage { get; set; }
 
     #endregion
 

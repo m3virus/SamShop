@@ -23,6 +23,12 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .HasForeignKey<Booth>(b => b.AddressId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Address_Booth");
+
+            entity.HasOne(b => b.Seller)
+                .WithOne(a => a.Booth)
+                .HasForeignKey<Booth>(b => b.SellerId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("Fk_Seller_Booth");
             entity.HasData(GetBooth());
 
             #endregion
@@ -33,10 +39,11 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
         private List<Booth> GetBooth()
         {
-            return Enumerable.Range(1, 2).Select(index => new Booth
+            return Enumerable.Range(1, 1).Select(index => new Booth
             {
                 BoothId = index,
                 BoothName = $"booth {index}",
+                SellerId = index,
                 AddressId = index + 4,
                 IsDeleted = false,
                 DeleteTime = null,

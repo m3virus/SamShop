@@ -25,13 +25,6 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("Fk_Address_Seller");
 
-            entity.HasOne(s => s.Booth)
-                .WithOne(b => b.Seller)
-                .HasForeignKey<Seller>(s => s.BoothId)
-                .OnDelete(DeleteBehavior.NoAction)
-                .HasConstraintName("Fk_Booth_Seller");
-
-
             entity.HasOne(s => s.Medal)
                 .WithMany(m => m.Sellers)
                 .HasForeignKey(s => s.MedalId)
@@ -63,7 +56,6 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
             {
                 SellerId = index,
                 Wallet = index * 100,
-                BoothId = index,
                 MedalId = 1,
                 PictureId = null,
                 AppUserId = 4,

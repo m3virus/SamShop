@@ -11,9 +11,10 @@
             <h5 class="card-title">@item.ProductName</h5>
             <p class ="card-text"> @item.Amount</p>
             <p class ="card-text"> @item.Price</p>
-           
-            
-            <a class="btn btn-primary" asp-controller="AdminProduct" asp-action="Confirm" asp-route-productId="@item.ProductId">confirm</a>
+           @if (item.IsAccepted == false)
+           {
+               <a class="btn btn-primary" asp-controller="AdminProduct" asp-action="Confirm" asp-route-productId="@item.ProductId">confirm</a>
+           }
             <a class="btn btn-primary" asp-controller="AdminProduct" asp-action="delete" asp-route-productId="@item.ProductId">delete</a>
             <a class="btn btn-primary" asp-controller="AdminProduct" asp-action="Edit" asp-route-productId="@item.ProductId">Edit</a>
 

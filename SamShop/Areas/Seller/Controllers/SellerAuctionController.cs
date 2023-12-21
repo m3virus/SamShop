@@ -131,6 +131,9 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                     ProductName = auction.Product.ProductName,
                     Price = 0,
                     Amount = 1,
+                    IsAccepted = false,
+                    IsDeleted = false,
+                    IsAvailable = false,
                     CategoryId = auction.Product.SelectedCategoryId,
                     Pictures = newPictures
                 };

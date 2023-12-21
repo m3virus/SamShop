@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SamShop.Infrastructure.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class thelastupdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -222,11 +222,81 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    AdminId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    PictureId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    Wallet = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.AdminId);
+                    table.ForeignKey(
+                        name: "FK_Address_Admin",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId");
+                    table.ForeignKey(
+                        name: "Fk_AppUser_Admin",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AuctionOffers",
+                columns: table => new
+                {
+                    OfferId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OfferValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AuctionId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    IsAccept = table.Column<bool>(type: "bit", nullable: false),
+                    IsCanceled = table.Column<bool>(type: "bit", nullable: false),
+                    OfferTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CancelTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuctionOffers", x => x.OfferId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Auctions",
+                columns: table => new
+                {
+                    AuctionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    SellerId = table.Column<int>(type: "int", nullable: false),
+                    AuctionTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TheLowestOffer = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsAccepted = table.Column<bool>(type: "bit", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CancelTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auctions", x => x.AuctionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Booths",
                 columns: table => new
                 {
                     BoothId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    SellerId = table.Column<int>(type: "int", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     BoothName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -281,7 +351,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 {
                     PictureId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -295,40 +365,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Admins",
-                columns: table => new
-                {
-                    AdminId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    PictureId = table.Column<int>(type: "int", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeleteTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppUserId = table.Column<int>(type: "int", nullable: false),
-                    Wallet = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admins", x => x.AdminId);
-                    table.ForeignKey(
-                        name: "FK_Address_Admin",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "AddressId");
-                    table.ForeignKey(
-                        name: "Fk_AppUser_Admin",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "Fk_Picture_Admin",
-                        column: x => x.PictureId,
-                        principalTable: "Pictures",
-                        principalColumn: "PictureId");
                 });
 
             migrationBuilder.CreateTable(
@@ -366,7 +402,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                     SellerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Wallet = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    BoothId = table.Column<int>(type: "int", nullable: false),
                     MedalId = table.Column<int>(type: "int", nullable: false),
                     PictureId = table.Column<int>(type: "int", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),
@@ -388,11 +423,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "Fk_Booth_Seller",
-                        column: x => x.BoothId,
-                        principalTable: "Booths",
-                        principalColumn: "BoothId");
                     table.ForeignKey(
                         name: "Fk_Medal_Seller",
                         column: x => x.MedalId,
@@ -460,37 +490,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Auctions",
-                columns: table => new
-                {
-                    AuctionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: false),
-                    AuctionTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TheLowestOffer = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsCanceled = table.Column<bool>(type: "bit", nullable: false),
-                    IsAccepted = table.Column<bool>(type: "bit", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CancelTime = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Auctions", x => x.AuctionId);
-                    table.ForeignKey(
-                        name: "Fk_Product_Auction",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId");
-                    table.ForeignKey(
-                        name: "Fk_Seller_Auction",
-                        column: x => x.SellerId,
-                        principalTable: "Sellers",
-                        principalColumn: "SellerId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Wages",
                 columns: table => new
                 {
@@ -548,35 +547,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "AuctionOffers",
-                columns: table => new
-                {
-                    OfferId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OfferValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AuctionId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    IsAccept = table.Column<bool>(type: "bit", nullable: false),
-                    IsCanceled = table.Column<bool>(type: "bit", nullable: false),
-                    OfferTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CancelTime = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuctionOffers", x => x.OfferId);
-                    table.ForeignKey(
-                        name: "Fk_Auction_AuctionOffer",
-                        column: x => x.AuctionId,
-                        principalTable: "Auctions",
-                        principalColumn: "AuctionId");
-                    table.ForeignKey(
-                        name: "Fk_Customer_AuctionOffer",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId");
-                });
-
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "AddressId", "Alley", "City", "CustomerId", "ExtraPart", "IsDeleted", "PostCode", "State", "Street" },
@@ -609,10 +579,10 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Birthday", "ConcurrencyStamp", "DeleteTime", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisterTime", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, null, "ef76bbd1-a0a5-49b1-bdba-9ef53942b162", null, "m3virus@mail.com", true, "Mohammadhasan", false, "Yazdani", false, null, null, "M3VIRUS", "AQAAAAIAAYagAAAAEH6O6DvTk3Pi7TQmzwkG0aZ9DI1ngdBfCy1WE6RCylOBZkaOyPBV8yaXrJZzRN5rXw==", "0912345678", true, new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4350), "939ada09-2330-4cf4-84e0-a49ab6560f86", false, "M3Virus" },
-                    { 2, 0, null, "0cf7bdf3-82d9-4c15-9ffa-1901dd756275", null, "Customer2@mail.com", true, "cust", false, "omer", false, null, null, "CUSTOMER1", "AQAAAAIAAYagAAAAEIG4PODKRPFM9471xz2kPYW3+0zAMSuSOl7gULqozOWr0RTP94nCOYaGV/Naa0TNNQ==", "0912345678", true, new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4436), "de805afd-cdd2-4ffe-bcf3-5a33412af66a", false, "customer1" },
-                    { 3, 0, null, "9019492f-0f92-496e-9804-2f3651090839", null, "Customer2@mail.com", true, "cust", false, "omer", false, null, null, "CUSTOMER2", "AQAAAAIAAYagAAAAEEz3uxtlLq3slKgDkfgL1KIrrCF55b83TkZu0FRyQQhq82aPNqjbeqIPQ9E2z0cccg==", "0912345678", true, new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4535), "90b0652f-9722-4dc2-9ee3-609b57595d4c", false, "customer2" },
-                    { 4, 0, null, "196c0c09-579f-4a8e-8b02-d3bef4ddce8b", null, "Seller1@mail.com", true, "sel", false, "ler", false, null, null, "Seller1", "AQAAAAIAAYagAAAAEBMmfq2EMLkIzXxLZDnEiyfUCI9Iet2Jwf2v8OTZ5DcTgKXE/HDTdpdH+YyYjMoSmQ==", "0912345678", true, new DateTime(2023, 11, 25, 7, 52, 5, 165, DateTimeKind.Local).AddTicks(4729), "6fc36a9e-68ec-46b3-b6a5-9ab2ba3a3155", false, "Seller1" }
+                    { 1, 0, null, "58f63477-c9d0-4daa-a9c7-d05752e98af4", null, "m3virus@mail.com", true, "Mohammadhasan", false, "Yazdani", false, null, null, "M3VIRUS", "AQAAAAIAAYagAAAAEF7gpUbqekfGoMBnXFvzreNEZAtGiixTmgDb29JsW++GFzkANZ43B8raK15ln5iCHw==", "0912345678", true, new DateTime(2023, 12, 8, 18, 34, 5, 169, DateTimeKind.Local).AddTicks(3212), "e6385674-8ac2-4734-9f9d-541433dac808", false, "M3Virus" },
+                    { 2, 0, null, "27372f59-30c3-47bd-a6b3-d791120168ad", null, "Customer2@mail.com", true, "cust", false, "omer", false, null, null, "CUSTOMER1", "AQAAAAIAAYagAAAAEBQGCt8LToFMaHhtjfGqhUvHdnEZHz0mwVGYOIZM8nUrgGHypFT0l7D190RaOQZ2oQ==", "0912345678", true, new DateTime(2023, 12, 8, 18, 34, 5, 169, DateTimeKind.Local).AddTicks(3235), "45a29b63-d31c-48fa-9647-1cb90312c915", false, "customer1" },
+                    { 3, 0, null, "ad606dae-160f-4e4c-b571-c7183159769b", null, "Customer2@mail.com", true, "cust", false, "omer", false, null, null, "CUSTOMER2", "AQAAAAIAAYagAAAAEIuFuf+lQLX2ADQkg9FkK6ssFeEw4H7Lb+1gRYkxRWzjrMf0OilK4pRcKbrvsBM9nw==", "0912345678", true, new DateTime(2023, 12, 8, 18, 34, 5, 169, DateTimeKind.Local).AddTicks(3241), "3f9431c3-b676-4167-a952-ef744c723fdd", false, "customer2" },
+                    { 4, 0, null, "d436e7e1-34a5-4a63-aa83-cbe07db453b1", null, "Seller1@mail.com", true, "sel", false, "ler", false, null, null, "Seller1", "AQAAAAIAAYagAAAAEObFjBUENHscYzPiuu0GEXg2C4+oK0fIQFz8PDBljhsaHhrhW1XApo/EzTlVuY69lA==", "0912345678", true, new DateTime(2023, 12, 8, 18, 34, 5, 169, DateTimeKind.Local).AddTicks(3246), "d4649011-6605-44d7-ae8e-635217b14828", false, "Seller1" }
                 });
 
             migrationBuilder.InsertData(
@@ -620,19 +590,19 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 columns: new[] { "CategoryId", "CategoryName", "CreateTime", "DeleteTime", "IsAccepted", "IsDeleted" },
                 values: new object[,]
                 {
-                    { 1, "category 1", new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(31), null, true, false },
-                    { 2, "category 2", new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(68), null, true, false }
+                    { 1, "category 1", new DateTime(2023, 12, 8, 18, 34, 5, 460, DateTimeKind.Local).AddTicks(7586), null, true, false },
+                    { 2, "category 2", new DateTime(2023, 12, 8, 18, 34, 5, 460, DateTimeKind.Local).AddTicks(7591), null, true, false }
                 });
 
             migrationBuilder.InsertData(
                 table: "Medals",
                 columns: new[] { "MedalId", "CreateTime", "DeleteTime", "IsDeleted", "MedalType", "WagePercentage" },
-                values: new object[] { 1, new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(4485), null, false, "Medal 1", 4m });
+                values: new object[] { 1, new DateTime(2023, 12, 8, 18, 34, 5, 461, DateTimeKind.Local).AddTicks(2960), null, false, "Medal 1", 4m });
 
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "AdminId", "AddressId", "AppUserId", "CreateTime", "DeleteTime", "IsDeleted", "PictureId", "Wallet" },
-                values: new object[] { 1, 3, 1, new DateTime(2023, 11, 25, 7, 52, 5, 521, DateTimeKind.Local).AddTicks(9727), null, false, null, 100m });
+                values: new object[] { 1, 3, 1, new DateTime(2023, 12, 8, 18, 34, 5, 458, DateTimeKind.Local).AddTicks(58), null, false, null, 100m });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -646,50 +616,42 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Booths",
-                columns: new[] { "BoothId", "AddressId", "BoothName", "CreateTime", "DeleteTime", "IsDeleted" },
-                values: new object[,]
-                {
-                    { 1, 5, "booth 1", new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(4208), null, false },
-                    { 2, 6, "booth 2", new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(4221), null, false }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerId", "AppUserId", "CreateTime", "DeleteTime", "IsDeleted", "PictureId", "Wallet" },
                 values: new object[,]
                 {
-                    { 1, 2, new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(9072), null, false, null, 10m },
-                    { 2, 3, new DateTime(2023, 11, 25, 7, 52, 5, 523, DateTimeKind.Local).AddTicks(9089), null, false, null, 20m }
+                    { 1, 2, new DateTime(2023, 12, 8, 18, 34, 5, 459, DateTimeKind.Local).AddTicks(3970), null, false, null, 10m },
+                    { 2, 3, new DateTime(2023, 12, 8, 18, 34, 5, 459, DateTimeKind.Local).AddTicks(3976), null, false, null, 20m }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Sellers",
+                columns: new[] { "SellerId", "AddressId", "AppUserId", "CreateTime", "DeleteTime", "IsDeleted", "MedalId", "PictureId", "Wallet" },
+                values: new object[] { 1, 5, 4, new DateTime(2023, 12, 8, 18, 34, 5, 462, DateTimeKind.Local).AddTicks(8172), null, false, 1, null, 100m });
+
+            migrationBuilder.InsertData(
+                table: "Booths",
+                columns: new[] { "BoothId", "AddressId", "BoothName", "CreateTime", "DeleteTime", "IsDeleted", "SellerId" },
+                values: new object[] { 1, 5, "booth 1", new DateTime(2023, 12, 8, 18, 34, 5, 459, DateTimeKind.Local).AddTicks(255), null, false, 1 });
 
             migrationBuilder.InsertData(
                 table: "Carts",
                 columns: new[] { "CartId", "CancelTime", "CreateTime", "CustomerId", "IsCanceled", "IsPayed", "TotalPrice" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2023, 11, 25, 7, 52, 5, 524, DateTimeKind.Local).AddTicks(8666), 1, false, false, 0m },
-                    { 2, null, new DateTime(2023, 11, 25, 7, 52, 5, 524, DateTimeKind.Local).AddTicks(8679), 2, false, false, 0m }
+                    { 1, null, new DateTime(2023, 12, 8, 18, 34, 5, 460, DateTimeKind.Local).AddTicks(6788), 1, false, false, 0m },
+                    { 2, null, new DateTime(2023, 12, 8, 18, 34, 5, 460, DateTimeKind.Local).AddTicks(6796), 2, false, false, 0m }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ProductId", "AddTime", "Amount", "BoothId", "CategoryId", "DeleteTime", "IsAccepted", "IsAvailable", "IsDeleted", "Price", "ProductName" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(8035), 5, 1, 1, null, false, true, false, 6m, "Product 1" },
-                    { 2, new DateTime(2023, 11, 25, 7, 52, 5, 525, DateTimeKind.Local).AddTicks(8044), 5, 2, 2, null, false, true, false, 12m, "Product 2" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Sellers",
-                columns: new[] { "SellerId", "AddressId", "AppUserId", "BoothId", "CreateTime", "DeleteTime", "IsDeleted", "MedalId", "PictureId", "Wallet" },
-                values: new object[] { 1, 5, 4, 1, new DateTime(2023, 11, 25, 7, 52, 5, 526, DateTimeKind.Local).AddTicks(3458), null, false, 1, null, 100m });
+                values: new object[] { 1, new DateTime(2023, 12, 8, 18, 34, 5, 461, DateTimeKind.Local).AddTicks(9907), 5, 1, 1, null, false, true, false, 6m, "Product 1" });
 
             migrationBuilder.InsertData(
                 table: "Auctions",
-                columns: new[] { "AuctionId", "AuctionTitle", "CancelTime", "EndTime", "IsAccepted", "IsCanceled", "ProductId", "SellerId", "StartTime", "TheLowestOffer" },
-                values: new object[] { 1, "AuctionSample 1", null, new DateTime(2023, 11, 25, 0, 0, 0, 0, DateTimeKind.Local), false, false, 1, 1, new DateTime(2023, 11, 25, 7, 52, 5, 521, DateTimeKind.Local).AddTicks(2336), 10m });
+                columns: new[] { "AuctionId", "AuctionTitle", "CancelTime", "EndTime", "IsAccepted", "IsActive", "ProductId", "SellerId", "StartTime", "TheLowestOffer" },
+                values: new object[] { 1, "AuctionSample 1", null, new DateTime(2023, 12, 8, 0, 0, 0, 0, DateTimeKind.Local), false, false, 1, 1, new DateTime(2023, 12, 8, 18, 34, 5, 456, DateTimeKind.Local).AddTicks(9875), 10m });
 
             migrationBuilder.InsertData(
                 table: "Comments",
@@ -703,7 +665,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             migrationBuilder.InsertData(
                 table: "Wages",
                 columns: new[] { "WageId", "AdminId", "DeleteTime", "IsDeleted", "PayTime", "Price", "ProductId", "SellerId" },
-                values: new object[] { 1, 1, null, false, new DateTime(2023, 11, 25, 7, 52, 5, 526, DateTimeKind.Local).AddTicks(6663), 4m, 1, 1 });
+                values: new object[] { 1, 1, null, false, new DateTime(2023, 12, 8, 18, 34, 5, 463, DateTimeKind.Local).AddTicks(4719), 4m, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "AuctionOffers",
@@ -804,6 +766,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Booths_SellerId",
+                table: "Booths",
+                column: "SellerId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartProducts_ProductsProductId",
                 table: "CartProducts",
                 column: "ProductsProductId");
@@ -816,8 +784,7 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_CustomerId",
                 table: "Comments",
-                column: "CustomerId",
-                unique: true);
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ProductId",
@@ -865,12 +832,6 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sellers_BoothId",
-                table: "Sellers",
-                column: "BoothId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Sellers_MedalId",
                 table: "Sellers",
                 column: "MedalId");
@@ -890,14 +851,12 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Wages_ProductId",
                 table: "Wages",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wages_SellerId",
                 table: "Wages",
-                column: "SellerId",
-                unique: true);
+                column: "SellerId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Addresses_Customers_CustomerId",
@@ -905,6 +864,48 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 column: "CustomerId",
                 principalTable: "Customers",
                 principalColumn: "CustomerId");
+
+            migrationBuilder.AddForeignKey(
+                name: "Fk_Picture_Admin",
+                table: "Admins",
+                column: "PictureId",
+                principalTable: "Pictures",
+                principalColumn: "PictureId");
+
+            migrationBuilder.AddForeignKey(
+                name: "Fk_Auction_AuctionOffer",
+                table: "AuctionOffers",
+                column: "AuctionId",
+                principalTable: "Auctions",
+                principalColumn: "AuctionId");
+
+            migrationBuilder.AddForeignKey(
+                name: "Fk_Customer_AuctionOffer",
+                table: "AuctionOffers",
+                column: "CustomerId",
+                principalTable: "Customers",
+                principalColumn: "CustomerId");
+
+            migrationBuilder.AddForeignKey(
+                name: "Fk_Product_Auction",
+                table: "Auctions",
+                column: "ProductId",
+                principalTable: "Products",
+                principalColumn: "ProductId");
+
+            migrationBuilder.AddForeignKey(
+                name: "Fk_Seller_Auction",
+                table: "Auctions",
+                column: "SellerId",
+                principalTable: "Sellers",
+                principalColumn: "SellerId");
+
+            migrationBuilder.AddForeignKey(
+                name: "Fk_Seller_Booth",
+                table: "Booths",
+                column: "SellerId",
+                principalTable: "Sellers",
+                principalColumn: "SellerId");
         }
 
         /// <inheritdoc />
@@ -913,6 +914,22 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Addresses_Customers_CustomerId",
                 table: "Addresses");
+
+            migrationBuilder.DropForeignKey(
+                name: "Fk_Address_Booth",
+                table: "Booths");
+
+            migrationBuilder.DropForeignKey(
+                name: "Fk_Address_Seller",
+                table: "Sellers");
+
+            migrationBuilder.DropForeignKey(
+                name: "Fk_AppUser_Seller",
+                table: "Sellers");
+
+            migrationBuilder.DropForeignKey(
+                name: "Fk_Picture_Seller",
+                table: "Sellers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -954,13 +971,10 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
-                name: "Sellers");
-
-            migrationBuilder.DropTable(
-                name: "Medals");
-
-            migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
@@ -978,7 +992,10 @@ namespace SamShop.Infrastructure.EntityFramework.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Sellers");
+
+            migrationBuilder.DropTable(
+                name: "Medals");
         }
     }
 }

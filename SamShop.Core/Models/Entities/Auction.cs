@@ -31,7 +31,7 @@ public partial class Auction
 
     #region Navigations
 
-    public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
+    public virtual ICollection<AuctionOffer>? AuctionOffers { get; set; }
 
     public virtual Product Product { get; set; }
 

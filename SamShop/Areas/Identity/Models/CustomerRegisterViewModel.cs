@@ -27,7 +27,7 @@ namespace SamShop.endpoint.Areas.Identity.Models
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "we should have your address")]
         public Address Address { get; set; }
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
 
     }
 }

@@ -70,7 +70,8 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                         ExtraPart = seller.Booth.Address.ExtraPart,
                         PostCode = seller.Booth.Address.PostCode,
                     }
-                }
+                },
+                MedalType = seller.Medal.MedalType,
             };
             return View(viewModel);
         }

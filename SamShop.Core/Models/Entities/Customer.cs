@@ -27,11 +27,11 @@ public partial class Customer
 
     public virtual ICollection<Address> Address { get; set; }
 
-    public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
+    public virtual ICollection<AuctionOffer>? AuctionOffers { get; set; }
 
     public virtual ICollection<Cart> Carts { get; set; }
 
-    public virtual Comment Comment { get; set; }
+    public virtual ICollection<Comment>? Comment { get; set; }
 
     public virtual Picture? Picture { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model SellerRegisterViewModel
+﻿@model UserSellerRegisterViewModel
 
 <h2>Seller Registration</h2>
 
@@ -43,9 +43,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Image" class="control-label"></label>
-        <input asp-for="Image" class="form-control" />
-        <span asp-validation-for="Image" type="file" class="text-danger"></span>
+        <label asp-for="Seller.Image" class="control-label"></label>
+        <input asp-for="Seller.Image" class="form-control" />
+        <span asp-validation-for="Seller.Image" type="file" class="text-danger"></span>
     </div>
 
     <div>
@@ -54,39 +54,39 @@
 
     <!-- Customer-specific fields -->
     <div class="form-group">
-        <label asp-for="Address.Alley" class="control-label"></label>
-        <input asp-for="Address.Alley" class="form-control" />
-        <span asp-validation-for="Address.Alley" class="text-danger"></span>
+        <label asp-for="Seller.Address.Alley" class="control-label"></label>
+        <input asp-for="Seller.Address.Alley" class="form-control" />
+        <span asp-validation-for="Seller.Address.Alley" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Address.Street" class="control-label"></label>
-        <input asp-for="Address.Street" class="form-control" />
-        <span asp-validation-for="Address.Street" class="text-danger"></span>
+        <label asp-for="Seller.Address.Street" class="control-label"></label>
+        <input asp-for="Seller.Address.Street" class="form-control" />
+        <span asp-validation-for="Seller.Address.Street" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Address.State" class="control-label"></label>
-        <input asp-for="Address.State" class="form-control" />
-        <span asp-validation-for="Address.State" class="text-danger"></span>
+        <label asp-for="Seller.Address.State" class="control-label"></label>
+        <input asp-for="Seller.Address.State" class="form-control" />
+        <span asp-validation-for="Seller.Address.State" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Address.City" class="control-label"></label>
-        <input asp-for="Address.City" class="form-control" />
-        <span asp-validation-for="Address.City" class="text-danger"></span>
+        <label asp-for="Seller.Address.City" class="control-label"></label>
+        <input asp-for="Seller.Address.City" class="form-control" />
+        <span asp-validation-for="Seller.Address.City" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Address.ExtraPart" class="control-label"></label>
-        <input asp-for="Address.ExtraPart" class="form-control" />
-        <span asp-validation-for="Address.ExtraPart" class="text-danger"></span>
+        <label asp-for="Seller.Address.ExtraPart" class="control-label"></label>
+        <input asp-for="Seller.Address.ExtraPart" class="form-control" />
+        <span asp-validation-for="Seller.Address.ExtraPart" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Address.PostCode" class="control-label"></label>
-        <input asp-for="Address.PostCode" class="form-control" />
-        <span asp-validation-for="Address.PostCode" class="text-danger"></span>
+        <label asp-for="Seller.Address.PostCode" class="control-label"></label>
+        <input asp-for="Seller.Address.PostCode" class="form-control" />
+        <span asp-validation-for="Seller.Address.PostCode" class="text-danger"></span>
     </div>
 
     <div>
@@ -96,45 +96,45 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Booth.BoothName" class="control-label"></label>
-        <input asp-for="Booth.BoothName" class="form-control" />
-        <span asp-validation-for="Booth.BoothName" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothName" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothName" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothName" class="text-danger"></span>
     </div>
     
     <div class="form-group">
-        <label asp-for="BoothAddressDtOs.Alley" class="control-label"></label>
-        <input asp-for="BoothAddressDtOs.Alley" class="form-control" />
-        <span asp-validation-for="BoothAddressDtOs.Alley" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothAddress.Alley" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothAddress.Alley" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothAddress.Alley" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="BoothAddressDtOs.Street" class="control-label"></label>
-        <input asp-for="BoothAddressDtOs.Street" class="form-control" />
-        <span asp-validation-for="BoothAddressDtOs.Street" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothAddress.Street" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothAddress.Street" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothAddress.Street" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="BoothAddressDtOs.State" class="control-label"></label>
-        <input asp-for="BoothAddressDtOs.State" class="form-control" />
-        <span asp-validation-for="BoothAddressDtOs.State" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothAddress.State" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothAddress.State" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothAddress.State" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="BoothAddressDtOs.City" class="control-label"></label>
-        <input asp-for="BoothAddressDtOs.City" class="form-control" />
-        <span asp-validation-for="BoothAddressDtOs.City" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothAddress.City" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothAddress.City" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothAddress.City" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="BoothAddressDtOs.ExtraPart" class="control-label"></label>
-        <input asp-for="BoothAddressDtOs.ExtraPart" class="form-control" />
-        <span asp-validation-for="BoothAddressDtOs.ExtraPart" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothAddress.ExtraPart" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothAddress.ExtraPart" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothAddress.ExtraPart" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="BoothAddressDtOs.PostCode" class="control-label"></label>
-        <input asp-for="BoothAddressDtOs.PostCode" class="form-control" />
-        <span asp-validation-for="BoothAddressDtOs.PostCode" class="text-danger"></span>
+        <label asp-for="Seller.Booth.BoothAddress.PostCode" class="control-label"></label>
+        <input asp-for="Seller.Booth.BoothAddress.PostCode" class="form-control" />
+        <span asp-validation-for="Seller.Booth.BoothAddress.PostCode" class="text-danger"></span>
     </div>
 
     <div class="form-group">

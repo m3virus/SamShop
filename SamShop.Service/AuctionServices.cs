@@ -20,14 +20,16 @@ namespace SamShop.Domain.Service
         protected readonly IAdminRepository _adminRepository;
         protected readonly IWageRepository _wageRepository;
         protected readonly ICartRepository _cartRepository;
+        protected readonly ICustomerRepository _customerRepository;
 
-        public AuctionServices(IAuctionRepository auctionRepository, IAuctionOfferRepository auctionOfferRepository, IAdminRepository adminRepository, IWageRepository wageRepository, ICartRepository cartRepository)
+        public AuctionServices(IAuctionRepository auctionRepository, IAuctionOfferRepository auctionOfferRepository, IAdminRepository adminRepository, IWageRepository wageRepository, ICartRepository cartRepository, ICustomerRepository customerRepository)
         {
             _auctionRepository = auctionRepository;
             _auctionOfferRepository = auctionOfferRepository;
             _adminRepository = adminRepository;
             _wageRepository = wageRepository;
             _cartRepository = cartRepository;
+            _customerRepository = customerRepository;
         }
 
 
@@ -57,9 +59,9 @@ namespace SamShop.Domain.Service
             if (auction != null)
             {
                 auction.IsActive = true;
-                await _auctionRepository.UpdateAuction(auction, cancellation);
+                
             }
-            
+            await _auctionRepository.UpdateAuction(auction, cancellation);
         }
 
         public async Task EndAuction(int id, CancellationToken cancellation)
@@ -81,7 +83,8 @@ namespace SamShop.Domain.Service
                     var offerWage = auctionOffer.OfferValue * auction.Seller.Medal.WagePercentage / 100;
                     auction.Seller.Wallet += auctionOffer.OfferValue - offerWage;
                     admin.Wallet += offerWage;
-
+                    var customer = await _customerRepository.GetCustomerById(auctionOffer.CustomerId, cancellation);
+                    customer.Wallet -= auctionOffer.OfferValue;
                     var wageInTable = new WageDtOs
                     {
                         Price = offerWage,
@@ -94,6 +97,16 @@ namespace SamShop.Domain.Service
                         CustomerId = auctionOffer.CustomerId,
                         TotalPrice = auctionOffer.OfferValue,
                     };
+                    if (auction.Seller.Wallet > 100)
+                    {
+                        auction.Seller.MedalId = 4;
+                    }
+                    else if (auction.Seller.Wallet > 1000)
+                    {
+                        auction.Seller.MedalId = 5;
+                    }
+                    
+                    await _customerRepository.UpdateCustomer(customer, cancellation);
                     await _cartRepository.AddCartForAuction(cartInTable, cancellation);
                     await _wageRepository.AddWage(wageInTable, cancellation);
                     await _auctionRepository.UpdateAuction(auction, cancellation);

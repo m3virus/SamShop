@@ -91,6 +91,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 AddTime = Product.AddTime,
                 Category = new Category
                 {
+                    CategoryId = Product.CategoryId,
                     CategoryName = Product.Category.CategoryName
                 },
                 Pictures = Product.Pictures.Where(picture => picture.IsDeleted == false).Select(p => new Picture
@@ -113,14 +114,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             {
                 changeProduct.ProductName = Product.ProductName;
                 changeProduct.CategoryId = Product.Category.CategoryId;
-                //changeProduct.BoothId = Product.BoothId;
                 changeProduct.Price = Product.Price;
                 changeProduct.IsAvailable = Product.IsAvailable;
                 changeProduct.IsAccepted = Product.IsAccepted;
                 changeProduct.Amount = Product.Amount;
                 changeProduct.Pictures = Product.Pictures.Select(picture => new Picture
                 {
-                    PictureId = picture.PictureId,
+                    
                     Url = picture.Url
                 }).ToList();
 

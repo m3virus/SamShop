@@ -38,7 +38,7 @@ namespace SamShop.Domain.Core.Models.DtOs.AdminDtOs
 
         public virtual AppUser Appuser { get; set; }
 
-        public virtual ICollection<Wage> Wages { get; set; }
+        public virtual ICollection<Wage>? Wages { get; set; }
 
         #endregion
     }

@@ -11,8 +11,6 @@ public partial class Seller
 
     public decimal Wallet { get; set; }
 
-    public int BoothId { get; set; }
-
     public int MedalId { get; set; }
 
     public int? PictureId { get; set; }
@@ -33,16 +31,17 @@ public partial class Seller
 
     public virtual Address Address { get; set; }
 
-    public virtual ICollection<Auction> Auctions { get; set; }
+    public virtual ICollection<Auction>? Auctions { get; set; }
 
     public virtual Booth Booth { get; set; }
 
-    public virtual Medal Medal { get; set; }
+    public virtual Medal? Medal { get; set; }
+
     public virtual Picture? Picture { get; set; }
 
-    public virtual AppUser? AppUser { get; set; }
+    public virtual AppUser AppUser { get; set; }
 
-    public virtual Wage Wage { get; set; }
+    public virtual ICollection<Wage>? Wage { get; set; }
 
     #endregion
 

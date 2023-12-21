@@ -8,7 +8,7 @@ public partial class Booth
     #region Entities
 
     public int BoothId { get; set; }
-
+    public int SellerId { get; set; }
     public int AddressId { get; set; }
 
     public string BoothName { get; set; }
@@ -27,7 +27,7 @@ public partial class Booth
 
     public virtual ICollection<Product>? Products { get; set; }
 
-    public virtual Seller Seller { get; set; }
+    public virtual Seller? Seller { get; set; }
 
     #endregion
 

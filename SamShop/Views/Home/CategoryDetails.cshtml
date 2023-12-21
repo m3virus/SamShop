@@ -1,24 +1,59 @@
 ﻿@model CategoryViewModel
 
-<h2> @Model.CategoryName</h2>
+<h2>Welcome to Category @Model.CategoryName</h2>
 
-@foreach (var product in Model.Products)
+@if (Model.Products != null && Model.Products.Any())
 {
-    <h4>Product Pictures:</h4>
-    @foreach (var picture in product.pictures)
-    {
-        <img src="@picture.Url" alt="Product Picture" />
-    }
-    <div>
-        <h4>Booth Details:</h4>
-        <p>Booth Name: @product.Booth.BoothName</p>
-        <h3>@product.ProductName</h3>
-        <p>Price: $@product.Price</p>
-        <p>Amount: @product.Amount</p>
-        <a class="btn btn-primary" asp-area="Customer" asp-controller="CustomerPanel" asp-action="AddProduct" asp-route-ProductId="@product.ProductId">Buy</a>
+    <h3>Products</h3>
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            <li>
+                <h4>@product.ProductName</h4>
+                <p>Price: $@product.Price</p>
+                <p>Amount: @product.Amount</p>
+
+                @if (product.pictures != null && product.pictures.Any())
+                {
+                    <h5>Pictures</h5>
+                    <ul>
+                        @foreach (var picture in product.pictures)
+                        {
+                            <li>
+                                <img src="@picture.Url" alt="Product Picture" />
+                            </li>
+                        }
+                    </ul>
+                }
+                <h5>Booth Information</h5>
+                <p>Booth Name: @product.Booth.BoothName</p>
+                <a class="btn btn-primary" asp-area="Customer" asp-controller="CustomerPanel" asp-action="AddProduct" asp-route-ProductId="@product.ProductId">Buy</a>
+
+                @if (product.Comments != null && product.Comments.Any())
+                {
+                    <h5>Comments</h5>
+                    <ul>
+                        @foreach (var comment in product.Comments)
+                        {
+                            if (comment.IsDeleted != true && comment.IsAccepted == true)
+                            {
+                                <li>
+                                    <p>Comment: @comment.Message</p>
+                                    <p>Customer: @comment.Customer.User.UserName</p>
+                                </li>
+                            }
+                            
+                        }
+                    </ul>
+                }
 
 
 
-
-    </div>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No products available in this category.</p>
 }

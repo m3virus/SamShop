@@ -48,5 +48,10 @@ namespace SamShop.Domain.Appservices
         {
             return await _cartServices.GetCartByIsPayed(customerId, cancellation);
         }
+
+        public async Task DeleteProductFromCart(int cartId, int productId, CancellationToken cancellation)
+        {
+            await _cartServices.DeleteProductFromCart(cartId, productId, cancellation);
+        }
     }
 }

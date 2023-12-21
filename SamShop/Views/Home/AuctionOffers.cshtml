@@ -1,0 +1,15 @@
+﻿@model HomeAuctionOfferViewModel
+
+<h2>Auction Offers</h2>
+
+<form asp-action="AuctionOffers" method="post">
+    <input type="hidden" asp-for="AuctionId" />
+    <input type="hidden" asp-for="CustomerId" />
+
+    <div class="form-group">
+        <label asp-for="Offer">Offer Amount:</label>
+        <input asp-for="Offer" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Offer</button>
+</form>

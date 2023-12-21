@@ -21,27 +21,27 @@ namespace SamShop.Domain.Appservices
 
         public IEnumerable<AuctionOfferDtOs> GetAllAuctionOffer()
         {
-            throw new NotImplementedException();
+           return _auctionOfferServices.GetAllAuctionOffer();
         }
 
         public async Task<AuctionOfferDtOs?> GetAuctionOfferById(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _auctionOfferServices.GetAuctionOfferById(id, cancellation);
         }
 
         public async Task<int> AddAuctionOffer(AuctionOfferDtOs AuctionOffer, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await _auctionOfferServices.AddAuctionOffer(AuctionOffer, cancellation);
         }
 
         public async Task UpdateAuctionOffer(AuctionOfferDtOs AuctionOffer, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _auctionOfferServices.UpdateAuctionOffer(AuctionOffer, cancellation);
         }
 
         public async Task DeleteAuctionOffer(int id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            await _auctionOfferServices.DeleteAuctionOffer(id, cancellation);
         }
     }
 }

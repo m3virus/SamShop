@@ -35,7 +35,7 @@ namespace SamShop.Domain.Core.Models.DtOs.CustomerDtOs
 
         public virtual ICollection<Cart> Carts { get; set; }
 
-        public virtual Comment Comment { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
 
         public virtual Picture? Picture { get; set; }
 

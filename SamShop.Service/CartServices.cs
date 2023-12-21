@@ -64,5 +64,10 @@ namespace SamShop.Domain.Service
             }
             
         }
+
+        public async Task DeleteProductFromCart(int cartId, int productId, CancellationToken cancellation)
+        {
+            await _cartRepository.DeleteProductFromCart(cartId, productId, cancellation);
+        }
     }
 }

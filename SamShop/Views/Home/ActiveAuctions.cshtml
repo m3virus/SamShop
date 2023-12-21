@@ -1,0 +1,47 @@
+﻿@model List<AuctionDtOs>
+
+<h2>Active Auctions</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>End Time</th>
+            <th>The lowest Offer</th>
+            <th>Offers</th>
+            <th>YourOffer</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var auction in Model)
+        {
+            <tr>
+                <td>@auction.AuctionTitle</td>
+                <td>@auction.EndTime</td>
+                <td>@auction.TheLowestOffer</td>
+                <td>
+                    @foreach (var offers in @auction.AuctionOffers)
+                    {
+                        <ol>
+                            @offers.OfferValue
+                        </ol>
+                    }
+                </td>
+                @if (User.IsInRole("Customer"))
+                {
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Home" asp-action="AuctionOffers" asp-route-AuctionId="@auction.AuctionId">AuctionOffer</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        you should be customer and sign in first to access
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>

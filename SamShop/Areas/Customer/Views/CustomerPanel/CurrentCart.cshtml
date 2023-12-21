@@ -23,8 +23,12 @@
                 <img src="@picture.Url" alt="Product Picture" />
             }
         </div>
+        <div>
+            <a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="DeleteFromCart" asp-route-CartId="@Model.CartId" asp-route-ProductId="@product.ProductId">Delete</a>
+        </div>
     }
     <a class="btn btn-primary" asp-controller="CustomerPanel" asp-action="Pay" asp-route-CartId="@Model.CartId">Pay</a>
+    
 }
 else
 {

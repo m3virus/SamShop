@@ -19,8 +19,8 @@ namespace SamShop.Infrastructure.EntityFramework.Configurations
 
 
             entity.HasOne(c => c.Customer)
-                .WithOne(c => c.Comment)
-                .HasForeignKey<Comment>(c => c.CustomerId)
+                .WithMany(c => c.Comment)
+                .HasForeignKey(c => c.CustomerId)
                 .HasConstraintName("Fk_Customer_Comment");
 
             entity.HasOne(c => c.Product)

@@ -87,9 +87,13 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             var booth = await _context.Booths.AsNoTracking()
                 .Include(b => b.Address)
                 .Include(booth => booth.Products)
-                    .ThenInclude(product => product.Category)
+                .ThenInclude(product => product.Category)
                 .Include(booth => booth.Products)
-                    .ThenInclude(product => product.Pictures)
+                .ThenInclude(product => product.Pictures)
+                .Include(booth => booth.Products)
+                .ThenInclude(product => product.Comments)
+                .ThenInclude(comment => comment.Customer)
+                .ThenInclude(customer => customer.AppUser)
                 .FirstOrDefaultAsync(a => a.BoothId == id, cancellation);
 
             var boothById = new BoothDtOs()
@@ -118,6 +122,23 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                     Amount = boothProduct.Amount,
                     IsAccepted = boothProduct.IsAccepted,
                     IsDeleted = boothProduct.IsDeleted,
+                    IsAvailable = boothProduct.IsAvailable,
+                    Comments = boothProduct.Comments.Select(comment => new Comment
+                    {
+                        CommentId = comment.CommentId,
+                        CommentDate = comment.CommentDate,
+                        Message = comment.Message,
+                        IsAccepted = comment.IsAccepted,
+                        IsDeleted = comment.IsDeleted,
+                        Customer = new Customer
+                        {
+                            CustomerId = comment.Customer.CustomerId,
+                            AppUser = new AppUser
+                            {
+                                UserName = comment.Customer.AppUser.UserName
+                            }
+                        }
+                    }).ToList(),
                     Category = new Category
                     {
                         CategoryName = boothProduct.Category.CategoryName,

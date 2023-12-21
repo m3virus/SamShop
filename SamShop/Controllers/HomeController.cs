@@ -8,6 +8,8 @@ using SamShop.Domain.Core.Interfaces.Repositories;
 using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.endpoint.Models;
+using System.Security.Claims;
+using SamShop.Domain.Core.Models.DtOs.AuctionOfferDtOs;
 
 namespace SamShop.Controllers
 {
@@ -19,14 +21,20 @@ namespace SamShop.Controllers
         private readonly IProductAppServices _productAppServices;
         private readonly ICommentAppServices _commentAppServices;
         private readonly ICategoryAppServices _categoryAppServices;
+        private readonly IAuctionAppServices _auctionAppServices;
+        private readonly IAuctionOfferAppServices _auctionOfferAppServices;
+        private readonly ICustomerAppServices _customerAppServices;
 
-        public HomeController(ILogger<HomeController> logger, IBoothAppServices boothAppServices, IProductAppServices productAppServices, ICommentAppServices commentAppServices, ICategoryAppServices categoryAppServices)
+        public HomeController(ILogger<HomeController> logger, IBoothAppServices boothAppServices, IProductAppServices productAppServices, ICommentAppServices commentAppServices, ICategoryAppServices categoryAppServices, IAuctionAppServices auctionAppServices, IAuctionOfferAppServices auctionOfferAppServices, ICustomerAppServices customerAppServices)
         {
             _logger = logger;
             _boothAppServices = boothAppServices;
             _productAppServices = productAppServices;
             _commentAppServices = commentAppServices;
             _categoryAppServices = categoryAppServices;
+            _auctionAppServices = auctionAppServices;
+            _auctionOfferAppServices = auctionOfferAppServices;
+            _customerAppServices = customerAppServices;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellation)
@@ -40,7 +48,7 @@ namespace SamShop.Controllers
                 {
                     CategoryId = category.CategoryId,
                     CategoryName = category.CategoryName,
-                    Products = category.Products.Where(x => x.IsDeleted != true && x.IsAccepted == true).Select(product => new ProductViewModel
+                    Products = category.Products.Where(x => x.IsDeleted != true && x.IsAccepted == true && x.IsAvailable == true).Select(product => new ProductViewModel
                     {
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
@@ -58,7 +66,7 @@ namespace SamShop.Controllers
                 {
                     BoothId = booth.BoothId,
                     BoothName = booth.BoothName,
-                    Products = booth.Products.Where(x => x.IsDeleted != true && x.IsAccepted == true).Select(product => new ProductViewModel
+                    Products = booth.Products.Where(x => x.IsDeleted != true && x.IsAccepted == true && x.IsAvailable == true).Select(product => new ProductViewModel
                     {
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
@@ -66,6 +74,7 @@ namespace SamShop.Controllers
                         Price = product.Price,
                         Category = new CategoryViewModel
                         {
+                            CategoryId = product.Category.CategoryId,
                             CategoryName = product.Category.CategoryName,
                         }
                     }).ToList()
@@ -83,7 +92,7 @@ namespace SamShop.Controllers
             {
                 BoothId = id,
                 BoothName = mainBooth.BoothName,
-                Products = mainBooth.Products.Where(product => product.IsAccepted == true && product.IsDeleted != true).Select(product => new ProductViewModel
+                Products = mainBooth.Products.Where(product => product.IsAccepted == true && product.IsDeleted != true && product.IsAvailable == true).Select(product => new ProductViewModel
                 {
                     ProductId = product.ProductId,
                     ProductName = product.ProductName,
@@ -92,6 +101,23 @@ namespace SamShop.Controllers
                     pictures = product.Pictures.Where(picture => picture.IsDeleted != true).Select(picture => new HomePictureViewModel
                     {
                         Url = picture.Url,
+                    }).ToList(),
+                    Comments = product.Comments.Select(comment => new HomeCommentViewModel
+                    {
+                        CommentId = comment.CommentId,
+                        Message = comment.Message,
+                        CreatedDate = comment.CommentDate,
+                        IsDeleted = comment.IsDeleted,
+                        IsAccepted = comment.IsAccepted,
+                        Customer = new HomeCustomerViewModel
+                        {
+                            CustomerId = comment.Customer.CustomerId,
+                            User = new HomeAppUserViewModel
+                            {
+                                UserName = comment.Customer.AppUser.UserName
+                            }
+                        }
+
                     }).ToList(),
                     Category = new CategoryViewModel
                     {
@@ -108,9 +134,9 @@ namespace SamShop.Controllers
             var mainCategory = await _categoryAppServices.GetCategoryById(id, cancellation);
             var categoryView = new CategoryViewModel
             {
-                CategoryId = id,
+                CategoryId = mainCategory.CategoryId,
                 CategoryName = mainCategory.CategoryName,
-                Products = mainCategory.Products.Where(product => product.IsAccepted == true && product.IsDeleted != true).Select(product => new ProductViewModel
+                Products = mainCategory.Products.Where(product => product.IsAccepted == true && product.IsAvailable == true && product.IsDeleted != true).Select(product => new ProductViewModel
                 {
                     ProductId = product.ProductId,
                     ProductName = product.ProductName,
@@ -120,6 +146,23 @@ namespace SamShop.Controllers
                     {
                         Url = picture.Url,
                     }).ToList(),
+                    Comments = product.Comments.Select(comment => new HomeCommentViewModel
+                    {
+                        CommentId = comment.CommentId,
+                        Message = comment.Message,
+                        CreatedDate = comment.CommentDate,
+                        IsDeleted = comment.IsDeleted,
+                        IsAccepted = comment.IsAccepted,
+                        Customer = new HomeCustomerViewModel
+                        {
+                            CustomerId = comment.Customer.CustomerId,
+                            User = new HomeAppUserViewModel
+                            {
+                                UserName = comment.Customer.AppUser.UserName
+                            }
+                        }
+
+                    }).ToList(),
                     Booth = new BoothViewModel
                     {
                         BoothId = product.Booth.BoothId,
@@ -128,6 +171,50 @@ namespace SamShop.Controllers
                 }).ToList(),
             };
             return View(categoryView);
+        }
+
+        public async Task<IActionResult> ActiveAuctions(CancellationToken cancellation)
+        {
+            var activeAuctions = _auctionAppServices.GetAllAuction()
+                .Where(auction => auction.IsActive == true && auction.IsAccepted == true).ToList();
+            return View(activeAuctions);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AuctionOffers(int AuctionId, CancellationToken cancellation)
+        {
+            var auctionOfferForm = new HomeAuctionOfferViewModel
+            {
+                AuctionId = AuctionId,
+                CustomerId = Convert.ToInt16(User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
+                Offer = 0
+            };
+            return View(auctionOfferForm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AuctionOffers(HomeAuctionOfferViewModel offerView, CancellationToken cancellation)
+        {
+            var customer = await _customerAppServices.GetCustomerByAppUserId(offerView.CustomerId, cancellation);
+            var auction = await _auctionAppServices.GetAuctionById(offerView.AuctionId, cancellation);
+
+            if (customer != null && auction != null)
+            {
+                if (customer.Wallet < offerView.Offer)
+                {
+                    return Content("You must charge your wallet");
+                }
+                else
+                {
+                    var submitedOffer = new AuctionOfferDtOs
+                    {
+                        OfferValue = offerView.Offer,
+                        AuctionId = offerView.AuctionId,
+                        CustomerId = customer.CustomerId,
+                    };
+                    await _auctionOfferAppServices.AddAuctionOffer(submitedOffer, cancellation);
+                }
+            }
+            return View();
         }
 
     }

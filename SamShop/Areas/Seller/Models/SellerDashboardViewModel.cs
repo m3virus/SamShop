@@ -10,7 +10,7 @@ namespace SamShop.endpoint.Areas.Seller.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal WalletAmount { get; set; }
-
+        public string MedalType { get; set; }
         public SellerDtOs Seller { get; set; }
         public SellerAddressViewModel PrimaryAddresses { get; set; }
         public SellerPictureViewModel? ProfilePicture { get; set; }
