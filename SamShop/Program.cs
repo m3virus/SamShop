@@ -11,6 +11,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 using SamShop.Domain.Core.Interfaces.AppServices;
 using SamShop.Domain.Appservices;
 using SamShop.Domain.Core.Helper;
+using SamShop.endpoint.Middlewares;
 using SamShop.Infrastructure.Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -108,7 +109,7 @@ builder.Services.AddScoped<IWageRepository, WageRepository>();
 builder.Services.AddScoped<IWageServices, WageServices>();
 builder.Services.AddScoped<IWageAppServices, WageAppServices>();
 
-
+//builder.Services.AddTransient<ErrorHandlingMiddleware>();
 #endregion
 
 builder.Services.AddAuthentication("Cookies")
@@ -146,6 +147,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseErrorHandlingMiddleware();
+app.UseHsts();
 
 app.UseEndpoints(endpoints =>
 {

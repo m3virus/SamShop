@@ -1,49 +1,48 @@
 ﻿@model List<AuctionViewModel>
 
-    <h2>Auction History</h2>
+<h2>Auction History</h2>
 
-    @foreach (var auction in Model)
-    {
-        <div>
-            <h3>@auction.AuctionName</h3>
-            <p>Product: @auction.ProductName</p>
-            <p>Booth: @auction.BoothName</p>
-            <p>Lowest Offer: @auction.LowestOffer</p>
-            <p>Start Time: @auction.StartTime</p>
-            <p>End Time: @auction.EndTime</p>
-            <p>Status: @auction.IsActive</p>
+@foreach (var auction in Model)
+{
+    <div>
+        <h3>@auction.AuctionName</h3>
+        <p>Product: @auction.ProductName</p>
+        <p>Booth: @auction.BoothName</p>
+        <p>Lowest Offer: @auction.LowestOffer</p>
+        <p>Start Time: @auction.StartTime</p>
+        <p>End Time: @auction.EndTime</p>
+        <p>Status: @auction.IsActive</p>
+        <h4>Product Pictures:</h4>
+        @foreach (var picture in auction.ProductPictures)
+        {
+            <img src="@picture.Url" alt="Product Picture" />
+        }
 
-            <h4>Product Pictures:</h4>
-            @foreach (var picture in auction.ProductPictures)
+        <h4>Auction Offers:</h4>
+
+        @foreach (var offer in auction.AuctionOffers)
+        {
+            if (offer.IsAccept == true)
             {
-                <img src="@picture.Url" alt="Product Picture" />
-            }
-
-            <h4>Auction Offers:</h4>
-        
-            @foreach (var offer in auction.AuctionOffers)
-            {
-                if (offer.IsAccept == true)
-                {
                 <h5>The Winner</h5>
-                    <div>
-                        <p>Customer: @offer.CustomerName</p>
-                        <p>Offer Value: @offer.OfferValue</p>
-                        <p>Offer Time: @offer.OfferTime</p>
-                        <p>Is Accepted: @offer.IsAccept</p>
-                    </div>
-                }
-                else
-                {
-                    <h5>Other Offers</h5>
-                    <div>
-                        <p>Customer: @offer.CustomerName</p>
-                        <p>Offer Value: @offer.OfferValue</p>
-                        <p>Offer Time: @offer.OfferTime</p>
-                        <p>Is Accepted: @offer.IsAccept</p>
-                    </div>
-                }
+                <div>
+                    <p>Customer: @offer.CustomerName</p>
+                    <p>Offer Value: @offer.OfferValue</p>
+                    <p>Offer Time: @offer.OfferTime</p>
+                    <p>Is Accepted: @offer.IsAccept</p>
+                </div>
             }
+            else
+            {
+                <h5>Other Offers</h5>
+                <div>
+                    <p>Customer: @offer.CustomerName</p>
+                    <p>Offer Value: @offer.OfferValue</p>
+                    <p>Offer Time: @offer.OfferTime</p>
+                    <p>Is Accepted: @offer.IsAccept</p>
+                </div>
+            }
+        }
 
-        </div>
-    }
+    </div>
+}

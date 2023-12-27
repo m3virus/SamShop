@@ -9,6 +9,7 @@ using SamShop.Domain.Core.Models.DtOs.BoothDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.endpoint.Models;
 using System.Security.Claims;
+using NuGet.ProjectModel;
 using SamShop.Domain.Core.Models.DtOs.AuctionOfferDtOs;
 
 namespace SamShop.Controllers

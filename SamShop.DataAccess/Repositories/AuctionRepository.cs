@@ -6,7 +6,7 @@ using SamShop.Infrastructure.EntityFramework.DBContext;
 
 namespace SamShop.Infrastructure.DataAccess.Repositories
 {
-    public class AuctionRepository:IAuctionRepository
+    public class AuctionRepository : IAuctionRepository
     {
         protected readonly SamShopDbContext _context;
 
@@ -29,8 +29,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsAccepted = true,
                 IsActive = false,
                 CancelTime = null
-                
-                
+
+
 
             };
             await _context.Auctions.AddAsync(AuctionAdding, cancellation);
@@ -109,6 +109,9 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task<AuctionDtOs?> GetAuctionById(int id, CancellationToken cancellation)
         {
             var Auction = await _context.Auctions.AsNoTracking()
+                .Include(Auction => Auction.AuctionOffers)
+                .ThenInclude(auctionOffer => auctionOffer.Customer)
+                .ThenInclude(customer => customer.AppUser)
                 .Include(Auction => Auction.Product)
                 .ThenInclude(product => product.Pictures)
                 .Include(Auction => Auction.Product)
@@ -129,6 +132,22 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 IsAccepted = Auction.IsAccepted,
                 IsActive = Auction.IsActive,
                 CancelTime = Auction.CancelTime,
+                AuctionOffers = Auction.AuctionOffers.Select(auctionOffer => new AuctionOffer
+                {
+                    OfferId = auctionOffer.OfferId,
+                    OfferValue = auctionOffer.OfferValue,
+                    OfferTime = auctionOffer.OfferTime,
+                    IsAccept = auctionOffer.IsAccept,
+                    Customer = new Customer
+                    {
+                        CustomerId = auctionOffer.CustomerId,
+                        Wallet = auctionOffer.Customer.Wallet,
+                        AppUser = new AppUser
+                        {
+                            UserName = auctionOffer.Customer.AppUser.UserName,
+                        }
+                    }
+                }).OrderByDescending(x => x.OfferValue).ToList(),
                 Seller = new Seller
                 {
                     SellerId = Auction.Seller.SellerId,
@@ -168,6 +187,7 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 changeAuction.AuctionTitle = Auction.AuctionTitle;
                 changeAuction.TheLowestOffer = Auction.TheLowestOffer;
                 changeAuction.IsAccepted = Auction.IsAccepted;
+                changeAuction.IsActive = Auction.IsActive;
                 changeAuction.StartTime = Auction.StartTime;
                 changeAuction.EndTime = Auction.EndTime;
             }
@@ -185,6 +205,6 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
             }
             await _context.SaveChangesAsync(cancellation);
         }
-        
+
     }
 }

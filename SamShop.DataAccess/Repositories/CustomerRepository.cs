@@ -65,6 +65,8 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
         public async Task<CustomerDtOs?> GetCustomerById(int id, CancellationToken cancellation)
         {
             var Customer = await _context.Customers.AsNoTracking()
+                .Include(customer => customer.Address)
+                .Include(customer => customer.Picture)
                 .FirstOrDefaultAsync(a => a.CustomerId == id, cancellation);
 
             var CustomerById = new CustomerDtOs()
@@ -75,8 +77,22 @@ namespace SamShop.Infrastructure.DataAccess.Repositories
                 DeleteTime = Customer.DeleteTime,
                 CustomerId = Customer.CustomerId,
                 Wallet = Customer.Wallet,
-                PictureId = Customer.PictureId
+                PictureId = Customer.PictureId,
+                Addresses = Customer.Address.Select(address => new Address
+                {
+                    Alley = address.Alley,
+                    Street = address.Street,
+                    City = address.City,
+                    State = address.State,
+                    ExtraPart = address.ExtraPart,
+                    PostCode = address.PostCode,
+                }).ToList(),
+                Picture = new Picture
+                {
+                    Url = Customer.Picture.Url,
+                }
             };
+
             return CustomerById;
         }
 

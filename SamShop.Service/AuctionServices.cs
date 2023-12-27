@@ -75,8 +75,12 @@ namespace SamShop.Domain.Service
                 {
                     var auctionOffer = auction.AuctionOffers.Select(AuctionOffers => new AuctionOfferDtOs
                         {
-                            IsAccept = true
-
+                            OfferId = AuctionOffers.OfferId,
+                            AuctionId = id,
+                            CustomerId = AuctionOffers.Customer.CustomerId,
+                            OfferTime = AuctionOffers.OfferTime,
+                            IsAccept = true,
+                            OfferValue = AuctionOffers.OfferValue,
                         }).OrderByDescending(auction => auction.OfferValue)
                         .FirstOrDefault();
 

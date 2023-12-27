@@ -10,6 +10,7 @@ using SamShop.Domain.Core.Models.DtOs.ProductDtOs;
 using SamShop.Domain.Core.Models.Entities;
 using SamShop.endpoint.Areas.Seller.Models;
 using System.Security.Claims;
+using SamShop.Domain.Core.Interfaces.Services;
 
 namespace SamShop.endpoint.Areas.Seller.Controllers
 {
@@ -23,8 +24,9 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
         protected readonly UserManager<AppUser> _userManager;
         protected readonly ISellerAppServices _sellerAppServices;
         protected readonly IProductAppServices _productAppServices;
+        protected readonly IAuctionServices _auctionServices;
 
-        public SellerAuctionController(IAuctionAppServices auctionAppServices, ICloudAppServices cloudAppServices, ICategoryAppServices categoryAppServices, UserManager<AppUser> userManager, ISellerAppServices sellerAppServices, IProductAppServices productAppServices)
+        public SellerAuctionController(IAuctionAppServices auctionAppServices, ICloudAppServices cloudAppServices, ICategoryAppServices categoryAppServices, UserManager<AppUser> userManager, ISellerAppServices sellerAppServices, IProductAppServices productAppServices, IAuctionServices auctionServices)
         {
             _auctionAppServices = auctionAppServices;
             _cloudAppServices = cloudAppServices;
@@ -32,6 +34,7 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
             _userManager = userManager;
             _sellerAppServices = sellerAppServices;
             _productAppServices = productAppServices;
+            _auctionServices = auctionServices;
         }
 
         public async Task<IActionResult> AuctionHistory(CancellationToken cancellation)
@@ -158,5 +161,6 @@ namespace SamShop.endpoint.Areas.Seller.Controllers
                 return BadRequest();
             }
         }
+
     }
 }
